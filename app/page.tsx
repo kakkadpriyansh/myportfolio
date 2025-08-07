@@ -6,10 +6,12 @@ import Experience from "@/components/experience"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 import ThreeBackground from "@/components/three-background"
+import ScrollProgress from "@/components/scroll-progress"
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-black relative overflow-hidden">
+      <ScrollProgress />
       <ThreeBackground />
       <div className="relative z-10">
         <Hero />

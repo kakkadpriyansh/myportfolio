@@ -98,7 +98,7 @@ export default function Projects() {
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
 
                 {/* Category badge */}

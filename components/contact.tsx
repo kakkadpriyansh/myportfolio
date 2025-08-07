@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle, User, Globe } from 'lucide-react'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -18,8 +18,29 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    alert("Thank you for your message! I'll get back to you soon.")
+    
+    // Format the message for WhatsApp
+    const whatsappMessage = `Hi Priyansh! 👋
+
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+
+*Message:*
+${formData.message}
+
+---
+Sent from your portfolio website`
+
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage)
+    
+    // Create WhatsApp URL
+    const whatsappURL = `https://wa.me/917984079603?text=${encodedMessage}`
+    
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank')
+    
+    // Reset form
     setFormData({ name: "", email: "", message: "" })
   }
 
@@ -36,21 +57,18 @@ export default function Contact() {
       title: "Email",
       value: "kakkadpriyansh@gmail.com",
       href: "mailto:kakkadpriyansh@gmail.com",
-      gradient: "from-blue-500/20 to-purple-500/20",
     },
     {
       icon: Phone,
-      title: "Phone",
+      title: "WhatsApp",
       value: "+91 79840 79603",
-      href: "tel:+917984079603",
-      gradient: "from-green-500/20 to-blue-500/20",
+      href: "https://wa.me/917984079603",
     },
     {
       icon: MapPin,
       title: "Location",
       value: "India",
       href: "#",
-      gradient: "from-purple-500/20 to-pink-500/20",
     },
   ]
 
@@ -59,89 +77,72 @@ export default function Contact() {
       icon: Github,
       href: "https://github.com/kakkadpriyansh",
       label: "GitHub",
-      color: "hover:bg-gray-700",
-      gradient: "from-gray-500/20 to-gray-700/20",
     },
     {
       icon: Linkedin,
       href: "https://linkedin.com/in/kakkadpriyansh",
       label: "LinkedIn",
-      color: "hover:bg-blue-500",
-      gradient: "from-blue-500/20 to-blue-700/20",
     },
     {
       icon: Instagram,
       href: "https://instagram.com/kakkadpriyansh",
       label: "Instagram",
-      color: "hover:bg-pink-500",
-      gradient: "from-pink-500/20 to-purple-500/20",
     },
   ]
 
   return (
-    <section id="contact" className="py-32 px-4 relative overflow-hidden">
-      {/* Background effects */}
-      {/* <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
-        <div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gray-300/5 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-      </div> */}
+    <section id="contact" className="py-32 px-4 relative overflow-hidden professional-background professional-grid">
+      {/* Clean Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/2 to-white/1 rounded-full blur-3xl gentle-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-white/1 to-white/2 rounded-full blur-3xl gentle-pulse" style={{ animationDelay: "1s" }} />
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white mb-6 relative">
-            <span className="relative">
-              Get In Touch
-              {/* <div className="absolute inset-0 bg-white/20 blur-3xl opacity-50 animate-pulse" /> */}
-            </span>
+          <div className="inline-flex items-center justify-center p-6 professional-glass rounded-2xl mb-12 professional-shadow">
+            <Globe className="h-8 w-8 text-white/70 mr-4" />
+            <span className="text-white/80 text-xl font-medium">Let's Connect</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black mb-8 relative clean-heading">
+            Get In Touch
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-            Ready to collaborate on your next project? Let's create something amazing together.
+          <p className="text-xl clean-body max-w-3xl mx-auto mb-8 leading-relaxed">
+            Ready to collaborate on your next project? Let's create something extraordinary together.
           </p>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto animate-pulse" />
+          <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto gentle-pulse" />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
-            <Card
-              className="group relative overflow-hidden bg-gray-900/40 border-gray-700/50 hover:border-white/30 backdrop-blur-xl transform-gpu hover:scale-105 hover:-translate-y-4 transition-all duration-700"
-              style={{
-                boxShadow:
-                  "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-              }}
-            >
-              {/* <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-gray-300/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" /> */}
-
-              <CardHeader className="relative z-10 pb-6">
-                <CardTitle className="text-3xl text-white group-hover:text-gray-100 transition-colors duration-300 flex items-center">
+            <Card className="group relative overflow-hidden professional-glass-strong transform-gpu hover:scale-105 hover:-translate-y-4 transition-all duration-500 professional-card professional-shadow">
+              <CardHeader className="relative z-10 pb-6 professional-spacing">
+                <CardTitle className="text-3xl text-white group-hover:text-white/90 transition-colors duration-300 flex items-center clean-subheading">
                   <MessageCircle className="mr-4 h-8 w-8" />
                   Contact Information
                 </CardTitle>
               </CardHeader>
 
-              <CardContent className="space-y-8 relative z-10">
+              <CardContent className="space-y-6 relative z-10 professional-spacing">
                 {contactInfo.map((contact, index) => (
                   <a
                     key={index}
                     href={contact.href}
-                    className="flex items-center space-x-6 group/item p-4 rounded-xl hover:bg-white/5 transition-all duration-300"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center space-x-6 group/item p-4 professional-glass rounded-xl hover:scale-105 transition-all duration-300 professional-interactive"
                   >
                     <div className="relative">
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${contact.gradient} rounded-full blur-xl scale-150 group-hover/item:scale-200 transition-transform duration-500`}
-                      />
-                      <div className="relative p-4 bg-gray-800/80 rounded-full border border-gray-600/50 group-hover/item:border-white/30 transition-all duration-300">
-                        <contact.icon className="h-8 w-8 text-white relative z-10 transform group-hover/item:rotate-12 group-hover/item:scale-110 transition-all duration-300" />
+                      <div className="relative p-4 professional-glass rounded-xl group-hover/item:scale-110 transition-all duration-300">
+                        <contact.icon className="h-8 w-8 text-white/70 group-hover/item:text-white relative z-10 transform group-hover/item:rotate-12 group-hover/item:scale-110 transition-all duration-300" />
                       </div>
                     </div>
                     <div>
-                      <p className="font-semibold text-white group-hover/item:text-gray-100 transition-colors duration-300 text-lg">
+                      <p className="font-semibold text-white group-hover/item:text-white/90 transition-colors duration-300 text-lg">
                         {contact.title}
                       </p>
-                      <p className="text-gray-300 group-hover/item:text-gray-200 transition-colors duration-300">
+                      <p className="clean-body group-hover/item:text-white/80 transition-colors duration-300">
                         {contact.value}
                       </p>
                     </div>
@@ -149,22 +150,18 @@ export default function Contact() {
                 ))}
 
                 {/* Social Links */}
-                <div className="pt-8">
-                  <p className="font-semibold mb-8 text-white text-xl">Connect with me:</p>
+                <div className="pt-6">
+                  <p className="font-semibold mb-6 text-white text-xl clean-subheading">Connect with me:</p>
                   <div className="flex space-x-6">
                     {socialLinks.map((social, index) => (
                       <a
                         key={index}
                         href={social.href}
-                        className={`group/social relative p-6 bg-gray-800/80 rounded-2xl border border-gray-600/50 hover:border-white/30 transform-gpu hover:scale-105 transition-all duration-300 ${social.color}`}
-                        style={{
-                          boxShadow: "0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                        }}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group/social relative p-6 professional-glass rounded-2xl transform-gpu hover:scale-110 transition-all duration-300 professional-interactive professional-shadow"
                       >
-                        {/* <div
-                          className={`absolute inset-0 bg-gradient-to-br ${social.gradient} opacity-0 group-hover/social:opacity-100 rounded-2xl transition-opacity duration-500`}
-                        /> */}
-                        <social.icon className="h-8 w-8 text-gray-400 group-hover/social:text-white relative z-10 transform group-hover/social:rotate-12 group-hover/social:scale-110 transition-all duration-300" />
+                        <social.icon className="h-8 w-8 text-white/60 group-hover/social:text-white relative z-10 transform group-hover/social:rotate-12 group-hover/social:scale-110 transition-all duration-300" />
                       </a>
                     ))}
                   </div>
@@ -174,26 +171,18 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <Card
-            className="group relative overflow-hidden bg-gray-900/40 border-gray-700/50 hover:border-white/30 backdrop-blur-xl transform-gpu hover:scale-105 hover:-translate-y-4 transition-all duration-700"
-            style={{
-              boxShadow:
-                "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-            }}
-          >
-            {/* <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-gray-300/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" /> */}
-
-            <CardHeader className="relative z-10 pb-6">
-              <CardTitle className="text-3xl text-white group-hover:text-gray-100 transition-colors duration-300 flex items-center">
+          <Card className="group relative overflow-hidden professional-glass-strong transform-gpu hover:scale-105 hover:-translate-y-4 transition-all duration-500 professional-card professional-shadow">
+            <CardHeader className="relative z-10 pb-6 professional-spacing">
+              <CardTitle className="text-3xl text-white group-hover:text-white/90 transition-colors duration-300 flex items-center clean-subheading">
                 <Send className="mr-4 h-8 w-8" />
-                Send Message
+                Send Message via WhatsApp
               </CardTitle>
             </CardHeader>
 
-            <CardContent className="relative z-10">
-              <form onSubmit={handleSubmit} className="space-y-8">
+            <CardContent className="relative z-10 professional-spacing">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Your Name</label>
+                  <label className="text-sm font-medium text-white/80">Your Name</label>
                   <Input
                     type="text"
                     name="name"
@@ -201,15 +190,12 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-gray-800/80 border-gray-600/50 text-white placeholder-gray-400 focus:border-white focus:ring-white transform-gpu hover:scale-105 transition-all duration-300 h-14 text-lg backdrop-blur-sm"
-                    style={{
-                      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                    }}
+                    className="w-full professional-glass border-white/10 text-white placeholder-white/40 focus:border-white/30 focus:ring-white/20 transform-gpu hover:scale-105 transition-all duration-300 h-12 text-lg rounded-xl professional-shadow"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Email Address</label>
+                  <label className="text-sm font-medium text-white/80">Email Address</label>
                   <Input
                     type="email"
                     name="email"
@@ -217,41 +203,38 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-gray-800/80 border-gray-600/50 text-white placeholder-gray-400 focus:border-white focus:ring-white transform-gpu hover:scale-105 transition-all duration-300 h-14 text-lg backdrop-blur-sm"
-                    style={{
-                      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                    }}
+                    className="w-full professional-glass border-white/10 text-white placeholder-white/40 focus:border-white/30 focus:ring-white/20 transform-gpu hover:scale-105 transition-all duration-300 h-12 text-lg rounded-xl professional-shadow"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Message</label>
+                  <label className="text-sm font-medium text-white/80">Message</label>
                   <Textarea
                     name="message"
                     placeholder="Tell me about your project or just say hello..."
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
-                    className="w-full bg-gray-800/80 border-gray-600/50 text-white placeholder-gray-400 focus:border-white focus:ring-white transform-gpu hover:scale-105 transition-all duration-300 resize-none text-lg backdrop-blur-sm"
-                    style={{
-                      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                    }}
+                    rows={5}
+                    className="w-full professional-glass border-white/10 text-white placeholder-white/40 focus:border-white/30 focus:ring-white/20 transform-gpu hover:scale-105 transition-all duration-300 resize-none text-lg rounded-xl professional-shadow"
                   />
                 </div>
 
-                <Button
+                <button
                   type="submit"
-                  className="w-full bg-white text-black hover:bg-gray-100 font-bold text-lg py-6 transform-gpu hover:scale-105 transition-all duration-300 group/btn"
-                  style={{
-                    boxShadow: "0 15px 35px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)",
-                  }}
+                  className="w-full professional-button py-4 transform-gpu hover:scale-105 transition-all duration-300 group/btn text-lg font-semibold rounded-xl"
                 >
                   <Send className="mr-3 h-6 w-6 transform group-hover/btn:rotate-12 group-hover/btn:scale-110 transition-all duration-300" />
-                  Send Message
-                  {/* <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-white to-gray-100 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 rounded-md" /> */}
-                </Button>
+                  Send via WhatsApp
+                </button>
               </form>
+
+              {/* Info message */}
+              <div className="mt-6 p-4 professional-glass rounded-xl border border-white/10">
+                <p className="text-sm text-white/60 text-center">
+                  📱 Clicking "Send via WhatsApp" will open WhatsApp with your message pre-filled
+                </p>
+              </div>
             </CardContent>
           </Card>
         </div>

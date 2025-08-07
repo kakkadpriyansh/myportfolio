@@ -24,61 +24,50 @@ export default function ThreeBackground() {
         mountRef.current.appendChild(renderer.domElement)
       }
 
-      // Create floating particles
+      // Create professional floating particles
       const particlesGeometry = new THREE.BufferGeometry()
-      const particlesCount = 800 // Reduced particles count
+      const particlesCount = 200 // Minimal for professional look
       const posArray = new Float32Array(particlesCount * 3)
 
       for (let i = 0; i < particlesCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 100
+        posArray[i] = (Math.random() - 0.5) * 50
       }
 
       particlesGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3))
 
       const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.4, // Smaller particles
+        size: 0.2,
         color: 0xffffff,
         transparent: true,
-        opacity: 0.3, // Reduced opacity
+        opacity: 0.1,
         blending: THREE.AdditiveBlending,
       })
 
       particles = new THREE.Points(particlesGeometry, particlesMaterial)
       scene.add(particles)
 
-      // Create geometric shapes
+      // Create minimal geometric shapes
       const geometries = [
-        new THREE.BoxGeometry(2, 2, 2),
-        new THREE.SphereGeometry(1.5, 32, 32),
-        new THREE.ConeGeometry(1, 2, 8),
-        new THREE.TorusGeometry(1, 0.4, 16, 100),
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.SphereGeometry(0.8, 32, 32),
+        new THREE.OctahedronGeometry(0.6),
       ]
 
-      const materials = [
-        new THREE.MeshBasicMaterial({
-          color: 0xffffff,
-          wireframe: true,
-          transparent: true,
-          opacity: 0.05, // More transparent
-        }),
-        new THREE.MeshBasicMaterial({
-          color: 0xcccccc,
-          wireframe: true,
-          transparent: true,
-          opacity: 0.05, // More transparent
-        }),
-      ]
+      const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.02,
+      })
 
-      // Add floating geometric shapes
-      for (let i = 0; i < 6; i++) {
-        // Reduced number of shapes
+      // Add minimal floating geometric shapes
+      for (let i = 0; i < 2; i++) {
         const geometry = geometries[Math.floor(Math.random() * geometries.length)]
-        const material = materials[Math.floor(Math.random() * materials.length)]
         const mesh = new THREE.Mesh(geometry, material)
 
-        mesh.position.x = (Math.random() - 0.5) * 50
-        mesh.position.y = (Math.random() - 0.5) * 50
-        mesh.position.z = (Math.random() - 0.5) * 50
+        mesh.position.x = (Math.random() - 0.5) * 30
+        mesh.position.y = (Math.random() - 0.5) * 30
+        mesh.position.z = (Math.random() - 0.5) * 30
 
         mesh.rotation.x = Math.random() * Math.PI
         mesh.rotation.y = Math.random() * Math.PI
@@ -86,24 +75,24 @@ export default function ThreeBackground() {
         scene.add(mesh)
       }
 
-      camera.position.z = 30
+      camera.position.z = 20
 
-      // Animation loop
+      // Professional animation loop
       const animate = () => {
         animationId = requestAnimationFrame(animate)
 
-        // Rotate particles
+        // Rotate particles professionally
         if (particles) {
-          particles.rotation.x += 0.00025 // Slowed down rotation
-          particles.rotation.y += 0.0004 // Slowed down rotation
+          particles.rotation.x += 0.00005
+          particles.rotation.y += 0.0001
         }
 
-        // Animate geometric shapes
+        // Animate geometric shapes professionally
         scene.children.forEach((child: any, index: number) => {
           if (child.type === "Mesh") {
-            child.rotation.x += 0.0025 + index * 0.0005 // Slowed down rotation
-            child.rotation.y += 0.004 + index * 0.0005 // Slowed down rotation
-            child.position.y += Math.sin(Date.now() * 0.001 + index) * 0.005 // Slowed down movement
+            child.rotation.x += 0.0003 + index * 0.0001
+            child.rotation.y += 0.0005 + index * 0.0001
+            child.position.y += Math.sin(Date.now() * 0.0002 + index) * 0.001
           }
         })
 
