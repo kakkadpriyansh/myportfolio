@@ -24,10 +24,12 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden professional-background professional-grid">
-      {/* Clean Background Effects */}
+      {/* Enhanced Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/3 to-white/1 rounded-full blur-3xl gentle-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-white/2 to-white/1 rounded-full blur-3xl gentle-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-3xl gentle-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl gentle-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-full blur-3xl gentle-pulse" style={{ animationDelay: "3s" }} />
+        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-teal-500/10 rounded-full blur-3xl gentle-pulse" style={{ animationDelay: "4s" }} />
       </div>
 
       <div className="max-w-6xl mx-auto text-center relative z-10">
@@ -44,15 +46,17 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-full border border-white/10 scale-110 elegant-rotate" style={{ animationDuration: "30s" }} />
             <div className="absolute inset-0 rounded-full border border-white/5 scale-105 elegant-rotate" style={{ animationDuration: "25s", animationDirection: "reverse" }} />
             
-            <div className="relative z-10 p-1 professional-glass rounded-full">
+            <div className="relative z-10 p-1 professional-glass-strong rounded-full">
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-blue-500/10 mix-blend-overlay z-10 rounded-full" />
               <Image
-                src="https://media.licdn.com/dms/image/v2/D4D03AQFQCBFFgk8kWQ/profile-displayphoto-shrink_200_200/B4DZZ26xo_GsAY-/0/1745751841984?e=1756944000&v=beta&t=q0qJWD1dI_TmoBJdTtbuuEf0BVpCATOCrU_DpxF4BMc"
+                src="/images/IMG_0350.jpg"
                 alt="Priyansh Kakkad"
-                width={200}
-                height={200}
+                width={220}
+                height={220}
                 className="rounded-full relative z-10 shadow-2xl group-hover:scale-105 transition-all duration-500 professional-shadow"
                 style={{
                   filter: "contrast(1.1) saturate(1.1) brightness(1.05)",
+                  boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(79, 70, 229, 0.15)"
                 }}
               />
             </div>
@@ -62,7 +66,10 @@ export default function Hero() {
         {/* Professional Name Display */}
         <div className="space-y-8">
           <div className="relative">
-            <h1 className={`text-6xl md:text-8xl font-black mb-8 relative clean-heading ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
+            <div className="inline-block px-4 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-4 professional-glass">
+              👋 Hello, I'm
+            </div>
+            <h1 className={`text-5xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white relative clean-heading ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                 style={{ animationDelay: "0.3s" }}>
               <span className="inline-block hover:scale-105 transition-all duration-500 cursor-default">
                 PRIYANSH KAKKAD
@@ -76,7 +83,7 @@ export default function Hero() {
           {/* Professional Subtitle */}
           <div className={`relative overflow-hidden ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                style={{ animationDelay: "0.6s" }}>
-            <h2 className="text-2xl md:text-4xl font-light tracking-wide relative clean-subheading">
+            <h2 className="text-2xl md:text-4xl font-light tracking-wide relative clean-subheading text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300">
               <span className="inline-block">
                 Full-Stack Developer & Software Engineer
               </span>
@@ -87,7 +94,7 @@ export default function Hero() {
           {/* Professional Description */}
           <div className={`max-w-4xl mx-auto ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                style={{ animationDelay: "0.9s" }}>
-            <p className="text-xl clean-body leading-relaxed mb-12">
+            <p className="text-xl clean-body leading-relaxed mb-12 text-gray-300">
               Passionate about building scalable web applications with cutting-edge technologies. 
               Experienced in ASP.NET, Next.js, MongoDB, and creating innovative solutions that drive business growth.
             </p>
@@ -99,7 +106,7 @@ export default function Hero() {
             <a
               href="https://drive.google.com/file/d/1YVz8p22PQAHXLIAFHGC6nCtFj_HVAKHR/view?usp=drive_link"
               target="_blank"
-              className="group relative overflow-hidden professional-button px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold"
+              className="group relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold shadow-lg hover:shadow-indigo-500/25"
               rel="noreferrer"
             >
               <Download className="mr-3 h-6 w-6 relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
@@ -110,7 +117,7 @@ export default function Hero() {
               href="https://wa.me/917984079603"
               target="_blank"
               rel="noreferrer"
-              className="group relative overflow-hidden professional-button px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold"
+              className="group relative overflow-hidden backdrop-blur-sm border border-indigo-500/30 hover:border-indigo-500/50 hover:bg-indigo-500/10 px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold shadow-lg hover:shadow-indigo-500/20"
             >
               <Mail className="mr-3 h-6 w-6 relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
               <span className="relative z-10">Contact Me</span>
@@ -121,17 +128,18 @@ export default function Hero() {
           <div className={`flex justify-center space-x-8 mb-16 ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                style={{ animationDelay: "1.5s" }}>
             {[
-              { icon: Github, href: "https://github.com/kakkadpriyansh" },
-              { icon: Linkedin, href: "https://linkedin.com/in/kakkadpriyansh" },
-              { icon: Instagram, href: "https://instagram.com/kakkadpriyansh" },
+              { icon: Github, href: "https://github.com/kakkadpriyansh", color: "from-purple-500 to-indigo-500" },
+              { icon: Linkedin, href: "https://linkedin.com/in/kakkadpriyansh", color: "from-blue-500 to-cyan-500" },
+              { icon: Instagram, href: "https://instagram.com/kakkadpriyansh", color: "from-pink-500 to-orange-400" },
             ].map((social, index) => (
               <a
                 key={index}
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative p-6 professional-glass rounded-2xl transform-gpu hover:scale-110 hover:-translate-y-2 transition-all duration-500 professional-interactive professional-shadow"
+                className={`group relative p-6 professional-glass rounded-2xl transform-gpu hover:scale-110 hover:-translate-y-2 transition-all duration-500 professional-interactive professional-shadow hover:bg-gradient-to-br ${social.color} hover:bg-opacity-20`}
               >
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${social.color}" />
                 <social.icon className="h-8 w-8 text-white/70 group-hover:text-white relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
               </a>
             ))}
