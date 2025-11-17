@@ -220,13 +220,15 @@ Sent from your portfolio website`
                   />
                 </div>
 
-                <button
+                <Button
                   type="submit"
-                  className="w-full professional-button py-4 transform-gpu hover:scale-105 transition-all duration-300 group/btn text-lg font-semibold rounded-xl"
+                  variant="whatsapp"
+                  size="lg"
+                  className="w-full py-4 h-auto font-semibold group/btn"
                 >
-                  <Send className="mr-3 h-6 w-6 transform group-hover/btn:rotate-12 group-hover/btn:scale-110 transition-all duration-300" />
+                  <MessageCircle className="mr-3 h-6 w-6" />
                   Send via WhatsApp
-                </button>
+                </Button>
               </form>
 
               {/* Info message */}

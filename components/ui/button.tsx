@@ -12,6 +12,8 @@ const buttonVariants = cva(
         default: "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 [&_svg]:group-hover:rotate-12 [&_svg]:group-hover:scale-110 [&_svg]:transition-transform [&_svg]:duration-300",
         destructive:
           "bg-gradient-to-r from-red-600 to-pink-600 text-white hover:from-red-700 hover:to-pink-700 [&_svg]:group-hover:rotate-12 [&_svg]:group-hover:scale-110 [&_svg]:transition-transform [&_svg]:duration-300",
+        whatsapp:
+          "bg-gradient-to-r from-green-600 to-green-500 text-white hover:from-green-700 hover:to-green-600 shadow-lg hover:shadow-green-500/25 [&_svg]:group-hover:rotate-12 [&_svg]:group-hover:scale-110 [&_svg]:transition-transform [&_svg]:duration-300",
         outline:
           "border border-indigo-500/30 backdrop-blur-sm hover:border-indigo-500/50 hover:bg-indigo-500/10 text-white [&_svg]:group-hover:rotate-12 [&_svg]:group-hover:scale-110 [&_svg]:transition-transform [&_svg]:duration-300",
         secondary:
@@ -55,10 +57,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {variant === 'destructive' && (
           <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         )}
+        {variant === 'whatsapp' && (
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-green-500/20 to-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        )}
         
         {/* Border glow effect for primary buttons */}
         {(variant === 'default' || variant === 'destructive') && (
           <span className="absolute -inset-px rounded-xl bg-gradient-to-r from-indigo-500/50 via-purple-500/50 to-pink-500/50 opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500 group-hover:duration-200"></span>
+        )}
+        {variant === 'whatsapp' && (
+          <span className="absolute -inset-px rounded-xl bg-gradient-to-r from-green-500/50 via-green-400/50 to-green-500/50 opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500 group-hover:duration-200"></span>
         )}
         
         {props.children}
