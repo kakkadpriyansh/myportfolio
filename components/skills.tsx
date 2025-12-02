@@ -12,13 +12,12 @@ export default function Skills() {
       title: "Frontend",
       skills: [
         { name: "Next.js", icon: "⚛️" },
-        { name: "React", icon: "⚛️" },
-        { name: "Angular", icon: "🅰️" },
-        { name: "JavaScript", icon: "🟨" },
-        { name: "TypeScript", icon: "🔷" },
-        { name: "Tailwind CSS", icon: "🎨" },
+        { name: "React.js", icon: "⚛️" },
+        { name: "JavaScript (ES6+)", icon: "🟨" },
+        { name: "Redux / Context API", icon: "🧩" },
         { name: "HTML5", icon: "🌐" },
-        { name: "CSS3", icon: "🎨" }
+        { name: "CSS3", icon: "🎨" },
+        { name: "TailwindCSS", icon: "🎨" }
       ],
       icon: "🎨",
       gradient: "from-blue-500/20 to-purple-500/20",
@@ -27,140 +26,122 @@ export default function Skills() {
     {
       title: "Backend",
       skills: [
-        { name: "ASP.NET Core", icon: "🔵" },
-        { name: ".NET 8", icon: "🔵" },
         { name: "Node.js", icon: "🟢" },
-        { name: "Python", icon: "🐍" },
-        { name: "Flask", icon: "🌶️" },
+        { name: "Express.js", icon: "🚏" },
         { name: "REST APIs", icon: "🔗" },
-        { name: "GraphQL", icon: "🔺" }
+        { name: "Python (Flask Basics)", icon: "🐍" },
+        { name: ".NET Core (Basic APIs)", icon: "🔵" }
       ],
       icon: "⚙️",
       gradient: "from-green-500/20 to-blue-500/20",
       bgGradient: "from-green-500/5 via-blue-500/5 to-teal-500/5"
     },
     {
-      title: "Database",
+      title: "Databases",
       skills: [
         { name: "MongoDB", icon: "🍃" },
-        { name: "MS SQL Server", icon: "🗄️" },
-        { name: "PostgreSQL", icon: "🐘" },
         { name: "MySQL", icon: "🐬" },
-        { name: "Redis", icon: "🔴" }
+        { name: "MS SQL Server", icon: "🗄️" }
       ],
       icon: "🗄️",
       gradient: "from-purple-500/20 to-pink-500/20",
       bgGradient: "from-purple-500/5 via-pink-500/5 to-red-500/5"
     },
     {
-      title: "Tools & Others",
+      title: "Tools & Deployment",
       skills: [
         { name: "Git", icon: "📝" },
-        { name: "Linux", icon: "🐧" },
-        { name: "Docker", icon: "🐳" },
-        { name: "AWS", icon: "☁️" },
-        { name: "Vercel", icon: "▲" },
-        { name: "IBM Watson", icon: "🤖" },
-        { name: "Cybersecurity", icon: "🔒" }
+        { name: "GitHub", icon: "🐙" },
+        { name: "VS Code", icon: "🧰" },
+        { name: "Postman", icon: "📬" },
+        { name: "XAMPP", icon: "📦" },
+        { name: "Visual Studio", icon: "🧱" },
+        { name: "Figma", icon: "🎨" },
+        { name: "VPS", icon: "🖥️" },
+        { name: "Nginx", icon: "🌀" },
+        { name: "PM2", icon: "🛠️" },
+        { name: "C-Panel", icon: "🗂️" },
+        { name: "DNS", icon: "🌐" },
+        { name: "SSL", icon: "🔒" },
+        { name: "GitHub Actions CI/CD", icon: "⚙️" },
+        { name: "GitHub Webhooks", icon: "🔔" }
       ],
       icon: "🛠️",
       gradient: "from-orange-500/20 to-red-500/20",
       bgGradient: "from-orange-500/5 via-red-500/5 to-yellow-500/5"
     },
+    {
+      title: "Other",
+      skills: [
+        { name: "JWT / OAuth", icon: "🔑" },
+        { name: "Firewalls", icon: "🛡️" },
+        { name: "Bash Scripting", icon: "🐚" },
+        { name: "API Security", icon: "🔐" },
+        { name: "Server Configuration", icon: "🧭" }
+      ],
+      icon: "✨",
+      gradient: "from-teal-500/20 to-blue-500/20",
+      bgGradient: "from-teal-500/5 via-blue-500/5 to-cyan-500/5"
+    },
   ]
 
   return (
-    <section id="skills" className="py-32 px-4 relative">
-      {/* Enhanced background effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "4s" }} />
-      </div>
+    <section id="skills" className="py-28 px-4 relative">
+      <div className="absolute inset-0" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-14">
           <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10">
             <span className="text-4xl">💻</span>
           </div>
-          <h2 className="text-6xl md:text-8xl font-black text-white mb-6 relative">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-3 relative">
             <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
               Skills & Technologies
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-6">
             Expertise across the full technology stack with modern tools and frameworks
           </p>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto animate-pulse" />
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto" />
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skillCategories.map((category, index) => (
             <Card
               key={index}
-              className="group relative overflow-hidden bg-gray-900/60 border-gray-700/50 hover:border-white/30 backdrop-blur-xl transform hover:scale-105 hover:-translate-y-4 transition-all duration-700 cursor-pointer"
+              className="group relative overflow-hidden bg-gray-900/40 border-white/10 hover:border-white/20 backdrop-blur-xl cursor-pointer"
               style={{
                 boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
               }}
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Enhanced animated background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Floating particles */}
-              <div className="absolute inset-0 overflow-hidden">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-1 h-1 bg-white/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${i * 0.3}s`,
-                      animation: hoveredCard === index ? "float 4s ease-in-out infinite" : "none",
-                    }}
-                  />
-                ))}
-              </div>
-
-              <CardContent className="p-8 relative z-10 h-full flex flex-col">
-                {/* Enhanced icon with glow effect */}
-                <div className="relative mb-8 text-center">
-                  <div className="absolute inset-0 bg-white/20 rounded-full blur-xl scale-150 group-hover:scale-200 transition-transform duration-500" />
-                  <div className="relative text-6xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                    {category.icon}
-                  </div>
+              <CardContent className="p-6 relative z-10 h-full flex flex-col">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="text-2xl">{category.icon}</div>
+                  <h3 className="text-xl font-semibold text-white">{category.title}</h3>
                 </div>
 
-                {/* Enhanced title */}
-                <h3 className="text-2xl font-bold mb-8 text-white group-hover:text-gray-100 transition-colors duration-300 text-center relative">
-                  <span className="relative z-10">{category.title}</span>
-                  <div className="absolute inset-0 bg-white/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </h3>
-
-                {/* Enhanced skills badges with icons */}
-                <div className="flex flex-wrap gap-3 justify-center flex-1">
+                <div className="flex flex-wrap gap-2 justify-center">
                   {category.skills.map((skill, skillIndex) => (
                     <Badge
                       key={skillIndex}
-                      className="bg-gray-800/90 text-gray-200 border border-gray-600/50 hover:bg-white hover:text-black transform-gpu hover:scale-110 hover:-translate-y-1 transition-all duration-300 font-medium px-4 py-2 text-sm backdrop-blur-sm group/badge"
+                      className="bg-white/5 text-white/80 border border-white/10 hover:bg-white/15 hover:text-white transform-gpu transition-all duration-200 font-medium px-3 py-2 text-xs rounded-full whitespace-nowrap"
                       style={{
                         boxShadow: "0 8px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
                         animationDelay: `${skillIndex * 0.1}s`,
                       }}
                     >
-                      <span className="mr-2 transform group-hover/badge:scale-125 transition-transform duration-300">
+                      <span className="mr-1.5">
                         {skill.icon}
                       </span>
                       {skill.name}
                     </Badge>
                   ))}
                 </div>
-
-                {/* Enhanced glow effect */}
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-white/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               </CardContent>
             </Card>
           ))}

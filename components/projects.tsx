@@ -12,44 +12,65 @@ export default function Projects() {
 
   const projects = [
     {
-      title: "E-commerce Platform",
+      title: "Full Stack Travel Platform | AvidExplorers",
       description:
-        "Full-stack enterprise e-commerce solution with advanced user authentication, secure payment integration, comprehensive admin dashboard, and inventory management.",
-      image: "/images/ecommerce-dashboard.png",
-      tech: ["Angular", ".NET 8", "MS SQL", "Azure", "Payment APIs"],
+        "Travel website built using Next.js with SSR, dynamic routing, blog pages, trip planner, and rich media UI. Backend with Node.js & MongoDB, JWT authentication, and admin panel. Deployed with Nginx + PM2 + GitHub Webhooks.",
+      images: [
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.12AM.png",
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.41AM.png",
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.03AM.png",
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.21AM.png"
+      ],
+      tech: ["Next.js", "Node.js", "MongoDB", "JWT", "TailwindCSS", "Nginx", "PM2"],
+      icon: Brain,
+      gradient: "from-blue-500/20 to-purple-500/20",
+      category: "Travel",
+    },
+    {
+      title: "E-commerce Platform | happy-feet.in (Ongoing)",
+      description:
+        "Full e-commerce platform using Next.js API Routes with Razorpay payment integration and secure callbacks. Admin panel for products, orders, users, discounts, plus analytics dashboard. CI/CD with GitHub Actions and Auto Pull Webhooks.",
+      images: [
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.06AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.38AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.23.25AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.04AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.22AM.png"
+      ],
+      tech: ["Next.js", "API Routes", "Razorpay", "MongoDB", "Admin Panel", "Analytics", "CI/CD"],
       icon: ShoppingCart,
       gradient: "from-purple-500/20 to-pink-500/20",
       category: "E-commerce",
     },
     {
-      title: "NGO Management System",
+      title: "PC Build Chatbot | CSRBOX / IBM Watson",
       description:
-        "Comprehensive management system for NGOs with volunteer tracking, donation management, event coordination, and automated reporting features.",
-      image: "/images/ngo-management.png",
-      tech: ["React", "ASP.NET Core", "PostgreSQL", "Docker", "Cloud"],
-      icon: Database,
-      gradient: "from-orange-500/20 to-red-500/20",
-      category: "Management",
+        "Intelligent PC Build chatbot using IBM Watson Assistant with conversation flows for component selection, compatibility suggestions, and dynamic pricing estimates. Includes dashboard for testing and workflow validation.",
+      images: ["/images/chatbot-interface.png"],
+      tech: ["IBM Watson", "NLP", "Python", "Flask", "Dashboard"],
+      icon: Zap,
+      gradient: "from-green-500/20 to-blue-500/20",
+      category: "AI/ML",
     },
     {
-      title: "SAT Preparation Platform",
+      title: "SAT Preparation Platform | Technova Technologies",
       description:
-        "Advanced adaptive SAT preparation platform with AI-powered personalized learning paths, intelligent scoring system, and real-time performance analytics.",
-      image: "/images/sat-platform.png",
-      tech: ["Next.js", "MongoDB", "Node.js", "Tailwind CSS", "AI/ML"],
+        "Adaptive SAT learning platform with AI-powered personalized paths, intelligent scoring, and real-time performance analytics.",
+      images: ["/images/sat-platform.png"],
+      tech: ["Next.js", "MongoDB", "Node.js", "TailwindCSS", "AI/ML"],
       icon: Brain,
       gradient: "from-blue-500/20 to-purple-500/20",
       category: "Education Tech",
     },
     {
-      title: "PC Build Chatbot",
+      title: "NGO Management System",
       description:
-        "Intelligent AI-powered chatbot using IBM Watson NLP to help users build custom PC configurations based on budget, performance needs, and use cases.",
-      image: "/images/chatbot-interface.png",
-      tech: ["Python", "IBM Watson", "NLP", "Flask", "Machine Learning"],
-      icon: Zap,
-      gradient: "from-green-500/20 to-blue-500/20",
-      category: "AI/ML",
+        "Comprehensive NGO system with volunteer tracking, donation management, event coordination, and automated reporting.",
+      images: ["/images/ngo-management.png"],
+      tech: ["React", "ASP.NET Core", "PostgreSQL", "Docker", "Cloud"],
+      icon: Database,
+      gradient: "from-orange-500/20 to-red-500/20",
+      category: "Management",
     },
   ]
 
@@ -101,7 +122,7 @@ export default function Projects() {
               <div className="relative h-64 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 <Image
-                  src={project.image || "/images/ecommerce-dashboard.png"}
+                  src={project.images[0]}
                   alt={project.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"

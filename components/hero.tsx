@@ -85,7 +85,7 @@ export default function Hero() {
                style={{ animationDelay: "0.6s" }}>
             <h2 className="text-2xl md:text-4xl font-light tracking-wide relative clean-subheading text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300">
               <span className="inline-block">
-                Full-Stack Developer & Software Engineer
+                Software Engineer (Next.js & React.js)
               </span>
             </h2>
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent gentle-pulse" />
@@ -95,8 +95,8 @@ export default function Hero() {
           <div className={`max-w-4xl mx-auto ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                style={{ animationDelay: "0.9s" }}>
             <p className="text-xl clean-body leading-relaxed mb-12 text-gray-300">
-              Passionate about building scalable web applications with cutting-edge technologies. 
-              Experienced in ASP.NET, Next.js, MongoDB, and creating innovative solutions that drive business growth.
+              Next.js and React.js developer with strong experience in building fast, scalable, and SEO‑optimized web applications. 
+              Skilled in component‑based UI development, API integrations, backend basics using Node.js/Express, Python, and .NET, and deploying production applications using VPS, Nginx, CI/CD pipelines, and auto‑deployment setups.
             </p>
           </div>
 

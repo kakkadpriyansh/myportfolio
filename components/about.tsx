@@ -11,8 +11,8 @@ export default function About() {
     {
       icon: GraduationCap,
       title: "Education",
-      desc: "B.E. Computer Engineering",
-      detail: "Strong foundation in computer science principles and software engineering",
+      desc: "B.E. — Computer Engineering (2021–2025), Marwadi University",
+      detail: "Core: Software Engineering, Data Structures, Web Dev, Networking, OS, Cybersecurity, DBMS",
       gradient: "from-blue-500/20 to-purple-500/20",
     },
     {

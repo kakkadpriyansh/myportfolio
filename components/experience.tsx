@@ -6,59 +6,44 @@ export default function Experience() {
   const experiences = [
     {
       company: "Technova Technologies",
-      role: ".NET Developer",
-      duration: "March 2025",
+      role: "Next.js & React.js Developer",
+      duration: "March 2025 – Present",
       description:
-        "Developed enterprise web applications using .NET framework and worked on database optimization projects with advanced performance tuning.",
+        "Building a full-scale auditing system frontend using Next.js & React.js. Implemented SSR/CSR components, routing, and optimized UI flows. Developed backend logic with Node.js and integrated secure REST APIs. Set up CI/CD pipeline using GitHub Actions for automated deployment. Configured VPS deployment using Nginx + PM2 + SSL, including auto-pull.",
       skills: [
-        { name: ".NET", icon: "🔵" },
-        { name: "C#", icon: "🔷" },
-        { name: "SQL Server", icon: "🗄️" },
-        { name: "Web APIs", icon: "🔗" },
-        { name: "Performance Optimization", icon: "⚡" }
+        { name: "Next.js", icon: "⚛️" },
+        { name: "React.js", icon: "⚛️" },
+        { name: "Node.js", icon: "🟢" },
+        { name: "REST APIs", icon: "🔗" },
+        { name: "CI/CD", icon: "🚀" },
+        { name: "Nginx", icon: "🌀" },
+        { name: "PM2", icon: "🛠️" },
+        { name: "SSL", icon: "🔒" }
       ],
       type: "Full-time",
-      website: "https://technovatechnologies.com",
+      website: undefined,
       location: "Remote",
       teamSize: "5-10",
       gradient: "from-blue-500/10 to-purple-500/10"
     },
     {
-      company: "CSRBOX",
-      role: "NGO Chatbot Assistant Developer",
-      duration: "2023",
+      company: "CSRBOX | IBM Watson",
+      role: "Chatbot Developer",
+      duration: "Jun 2022 – Aug 2022",
       description:
-        "Created an intelligent chatbot system using AI/ML to assist NGO operations, volunteer management, and automated customer support.",
+        "Developed an intelligent PC Build chatbot using IBM Watson Assistant. Designed conversation flows for selecting CPU, GPU, RAM and compatibility suggestions. Integrated pricing logic for dynamic PC build estimates. Built a front-end dashboard for testing and workflow validation. Improved chatbot accuracy using intents, entities, and conditional dialog logic.",
       skills: [
-        { name: "Python", icon: "🐍" },
+        { name: "IBM Watson", icon: "🤖" },
         { name: "NLP", icon: "🧠" },
-        { name: "Chatbot Development", icon: "🤖" },
-        { name: "AI/ML", icon: "🔮" },
-        { name: "Automation", icon: "⚙️" }
-      ],
-      type: "Project",
-      location: "Remote",
-      teamSize: "3-5",
-      gradient: "from-green-500/10 to-blue-500/10"
-    },
-    {
-      company: "CodSoft",
-      role: "Web Development Intern",
-      duration: "2023",
-      description:
-        "Developed responsive web applications and gained hands-on experience in modern web development practices with agile methodologies.",
-      skills: [
-        { name: "HTML/CSS", icon: "🌐" },
-        { name: "JavaScript", icon: "🟨" },
-        { name: "React", icon: "⚛️" },
-        { name: "Responsive Design", icon: "📱" },
-        { name: "Agile", icon: "🔄" }
+        { name: "Dialog Design", icon: "🗣️" },
+        { name: "Pricing Logic", icon: "💲" },
+        { name: "Dashboard UI", icon: "🖥️" }
       ],
       type: "Internship",
       location: "Remote",
-      teamSize: "10+",
-      gradient: "from-purple-500/10 to-pink-500/10"
-    },
+      teamSize: "3-5",
+      gradient: "from-green-500/10 to-blue-500/10"
+    }
   ]
 
   const achievements = [
