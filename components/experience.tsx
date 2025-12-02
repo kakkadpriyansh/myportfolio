@@ -175,9 +175,9 @@ export default function Experience() {
         </div>
 
         {/* Enhanced Achievements Section */}
-        <div className="text-center">
+        <div className="w-full">
           <Card
-            className="inline-block p-12 bg-gray-900/60 border-gray-700/50 relative overflow-hidden backdrop-blur-xl transform-gpu hover:scale-102 transition-all duration-500"
+            className="w-full p-6 md:p-12 bg-gray-900/60 border-gray-700/50 relative overflow-hidden backdrop-blur-xl transform-gpu hover:scale-102 transition-all duration-500"
             style={{
               boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
             }}
@@ -188,23 +188,23 @@ export default function Experience() {
               <div className="flex items-center justify-center mb-8">
                 <div className="relative">
                   <div className="absolute inset-0 bg-yellow-500/20 rounded-full blur-xl scale-150 animate-pulse" />
-                  <Award className="h-12 w-12 text-white mr-4 relative z-10" />
+                  <Award className="h-8 md:h-12 w-8 md:w-12 text-white mr-4 relative z-10" />
                 </div>
-                <h3 className="text-4xl font-bold text-white">Key Achievements</h3>
+                <h3 className="text-2xl md:text-4xl font-bold text-white">Key Achievements</h3>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
                 {achievements.map((achievement, index) => (
                   <div
                     key={index}
-                    className="relative group/achievement p-6 bg-gray-800/60 rounded-lg border border-gray-600/30 hover:border-white/30 transition-all duration-300 overflow-hidden"
+                    className="relative group/achievement p-4 md:p-6 bg-gray-800/60 rounded-lg border border-gray-600/30 hover:border-white/30 transition-all duration-300 overflow-hidden"
                   >
                     <div className={`absolute inset-0 bg-gradient-to-r ${achievement.color} opacity-0 group-hover/achievement:opacity-100 transition-opacity duration-500`} />
-                    <div className="relative z-10 flex items-center">
-                      <span className="text-3xl mr-4 transform group-hover/achievement:scale-125 transition-transform duration-300">
+                    <div className="relative z-10 flex items-start md:items-center">
+                      <span className="text-2xl md:text-3xl mr-3 md:mr-4 flex-shrink-0 transform group-hover/achievement:scale-125 transition-transform duration-300">
                         {achievement.icon}
                       </span>
-                      <span className="text-gray-300 group-hover/achievement:text-white transition-colors duration-300 text-lg">
+                      <span className="text-gray-300 group-hover/achievement:text-white transition-colors duration-300 text-sm md:text-lg break-words">
                         {achievement.text}
                       </span>
                     </div>

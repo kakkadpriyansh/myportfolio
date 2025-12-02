@@ -98,11 +98,11 @@ export default function Projects() {
           <div className="w-32 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto animate-pulse" />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {projects.map((project, index) => (
-            <div key={index} className="slide-up-fade" style={{ animationDelay: `${index * 0.2}s` }}>
+            <div key={index} className="slide-up-fade w-full" style={{ animationDelay: `${index * 0.2}s` }}>
             <Card
-              className="group relative overflow-hidden bg-gray-900/40 border-gray-700/50 hover:border-indigo-500/30 backdrop-blur-xl transform-gpu hover:scale-105 hover:-translate-y-4 transition-all duration-700 cursor-pointer professional-glass-strong"
+              className="group relative overflow-hidden bg-gray-900/40 border-gray-700/50 hover:border-indigo-500/30 backdrop-blur-xl transform-gpu hover:scale-105 hover:-translate-y-2 lg:hover:-translate-y-4 transition-all duration-700 cursor-pointer professional-glass-strong w-full"
               style={{
                 boxShadow:
                   "0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
@@ -119,47 +119,49 @@ export default function Projects() {
               <div className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br from-indigo-500/30 via-purple-500/30 to-pink-500/30 blur-sm z-0" />
 
               {/* Project Image */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-48 md:h-56 lg:h-64 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 <Image
                   src={project.images[0]}
                   alt={project.title}
                   fill
+                  priority={index < 2}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
 
                 {/* Category badge */}
-                <div className="absolute top-4 left-4 z-20">
-                  <Badge className="bg-gradient-to-r from-indigo-500/80 to-purple-500/80 text-white border-white/20 backdrop-blur-sm px-3 py-1.5 shadow-lg transform group-hover:scale-110 transition-all duration-500">
+                <div className="absolute top-3 left-3 lg:top-4 lg:left-4 z-20">
+                  <Badge className="bg-gradient-to-r from-indigo-500/80 to-purple-500/80 text-white border-white/20 backdrop-blur-sm px-2 py-1 lg:px-3 lg:py-1.5 shadow-lg transform group-hover:scale-110 transition-all duration-500 text-xs lg:text-sm">
                     {project.category}
                   </Badge>
                 </div>
 
                 {/* Project icon */}
-                <div className="absolute top-4 right-4 z-20">
-                  <div className="p-3 bg-gradient-to-r from-indigo-500/80 to-purple-500/80 rounded-full backdrop-blur-sm border border-white/20 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg">
-                    <project.icon className="h-6 w-6 text-white" />
+                <div className="absolute top-3 right-3 lg:top-4 lg:right-4 z-20">
+                  <div className="p-2 lg:p-3 bg-gradient-to-r from-indigo-500/80 to-purple-500/80 rounded-full backdrop-blur-sm border border-white/20 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg">
+                    <project.icon className="h-4 w-4 lg:h-6 lg:w-6 text-white" />
                   </div>
                 </div>
               </div>
 
-              <CardHeader className="relative z-10 pb-4">
-                <CardTitle className="text-2xl text-white group-hover:text-gray-100 transition-colors duration-300">
+              <CardHeader className="relative z-10 pb-3 lg:pb-4 p-4 lg:p-6">
+                <CardTitle className="text-lg md:text-xl lg:text-2xl text-white group-hover:text-gray-100 transition-colors duration-300 break-words">
                   {project.title}
                 </CardTitle>
               </CardHeader>
 
-              <CardContent className="relative z-10 space-y-6">
-                <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed text-lg">
+              <CardContent className="relative z-10 space-y-4 lg:space-y-6 p-4 lg:p-6">
+                <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed text-sm md:text-base lg:text-lg break-words">
                   {project.description}
                 </p>
 
                 {/* Tech stack */}
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 lg:gap-3">
                   {project.tech.map((tech, techIndex) => (
                     <Badge
                       key={techIndex}
-                      className="bg-gray-800/80 text-gray-200 border border-indigo-500/30 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white transform-gpu hover:scale-110 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm px-3 py-1.5 shadow-md"
+                      className="bg-gray-800/80 text-gray-200 border border-indigo-500/30 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white transform-gpu hover:scale-110 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm px-2 py-1 lg:px-3 lg:py-1.5 shadow-md text-xs lg:text-sm"
                       style={{
                         boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
                         animationDelay: `${techIndex * 0.1}s`,
