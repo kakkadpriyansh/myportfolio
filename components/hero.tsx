@@ -104,7 +104,7 @@ export default function Hero() {
           <div className={`flex flex-col sm:flex-row gap-6 justify-center mb-16 ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                style={{ animationDelay: "1.2s" }}>
             <a
-              href="https://drive.google.com/file/d/1YVz8p22PQAHXLIAFHGC6nCtFj_HVAKHR/view?usp=drive_link"
+              href="https://drive.google.com/file/d/1GEOb_WIpoR8rAIOh0jhEftqGMLZNnBqk/view?usp=sharing"
               target="_blank"
               className="group relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold shadow-lg hover:shadow-indigo-500/25"
               rel="noreferrer"
