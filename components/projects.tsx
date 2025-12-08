@@ -16,10 +16,10 @@ export default function Projects() {
       description:
         "Travel website built using Next.js with SSR, dynamic routing, blog pages, trip planner, and rich media UI. Backend with Node.js & MongoDB, JWT authentication, and admin panel. Deployed with Nginx + PM2 + GitHub Webhooks.",
       images: [
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.12AM.png",
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.41AM.png",
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.03AM.png",
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.21AM.png"
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.12 AM.png",
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.41 AM.png",
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.03 AM.png",
+        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.21 AM.png"
       ],
       tech: ["Next.js", "Node.js", "MongoDB", "JWT", "TailwindCSS", "Nginx", "PM2"],
       icon: Brain,
@@ -31,11 +31,11 @@ export default function Projects() {
       description:
         "Full e-commerce platform using Next.js API Routes with Razorpay payment integration and secure callbacks. Admin panel for products, orders, users, discounts, plus analytics dashboard. CI/CD with GitHub Actions and Auto Pull Webhooks.",
       images: [
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.06AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.38AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.23.25AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.04AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.22AM.png"
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.06 AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.38 AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.23.25 AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.04 AM.png",
+        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.22 AM.png"
       ],
       tech: ["Next.js", "API Routes", "Razorpay", "MongoDB", "Admin Panel", "Analytics", "CI/CD"],
       icon: ShoppingCart,
