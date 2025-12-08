@@ -5,10 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Github, Zap, Database, Brain, ShoppingCart } from 'lucide-react'
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Projects() {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
   const projects = [
     {
@@ -74,6 +73,16 @@ export default function Projects() {
     },
   ]
 
+  const [activeImageIndex, setActiveImageIndex] = useState<number[]>(Array(projects.length).fill(0))
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImageIndex((prev) =>
+        prev.map((v, i) => (i < 2 ? (v + 1) % projects[i].images.length : v))
+      )
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section id="projects" className="py-32 px-4 relative overflow-hidden">
       {/* Enhanced Background effects */}
@@ -108,8 +117,6 @@ export default function Projects() {
                   "0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
                 transformStyle: "preserve-3d",
               }}
-              onMouseEnter={() => setHoveredProject(index)}
-              onMouseLeave={() => setHoveredProject(null)}
             >
               {/* Animated background gradient */}
               <div
@@ -121,14 +128,32 @@ export default function Projects() {
               {/* Project Image */}
               <div className="relative h-48 md:h-56 lg:h-64 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-                <Image
-                  src={project.images[0]}
-                  alt={project.title}
-                  fill
-                  priority={index < 2}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
+                {index < 2 ? (
+                  <div className="absolute inset-0">
+                    {project.images.map((img, imgIdx) => (
+                      <Image
+                        key={img}
+                        src={img}
+                        alt={project.title}
+                        fill
+                        priority={index < 2}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className={`object-cover transition-opacity duration-700 group-hover:scale-105 ${
+                          activeImageIndex[index] === imgIdx ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <Image
+                    src={project.images[0]}
+                    alt={project.title}
+                    fill
+                    priority={index < 2}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                )}
 
                 {/* Category badge */}
                 <div className="absolute top-3 left-3 lg:top-4 lg:left-4 z-20">
