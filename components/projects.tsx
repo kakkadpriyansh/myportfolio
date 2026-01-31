@@ -1,220 +1,250 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github, Zap, Database, Brain, ShoppingCart } from 'lucide-react'
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import Link from "next/link"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Github, ExternalLink, ArrowRight, Sparkles, Layers, Database, Globe, ShoppingCart, Cpu } from "lucide-react"
+
+gsap.registerPlugin(ScrollTrigger)
+
+const projects = [
+  {
+    title: "AvidExplorers",
+    subtitle: "Full Stack Travel Platform",
+    description: "A comprehensive travel experience platform featuring dynamic trip planning, rich media blogs, and a robust admin dashboard. Built for scalability and performance.",
+    images: [
+      "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.12 AM.png",
+      "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.41 AM.png",
+    ],
+    tech: ["Next.js", "MongoDB", "Node.js", "AWS", "Tailwind"],
+    color: "from-blue-600 to-cyan-500",
+    icon: Globe,
+    link: "#",
+    github: "#"
+  },
+  {
+    title: "happy-feet.in",
+    subtitle: "Modern E-commerce Solution",
+    description: "A high-performance e-commerce platform with real-time analytics, secure payment processing via Razorpay, and a custom CMS for inventory management.",
+    images: [
+      "/images/happy-feet/Screenshot 2025-12-01 at 1.22.06 AM.png",
+      "/images/happy-feet/Screenshot 2025-12-01 at 1.22.38 AM.png",
+    ],
+    tech: ["Next.js", "Razorpay", "Analytics", "PostgreSQL"],
+    color: "from-purple-600 to-pink-500",
+    icon: ShoppingCart,
+    link: "#",
+    github: "#"
+  },
+  {
+    title: "BDVH Platform",
+    subtitle: "Franchise Management System",
+    description: "An enterprise-grade management system for franchises, automating student enrollments, commission payouts, and certification generation.",
+    images: [
+      "/images/bdvh/Screenshot 2025-12-08 at 6.33.35 PM.png",
+      "/images/bdvh/Screenshot 2025-12-08 at 6.33.53 PM.png",
+    ],
+    tech: ["Next.js", "Redis", "BullMQ", "MongoDB"],
+    color: "from-emerald-500 to-teal-400",
+    icon: Layers,
+    link: "#",
+    github: "#"
+  },
+  {
+    title: "PC Build Assistant",
+    subtitle: "AI-Powered Chatbot",
+    description: "An intelligent conversational agent built with IBM Watson to guide users through custom PC builds, checking compatibility and optimizing for budget.",
+    images: ["/images/chatbot-interface.png"],
+    tech: ["IBM Watson", "Python", "NLP", "Flask"],
+    color: "from-orange-500 to-red-500",
+    icon: Cpu,
+    link: "#",
+    github: "#"
+  },
+  {
+    title: "NGO Connect",
+    subtitle: "Volunteer Management",
+    description: "A centralized platform connecting volunteers with NGOs, facilitating donation tracking, event management, and automated impact reporting.",
+    images: ["/images/ngo-management.png"],
+    tech: ["ASP.NET Core", "React", "Docker", "PostgreSQL"],
+    color: "from-indigo-500 to-blue-500",
+    icon: Database,
+    link: "#",
+    github: "#"
+  }
+]
 
 export default function Projects() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [activeIndices, setActiveIndices] = useState<number[]>(projects.map(() => 0))
 
-  const projects = [
-    {
-      title: "Full Stack Travel Platform | AvidExplorers",
-      description:
-        "Travel website built using Next.js with SSR, dynamic routing, blog pages, trip planner, and rich media UI. Backend with Node.js & MongoDB, JWT authentication, and admin panel. Deployed with Nginx + PM2 + GitHub Webhooks.",
-      images: [
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.12 AM.png",
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.41 AM.png",
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.03 AM.png",
-        "/images/avid-explorers/Screenshot 2025-11-25 at 12.22.21 AM.png"
-      ],
-      tech: ["Next.js", "Node.js", "MongoDB", "JWT", "TailwindCSS", "Nginx", "PM2"],
-      icon: Brain,
-      gradient: "from-blue-500/20 to-purple-500/20",
-      category: "Travel",
-    },
-    {
-      title: "E-commerce Platform | happy-feet.in (Ongoing)",
-      description:
-        "Full e-commerce platform using Next.js API Routes with Razorpay payment integration and secure callbacks. Admin panel for products, orders, users, discounts, plus analytics dashboard. CI/CD with GitHub Actions and Auto Pull Webhooks.",
-      images: [
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.06 AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.22.38 AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.23.25 AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.04 AM.png",
-        "/images/happy-feet/Screenshot 2025-12-01 at 1.24.22 AM.png"
-      ],
-      tech: ["Next.js", "API Routes", "Razorpay", "MongoDB", "Admin Panel", "Analytics", "CI/CD"],
-      icon: ShoppingCart,
-      gradient: "from-purple-500/20 to-pink-500/20",
-      category: "E-commerce",
-    },
-    {
-      title: "PC Build Chatbot | CSRBOX / IBM Watson",
-      description:
-        "Intelligent PC Build chatbot using IBM Watson Assistant with conversation flows for component selection, compatibility suggestions, and dynamic pricing estimates. Includes dashboard for testing and workflow validation.",
-      images: ["/images/chatbot-interface.png"],
-      tech: ["IBM Watson", "NLP", "Python", "Flask", "Dashboard"],
-      icon: Zap,
-      gradient: "from-green-500/20 to-blue-500/20",
-      category: "AI/ML",
-    },
-    {
-      title: "BDVH – Franchise Management Platform",
-      description:
-        "A complete Admin–Teacher platform built with Next.js and MongoDB, featuring student enrollments, automated commissions, referral payouts, certificate issuing, PDF receipts, background tasks, analytics, and secure role-based dashboards.",
-      images: [
-        "/images/bdvh/Screenshot 2025-12-08 at 6.33.35 PM.png",
-        "/images/bdvh/Screenshot 2025-12-08 at 6.33.53 PM.png",
-        "/images/bdvh/Screenshot 2025-12-08 at 6.34.24 PM.png",
-      ],
-      tech: [
-        "Next.js",
-        "MongoDB",
-        "API Routes",
-        "NextAuth",
-        "BullMQ",
-        "Redis",
-        "Admin Panel",
-        "Analytics",
-      ],
-      icon: Database,
-      gradient: "from-teal-500/20 to-emerald-500/20",
-      category: "Franchise",
-    },
-    {
-      title: "NGO Management System",
-      description:
-        "Comprehensive NGO system with volunteer tracking, donation management, event coordination, and automated reporting.",
-      images: ["/images/ngo-management.png"],
-      tech: ["React", "ASP.NET Core", "PostgreSQL", "Docker", "Cloud"],
-      icon: Database,
-      gradient: "from-orange-500/20 to-red-500/20",
-      category: "Management",
-    },
-  ]
-
-  const [activeImageIndex, setActiveImageIndex] = useState<number[]>(Array(projects.length).fill(0))
   useEffect(() => {
+    // Image Slider Interval
     const interval = setInterval(() => {
-      setActiveImageIndex((prev) =>
-        prev.map((v, i) => (i < 2 ? (v + 1) % projects[i].images.length : v))
+      setActiveIndices(prev => 
+        prev.map((current, i) => {
+          if (projects[i].images.length > 1) {
+            return (current + 1) % projects[i].images.length
+          }
+          return 0
+        })
       )
-    }, 2500)
+    }, 4000)
+
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Animation
+      gsap.from(".project-header", {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power4.out"
+      })
+
+      // Project Cards Animation
+      const cards = gsap.utils.toArray(".project-card") as HTMLElement[]
+      
+      cards.forEach((card, i) => {
+        gsap.fromTo(card, 
+          { 
+            y: 100, 
+            opacity: 0,
+            scale: 0.95
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=100",
+              toggleActions: "play none none reverse"
+            }
+          }
+        )
+      })
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="projects" className="py-32 px-4 relative overflow-hidden">
-      {/* Enhanced Background effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl gentle-pulse" />
-        <div
-          className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl gentle-pulse"
-          style={{ animationDelay: "1.5s" }}
-        />
-        <div
-          className="absolute top-2/3 right-1/4 w-72 h-72 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl gentle-pulse"
-          style={{ animationDelay: "3s" }}
-        />
+    <div ref={containerRef} className="py-24 md:py-32 relative">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-20 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20 slide-up-fade">
-          <h2 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-white mb-6 shimmer">Featured Projects</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Showcasing innovative solutions built with cutting-edge technologies
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="project-header text-center mb-24 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-indigo-300 backdrop-blur-md">
+            <Sparkles className="w-4 h-4" />
+            <span>Portfolio Showcase</span>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-100 to-gray-400">
+            Featured Projects
+          </h1>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            A curated selection of my work, ranging from complex web applications to intelligent AI systems.
           </p>
-          <div className="w-32 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto animate-pulse" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        {/* Projects Grid - Alternating Layout */}
+        <div className="space-y-32">
           {projects.map((project, index) => (
-            <div key={index} className="slide-up-fade w-full" style={{ animationDelay: `${index * 0.2}s` }}>
-            <Card
-              className="group relative overflow-hidden bg-gray-900/40 border-gray-700/50 hover:border-indigo-500/30 backdrop-blur-xl transform-gpu hover:scale-105 hover:-translate-y-2 lg:hover:-translate-y-4 transition-all duration-700 cursor-pointer professional-glass-strong w-full"
-              style={{
-                boxShadow:
-                  "0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-                transformStyle: "preserve-3d",
-              }}
+            <div 
+              key={index}
+              className={`project-card flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
             >
-              {/* Animated background gradient */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
-              />
-              {/* Animated border glow */}
-              <div className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br from-indigo-500/30 via-purple-500/30 to-pink-500/30 blur-sm z-0" />
-
-              {/* Project Image */}
-              <div className="relative h-48 md:h-56 lg:h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-                {index < 2 ? (
-                  <div className="absolute inset-0">
-                    {project.images.map((img, imgIdx) => (
-                      <Image
-                        key={img}
-                        src={img}
-                        alt={project.title}
-                        fill
-                        priority={index < 2}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className={`object-cover transition-opacity duration-700 group-hover:scale-105 ${
-                          activeImageIndex[index] === imgIdx ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <Image
-                    src={project.images[0]}
-                    alt={project.title}
-                    fill
-                    priority={index < 2}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                )}
-
-                {/* Category badge */}
-                <div className="absolute top-3 left-3 lg:top-4 lg:left-4 z-20">
-                  <Badge className="bg-gradient-to-r from-indigo-500/80 to-purple-500/80 text-white border-white/20 backdrop-blur-sm px-2 py-1 lg:px-3 lg:py-1.5 shadow-lg transform group-hover:scale-110 transition-all duration-500 text-xs lg:text-sm">
-                    {project.category}
-                  </Badge>
+              {/* Image Section */}
+              <div className="w-full lg:w-3/5 group relative perspective-1000">
+                <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-gray-900/50 backdrop-blur-sm transition-transform duration-500 group-hover:scale-[1.02] group-hover:-translate-y-2">
+                   {/* Gradient Overlay */}
+                   <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 mix-blend-overlay z-10`} />
+                   <div className="absolute inset-0 bg-black/20 z-10 group-hover:bg-black/0 transition-colors duration-500" />
+                   
+                   {/* Images */}
+                   {project.images.map((img, i) => (
+                     <Image
+                       key={img}
+                       src={img}
+                       alt={project.title}
+                       fill
+                       className={`object-cover object-top transition-all duration-1000 ${
+                         i === activeIndices[index] ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
+                       }`}
+                     />
+                   ))}
+                   
+                   {/* Navigation Dots (if multiple images) */}
+                   {project.images.length > 1 && (
+                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                       {project.images.map((_, i) => (
+                         <div 
+                           key={i}
+                           className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                             i === activeIndices[index] ? 'bg-white w-6' : 'bg-white/50'
+                           }`}
+                         />
+                       ))}
+                     </div>
+                   )}
                 </div>
-
-                {/* Project icon */}
-                <div className="absolute top-3 right-3 lg:top-4 lg:right-4 z-20">
-                  <div className="p-2 lg:p-3 bg-gradient-to-r from-indigo-500/80 to-purple-500/80 rounded-full backdrop-blur-sm border border-white/20 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 shadow-lg">
-                    <project.icon className="h-4 w-4 lg:h-6 lg:w-6 text-white" />
-                  </div>
-                </div>
+                
+                {/* Decorative Elements behind image */}
+                <div className={`absolute -inset-4 bg-gradient-to-r ${project.color} rounded-2xl blur-2xl opacity-20 -z-10 group-hover:opacity-30 transition-opacity duration-500`} />
               </div>
 
-              <CardHeader className="relative z-10 pb-3 lg:pb-4 p-4 lg:p-6">
-                <CardTitle className="text-lg md:text-xl lg:text-2xl text-white group-hover:text-gray-100 transition-colors duration-300 break-words">
-                  {project.title}
-                </CardTitle>
-              </CardHeader>
-
-              <CardContent className="relative z-10 space-y-4 lg:space-y-6 p-4 lg:p-6">
-                <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300 leading-relaxed text-sm md:text-base lg:text-lg break-words">
+              {/* Content Section */}
+              <div className="w-full lg:w-2/5 space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-lg bg-gradient-to-br ${project.color} bg-opacity-10`}>
+                    <project.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <span className={`text-transparent bg-clip-text bg-gradient-to-r ${project.color} font-bold tracking-wider uppercase text-sm`}>
+                    {project.category || "Development"}
+                  </span>
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold text-white">{project.title}</h2>
+                <h3 className="text-xl text-indigo-200">{project.subtitle}</h3>
+                
+                <p className="text-gray-400 leading-relaxed text-lg">
                   {project.description}
                 </p>
 
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-2 lg:gap-3">
-                  {project.tech.map((tech, techIndex) => (
-                    <Badge
-                      key={techIndex}
-                      className="bg-gray-800/80 text-gray-200 border border-indigo-500/30 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white transform-gpu hover:scale-110 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm px-2 py-1 lg:px-3 lg:py-1.5 shadow-md text-xs lg:text-sm"
-                      style={{
-                        boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                        animationDelay: `${techIndex * 0.1}s`,
-                      }}
-                    >
-                      {tech}
+                <div className="flex flex-wrap gap-2 pt-4">
+                  {project.tech.map(t => (
+                    <Badge key={t} variant="secondary" className="bg-white/5 hover:bg-white/10 text-gray-300 border-white/5">
+                      {t}
                     </Badge>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+
+                <div className="flex items-center gap-4 pt-6">
+                  <Button className="rounded-full group bg-white text-black hover:bg-gray-200">
+                    View Project <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button variant="outline" className="rounded-full border-white/20 text-white hover:bg-white/10">
+                    <Github className="w-4 h-4 mr-2" /> Source Code
+                  </Button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }

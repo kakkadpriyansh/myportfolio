@@ -1,8 +1,62 @@
+"use client"
+
+import { useRef, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Building, Calendar, Award, ExternalLink, MapPin, Users, Code, Trophy } from 'lucide-react'
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Experience() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    // Header Animation
+    gsap.fromTo(headerRef.current,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top bottom-=100",
+        }
+      }
+    )
+
+    // Cards Stagger Animation
+    cardsRef.current.forEach((card, index) => {
+      if (!card) return
+
+      gsap.fromTo(card,
+        { 
+          y: 100, 
+          opacity: 0,
+          rotateX: 10
+        },
+        {
+          y: 0,
+          opacity: 1,
+          rotateX: 0,
+          duration: 0.8,
+          delay: index * 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=50",
+            toggleActions: "play none none reverse"
+          }
+        }
+      )
+    })
+  }, [])
+
   const experiences = [
     {
       company: "Technova Technologies",
@@ -54,7 +108,7 @@ export default function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-32 px-4 relative overflow-hidden">
+    <section ref={containerRef} id="experience" className="py-32 px-4 relative overflow-hidden">
       {/* Enhanced background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse" />
@@ -63,7 +117,7 @@ export default function Experience() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
+        <div ref={headerRef} className="text-center mb-20">
           <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10">
             <Trophy className="h-8 w-8 text-white" />
           </div>
@@ -81,8 +135,8 @@ export default function Experience() {
         {/* Enhanced Experience Timeline */}
         <div className="space-y-12 mb-20">
           {experiences.map((exp, index) => (
+            <div key={index} ref={el => { cardsRef.current[index] = el }}>
             <Card
-              key={index}
               className="group relative overflow-hidden bg-gray-900/60 border-gray-700/50 hover:border-white/30 backdrop-blur-xl transform-gpu hover:scale-102 transition-all duration-700"
               style={{
                 boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
@@ -171,6 +225,7 @@ export default function Experience() {
                 </div>
               </CardContent>
             </Card>
+            </div>
           ))}
         </div>
 

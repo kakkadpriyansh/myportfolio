@@ -1,11 +1,60 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
+import { useRef, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
-import { useState } from "react"
+import { Card, CardContent } from "@/components/ui/card"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Skills() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const categoriesRef = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    // Header Animation
+    gsap.fromTo(headerRef.current,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top bottom-=100",
+        }
+      }
+    )
+
+    // Categories Stagger Animation
+    categoriesRef.current.forEach((cat, index) => {
+      if (!cat) return
+
+      gsap.fromTo(cat,
+        { 
+          y: 100, 
+          opacity: 0,
+          scale: 0.95
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          delay: index * 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: cat,
+            start: "top bottom-=50",
+            toggleActions: "play none none reverse"
+          }
+        }
+      )
+    })
+  }, [])
 
   const skillCategories = [
     {
@@ -21,7 +70,7 @@ export default function Skills() {
       ],
       icon: "🎨",
       gradient: "from-blue-500/20 to-purple-500/20",
-      bgGradient: "from-blue-500/5 via-purple-500/5 to-pink-500/5"
+      border: "group-hover:border-blue-500/50"
     },
     {
       title: "Backend",
@@ -34,7 +83,7 @@ export default function Skills() {
       ],
       icon: "⚙️",
       gradient: "from-green-500/20 to-blue-500/20",
-      bgGradient: "from-green-500/5 via-blue-500/5 to-teal-500/5"
+      border: "group-hover:border-green-500/50"
     },
     {
       title: "Databases",
@@ -45,7 +94,7 @@ export default function Skills() {
       ],
       icon: "🗄️",
       gradient: "from-purple-500/20 to-pink-500/20",
-      bgGradient: "from-purple-500/5 via-pink-500/5 to-red-500/5"
+      border: "group-hover:border-purple-500/50"
     },
     {
       title: "Tools & Deployment",
@@ -68,7 +117,7 @@ export default function Skills() {
       ],
       icon: "🛠️",
       gradient: "from-orange-500/20 to-red-500/20",
-      bgGradient: "from-orange-500/5 via-red-500/5 to-yellow-500/5"
+      border: "group-hover:border-orange-500/50"
     },
     {
       title: "Other",
@@ -81,16 +130,18 @@ export default function Skills() {
       ],
       icon: "✨",
       gradient: "from-teal-500/20 to-blue-500/20",
-      bgGradient: "from-teal-500/5 via-blue-500/5 to-cyan-500/5"
+      border: "group-hover:border-teal-500/50"
     },
   ]
 
   return (
-    <section id="skills" className="py-28 px-4 relative">
-      <div className="absolute inset-0" />
+    <section ref={containerRef} id="skills" className="py-28 px-4 relative">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/5 rounded-full blur-[120px]" />
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-14">
+        <div ref={headerRef} className="text-center mb-14">
           <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10">
             <span className="text-4xl">💻</span>
           </div>
@@ -99,51 +150,44 @@ export default function Skills() {
               Skills & Technologies
             </span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-6">
-            Expertise across the full technology stack with modern tools and frameworks
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            A comprehensive toolkit that empowers me to build end-to-end solutions
           </p>
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, index) => (
-            <Card
-              key={index}
-              className="group relative overflow-hidden bg-gray-900/40 border-white/10 hover:border-white/20 backdrop-blur-xl cursor-pointer"
-              style={{
-                boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-              }}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
+            <div 
+              key={index} 
+              ref={el => { categoriesRef.current[index] = el }}
+              className="group relative"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <CardContent className="p-6 relative z-10 h-full flex flex-col">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="text-2xl">{category.icon}</div>
-                  <h3 className="text-xl font-semibold text-white">{category.title}</h3>
-                </div>
-
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {category.skills.map((skill, skillIndex) => (
-                    <Badge
-                      key={skillIndex}
-                      className="bg-white/5 text-white/80 border border-white/10 hover:bg-white/15 hover:text-white transform-gpu transition-all duration-200 font-medium px-3 py-2 text-xs rounded-full whitespace-nowrap"
-                      style={{
-                        boxShadow: "0 8px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                        animationDelay: `${skillIndex * 0.1}s`,
-                      }}
-                    >
-                      <span className="mr-1.5">
-                        {skill.icon}
-                      </span>
-                      {skill.name}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+              <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <Card className={`h-full bg-gray-900/60 border-gray-700/50 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${category.border}`}>
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="text-4xl bg-white/5 p-3 rounded-xl border border-white/10 group-hover:scale-110 transition-transform duration-300">
+                      {category.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300">
+                      {category.title}
+                    </h3>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill, i) => (
+                      <Badge 
+                        key={i} 
+                        className="bg-white/5 hover:bg-white/10 text-gray-300 border-white/10 px-3 py-1.5 transition-all duration-300 hover:scale-105 hover:text-white"
+                      >
+                        <span className="mr-2">{skill.icon}</span>
+                        {skill.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           ))}
         </div>
       </div>
