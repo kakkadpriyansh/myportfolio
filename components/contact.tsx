@@ -2,19 +2,77 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState, useRef, useEffect } from "react"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle, User, Globe } from 'lucide-react'
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle, User, Globe, ArrowRight } from 'lucide-react'
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Contact() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLDivElement>(null)
+  const infoRef = useRef<HTMLDivElement>(null)
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   })
+
+  useEffect(() => {
+    // Header Animation
+    gsap.fromTo(headerRef.current,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top bottom-=100",
+        }
+      }
+    )
+
+    // Form Animation
+    gsap.fromTo(formRef.current,
+      { x: -50, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: "top bottom-=100",
+        }
+      }
+    )
+
+    // Info Animation
+    gsap.fromTo(infoRef.current,
+      { x: 50, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 0.4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: infoRef.current,
+          start: "top bottom-=100",
+        }
+      }
+    )
+  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -57,18 +115,24 @@ Sent from your portfolio website`
       title: "Email",
       value: "kakkadpriyansh@gmail.com",
       href: "mailto:kakkadpriyansh@gmail.com",
+      gradient: "from-blue-500/20 to-purple-500/20",
+      border: "group-hover:border-blue-500/50"
     },
     {
       icon: Phone,
       title: "WhatsApp",
       value: "+91 79840 79603",
       href: "https://wa.me/917984079603",
+      gradient: "from-green-500/20 to-emerald-500/20",
+      border: "group-hover:border-green-500/50"
     },
     {
       icon: MapPin,
       title: "Location",
       value: "India",
       href: "#",
+      gradient: "from-orange-500/20 to-red-500/20",
+      border: "group-hover:border-orange-500/50"
     },
   ]
 
@@ -91,154 +155,142 @@ Sent from your portfolio website`
   ]
 
   return (
-    <section id="contact" className="py-32 px-4 relative overflow-hidden professional-background professional-grid">
-      {/* Clean Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/2 to-white/1 rounded-full blur-3xl gentle-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-white/1 to-white/2 rounded-full blur-3xl gentle-pulse" style={{ animationDelay: "1s" }} />
+    <section ref={containerRef} id="contact" className="py-32 px-4 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "2s" }} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center justify-center p-6 professional-glass rounded-2xl mb-12 professional-shadow">
-            <Globe className="h-8 w-8 text-white/70 mr-4" />
-            <span className="text-white/80 text-xl font-medium">Let's Connect</span>
+        <div ref={headerRef} className="text-center mb-20">
+          <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-full mb-6 backdrop-blur-sm border border-white/10">
+            <MessageCircle className="h-6 w-6 text-white" />
           </div>
-          <h2 className="text-5xl md:text-7xl font-black mb-8 relative clean-heading">
+          <h2 className="text-6xl md:text-8xl font-black text-white mb-6 relative z-10">
             Get In Touch
           </h2>
-          <p className="text-xl clean-body max-w-3xl mx-auto mb-8 leading-relaxed">
-            Ready to collaborate on your next project? Let's create something extraordinary together.
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto rounded-full" />
+          <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">
+            Have a project in mind or just want to say hi? I'd love to hear from you.
           </p>
-          <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto gentle-pulse" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Contact Information */}
-          <div className="space-y-6 lg:space-y-8 w-full">
-            <Card className="group relative overflow-hidden professional-glass-strong transform-gpu hover:scale-105 hover:-translate-y-2 lg:hover:-translate-y-4 transition-all duration-500 professional-card professional-shadow w-full">
-              <CardHeader className="relative z-10 pb-4 lg:pb-6 p-4 lg:p-8">
-                <CardTitle className="text-xl md:text-2xl lg:text-3xl text-white group-hover:text-white/90 transition-colors duration-300 flex items-center clean-subheading break-words">
-                  <MessageCircle className="mr-3 lg:mr-4 h-6 w-6 lg:h-8 lg:w-8 flex-shrink-0" />
-                  <span className="break-words">Contact Information</span>
-                </CardTitle>
-              </CardHeader>
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Contact Form */}
+          <div ref={formRef} className="relative group perspective-1000">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
+            <Card className="relative h-full bg-gray-900/80 border-gray-800 backdrop-blur-sm">
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-sm font-medium text-gray-300 ml-1">Name</label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="John Doe"
+                        required
+                        className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20 h-12"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium text-gray-300 ml-1">Email</label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="john@example.com"
+                        required
+                        className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20 h-12"
+                      />
+                    </div>
+                  </div>
 
-              <CardContent className="space-y-4 lg:space-y-6 relative z-10 p-4 lg:p-8">
-                {contactInfo.map((contact, index) => (
-                  <a
-                    key={index}
-                    href={contact.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center space-x-3 lg:space-x-6 group/item p-3 lg:p-4 professional-glass rounded-xl hover:scale-105 transition-all duration-300 professional-interactive w-full"
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-sm font-medium text-gray-300 ml-1">Message</label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Tell me about your project..."
+                      required
+                      className="min-h-[150px] bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20 resize-none p-4"
+                    />
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-blue-500/25"
                   >
-                    <div className="relative flex-shrink-0">
-                      <div className="relative p-3 lg:p-4 professional-glass rounded-xl group-hover/item:scale-110 transition-all duration-300">
-                        <contact.icon className="h-5 w-5 lg:h-8 lg:w-8 text-white/70 group-hover/item:text-white relative z-10 transform group-hover/item:rotate-12 group-hover/item:scale-110 transition-all duration-300" />
-                      </div>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-white group-hover/item:text-white/90 transition-colors duration-300 text-base lg:text-lg">
-                        {contact.title}
-                      </p>
-                      <p className="clean-body group-hover/item:text-white/80 transition-colors duration-300 text-sm lg:text-base break-words">
-                        {contact.value}
-                      </p>
-                    </div>
-                  </a>
-                ))}
+                    Send Message <Send className="ml-2 h-5 w-5" />
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
 
-                {/* Social Links */}
-                <div className="pt-4 lg:pt-6">
-                  <p className="font-semibold mb-4 lg:mb-6 text-white text-base lg:text-xl clean-subheading">Connect with me:</p>
-                  <div className="flex space-x-4 lg:space-x-6">
+          {/* Contact Info */}
+          <div ref={infoRef} className="space-y-8">
+            <div className="grid gap-6">
+              {contactInfo.map((item, index) => (
+                <a 
+                  key={index}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative perspective-1000 block"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  <Card className={`relative bg-gray-900/80 border-gray-800 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${item.border}`}>
+                    <CardContent className="p-6 flex items-center gap-6">
+                      <div className="p-4 bg-white/5 rounded-full group-hover:scale-110 transition-transform duration-500">
+                        <item.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-white mb-1">{item.title}</h4>
+                        <p className="text-gray-400 group-hover:text-white transition-colors">{item.value}</p>
+                      </div>
+                      <ArrowRight className="ml-auto h-5 w-5 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                    </CardContent>
+                  </Card>
+                </a>
+              ))}
+            </div>
+
+            <div className="relative group perspective-1000">
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
+              <Card className="relative bg-gray-900/80 border-gray-800 backdrop-blur-sm">
+                <CardContent className="p-8 text-center">
+                  <h3 className="text-2xl font-bold text-white mb-6">Connect on Social Media</h3>
+                  <div className="flex justify-center gap-6">
                     {socialLinks.map((social, index) => (
                       <a
                         key={index}
                         href={social.href}
                         target="_blank"
-                        rel="noreferrer"
-                        className="group/social relative p-4 lg:p-6 professional-glass rounded-2xl transform-gpu hover:scale-110 transition-all duration-300 professional-interactive professional-shadow"
+                        rel="noopener noreferrer"
+                        className="p-4 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-300 border border-white/5 hover:border-white/20 group/icon"
+                        aria-label={social.label}
                       >
-                        <social.icon className="h-6 w-6 lg:h-8 lg:w-8 text-white/60 group-hover/social:text-white relative z-10 transform group-hover/social:rotate-12 group-hover/social:scale-110 transition-all duration-300" />
+                        <social.icon className="h-6 w-6 text-gray-400 group-hover/icon:text-white transition-colors" />
                       </a>
                     ))}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-
-          {/* Contact Form */}
-          <Card className="group relative overflow-hidden professional-glass-strong transform-gpu hover:scale-105 hover:-translate-y-2 lg:hover:-translate-y-4 transition-all duration-500 professional-card professional-shadow w-full">
-            <CardHeader className="relative z-10 pb-4 lg:pb-6 p-4 lg:p-8">
-              <CardTitle className="text-xl md:text-2xl lg:text-3xl text-white group-hover:text-white/90 transition-colors duration-300 flex items-center clean-subheading break-words">
-                <Send className="mr-3 lg:mr-4 h-6 w-6 lg:h-8 lg:w-8 flex-shrink-0" />
-                <span className="break-words">Send Message via WhatsApp</span>
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent className="relative z-10 p-4 lg:p-8">
-              <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
-                <div className="space-y-2">
-                  <label className="text-xs lg:text-sm font-medium text-white/80">Your Name</label>
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full professional-glass border-white/10 text-white placeholder-white/40 focus:border-white/30 focus:ring-white/20 transform-gpu hover:scale-105 transition-all duration-300 h-10 lg:h-12 text-base lg:text-lg rounded-xl professional-shadow"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs lg:text-sm font-medium text-white/80">Email Address</label>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full professional-glass border-white/10 text-white placeholder-white/40 focus:border-white/30 focus:ring-white/20 transform-gpu hover:scale-105 transition-all duration-300 h-10 lg:h-12 text-base lg:text-lg rounded-xl professional-shadow"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs lg:text-sm font-medium text-white/80">Message</label>
-                  <Textarea
-                    name="message"
-                    placeholder="Tell me about your project or just say hello..."
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full professional-glass border-white/10 text-white placeholder-white/40 focus:border-white/30 focus:ring-white/20 transform-gpu hover:scale-105 transition-all duration-300 resize-none text-base lg:text-lg rounded-xl professional-shadow"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="whatsapp"
-                  size="lg"
-                  className="w-full py-3 lg:py-4 h-auto font-semibold group/btn text-sm lg:text-base"
-                >
-                  <MessageCircle className="mr-2 lg:mr-3 h-5 w-5 lg:h-6 lg:w-6" />
-                  Send via WhatsApp
-                </Button>
-              </form>
-
-              {/* Info message */}
-              <div className="mt-4 lg:mt-6 p-3 lg:p-4 professional-glass rounded-xl border border-white/10">
-                <p className="text-xs lg:text-sm text-white/60 text-center break-words">
-                  📱 Clicking "Send via WhatsApp" will open WhatsApp with your message pre-filled
-                </p>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>
