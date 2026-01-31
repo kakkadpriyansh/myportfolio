@@ -8,6 +8,7 @@ import ThreeBackground from "@/components/three-background"
 import ScrollProgress from "@/components/scroll-progress"
 import Footer from "@/components/footer"
 import Preloader from "@/components/preloader"
+import { Toaster } from "sonner"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -59,6 +60,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
              </div>
+             <Toaster position="bottom-right" theme="dark" />
           </div>
         </SmoothScroll>
       </body>

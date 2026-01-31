@@ -7,9 +7,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle, User, Globe, ArrowRight } from 'lucide-react'
+import { Loader2, Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle, User, Globe, ArrowRight } from 'lucide-react'
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { toast } from "sonner"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,6 +20,7 @@ export default function Contact() {
   const formRef = useRef<HTMLDivElement>(null)
   const infoRef = useRef<HTMLDivElement>(null)
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -74,32 +76,35 @@ export default function Contact() {
     )
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Format the message for WhatsApp
-    const whatsappMessage = `Hi Priyansh! 👋
+    setIsSubmitting(true)
 
-*Name:* ${formData.name}
-*Email:* ${formData.email}
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
 
-*Message:*
-${formData.message}
+      if (!response.ok) {
+        throw new Error("Failed to send message")
+      }
 
----
-Sent from your portfolio website`
-
-    // Encode the message for URL
-    const encodedMessage = encodeURIComponent(whatsappMessage)
-    
-    // Create WhatsApp URL
-    const whatsappURL = `https://wa.me/917984079603?text=${encodedMessage}`
-    
-    // Open WhatsApp
-    window.open(whatsappURL, '_blank')
-    
-    // Reset form
-    setFormData({ name: "", email: "", message: "" })
+      toast.success("Message sent successfully!", {
+        description: "I'll get back to you as soon as possible.",
+      })
+      setFormData({ name: "", email: "", message: "" })
+    } catch (error) {
+      toast.error("Failed to send message", {
+        description: "Please try again later or contact me directly via email/WhatsApp.",
+      })
+      console.error(error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -231,9 +236,14 @@ Sent from your portfolio website`
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-blue-500/25"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message <Send className="ml-2 h-5 w-5" />
+                    {isSubmitting ? (
+                      <>Sending... <Loader2 className="ml-2 h-5 w-5 animate-spin" /></>
+                    ) : (
+                      <>Send Message <Send className="ml-2 h-5 w-5" /></>
+                    )}
                   </Button>
                 </form>
               </CardContent>
