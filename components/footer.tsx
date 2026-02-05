@@ -18,11 +18,11 @@ export default function Footer() {
     {
       title: "Quick Links",
       content: [
-        { name: "About", href: "/about" },
-        { name: "Skills", href: "/about" }, // Linking to about since skills are there
-        { name: "Projects", href: "/projects" },
-        { name: "Experience", href: "/experience" },
-        { name: "Contact", href: "/contact" }
+        { name: "About", href: "#about" },
+        { name: "Skills", href: "#skills" },
+        { name: "Projects", href: "#projects" },
+        { name: "Experience", href: "#experience" },
+        { name: "Contact", href: "#contact" }
       ],
       isLinks: true,
     },

@@ -23,7 +23,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden professional-background professional-grid">
+    <section id="home" className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden professional-background professional-grid">
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-3xl gentle-pulse" />

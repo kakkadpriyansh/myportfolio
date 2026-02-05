@@ -141,11 +141,11 @@ export default function Projects() {
   }, [])
 
   return (
-    <div ref={containerRef} className="py-24 md:py-32 relative">
+    <section id="projects" ref={containerRef} className="py-24 md:py-32 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-20 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-20 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-500/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-20 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-500/10 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4">
@@ -248,6 +248,6 @@ export default function Projects() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
