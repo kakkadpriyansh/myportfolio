@@ -1,14 +1,22 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, type ComponentType } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Mountain, Code, Globe, Users, ArrowRight } from "lucide-react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Button } from "./ui/button"
 import Link from "next/link"
+import { FiUsers, FiCode, FiGlobe, FiArrowRight } from "react-icons/fi"
 
 gsap.registerPlugin(ScrollTrigger)
+
+const highlightIconMap: Record<string, ComponentType<{ className?: string }>> = {
+  Education: FiCode as ComponentType<{ className?: string }>,
+  Experience: FiUsers as ComponentType<{ className?: string }>,
+  "Global Mindset": FiGlobe as ComponentType<{ className?: string }>,
+  Interests: FiUsers as ComponentType<{ className?: string }>,
+}
+const ArrowRightIcon = FiArrowRight as ComponentType<{ className?: string }>
 
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -76,7 +84,6 @@ export default function About() {
 
   const highlights = [
     {
-      icon: GraduationCap,
       title: "Education",
       desc: "B.E. — Computer Engineering",
       detail: "Marwadi University (2021–2025)",
@@ -84,7 +91,6 @@ export default function About() {
       border: "group-hover:border-blue-500/50"
     },
     {
-      icon: Code,
       title: "Experience",
       desc: "Full-Stack Development",
       detail: "Building scalable web applications",
@@ -92,7 +98,6 @@ export default function About() {
       border: "group-hover:border-green-500/50"
     },
     {
-      icon: Globe,
       title: "Global Mindset",
       desc: "Remote Ready",
       detail: "Collaborating across time zones",
@@ -100,7 +105,6 @@ export default function About() {
       border: "group-hover:border-orange-500/50"
     },
     {
-      icon: Mountain,
       title: "Interests",
       desc: "Exploration",
       detail: "Travel & Outdoor Adventures",
@@ -120,7 +124,10 @@ export default function About() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div ref={headerRef} className="text-center mb-20">
           <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-full mb-6 backdrop-blur-sm border border-white/10">
-            <Users className="h-6 w-6 text-white" />
+            {(() => {
+              const Icon = highlightIconMap["Experience"]
+              return Icon ? <Icon className="h-6 w-6 text-white" /> : null
+            })()}
           </div>
           <h2 className="text-6xl md:text-8xl font-black text-white mb-6 relative z-10">
             About Me
@@ -148,9 +155,9 @@ export default function About() {
                   </p>
                   
                   <div className="pt-4">
-                    <Link href="/contact">
+                    <Link href="#contact">
                       <Button className="bg-white text-black hover:bg-gray-200 rounded-full px-8 py-6 text-lg font-semibold transition-all hover:scale-105">
-                        Let's Work Together <ArrowRight className="ml-2 h-5 w-5" />
+                        Let's Work Together <ArrowRightIcon className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
                   </div>
@@ -171,7 +178,10 @@ export default function About() {
                 <Card className={`relative h-full bg-gray-900/80 border-gray-800 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${item.border}`}>
                   <CardContent className="p-6 flex flex-col items-start h-full">
                     <div className="p-3 bg-white/5 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-500">
-                      <item.icon className="h-8 w-8 text-white" />
+                      {(() => {
+                        const Icon = highlightIconMap[item.title]
+                        return Icon ? <Icon className="h-8 w-8 text-white" /> : null
+                      })()}
                     </div>
                     <h4 className="text-xl font-bold text-white mb-2">{item.title}</h4>
                     <p className="text-gray-400 font-medium mb-1">{item.desc}</p>

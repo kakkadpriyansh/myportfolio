@@ -4,8 +4,15 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { FiMenu, FiX, FiGithub, FiLinkedin } from "react-icons/fi"
+import type { ComponentType } from "react"
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const MenuIcon = FiMenu as IconComponent
+const CloseIcon = FiX as IconComponent
+const GithubIcon = FiGithub as IconComponent
+const LinkedinIcon = FiLinkedin as IconComponent
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -27,7 +34,6 @@ export function Navbar() {
           Priyansh Kakkad
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6">
           {routes.map((route) => (
             <Link
@@ -43,20 +49,19 @@ export function Navbar() {
           ))}
           <div className="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
              <Link href="https://github.com/kakkadpriyansh" target="_blank" rel="noopener noreferrer">
-                <Github className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
+                <GithubIcon className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
              </Link>
              <Link href="https://linkedin.com/in/kakkadpriyansh" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
+                <LinkedinIcon className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
              </Link>
           </div>
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden p-2 text-gray-400 hover:text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X /> : <Menu />}
+          {isOpen ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
         </button>
       </div>
 
@@ -79,10 +84,10 @@ export function Navbar() {
             ))}
             <div className="flex items-center gap-6 pt-4 border-t border-white/10">
               <Link href="https://github.com/kakkadpriyansh" target="_blank" rel="noopener noreferrer">
-                <Github className="w-6 h-6 text-gray-400 hover:text-white transition-colors" />
+                <GithubIcon className="w-6 h-6 text-gray-400 hover:text-white transition-colors" />
               </Link>
               <Link href="https://linkedin.com/in/kakkadpriyansh" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="w-6 h-6 text-gray-400 hover:text-white transition-colors" />
+                <LinkedinIcon className="w-6 h-6 text-gray-400 hover:text-white transition-colors" />
               </Link>
             </div>
           </div>

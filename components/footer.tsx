@@ -1,8 +1,18 @@
 "use client"
 
-import { Heart, Code, ArrowUpRight, Github, Linkedin, Instagram, Mail } from "lucide-react"
-import { useState } from "react"
+import { useState, type ComponentType } from "react"
 import Link from "next/link"
+import { FiHeart, FiCode, FiArrowUpRight, FiGithub, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi"
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const HeartIcon = FiHeart as IconComponent
+const CodeIcon = FiCode as IconComponent
+const ArrowUpRightIcon = FiArrowUpRight as IconComponent
+const GithubIcon = FiGithub as IconComponent
+const LinkedinIcon = FiLinkedin as IconComponent
+const InstagramIcon = FiInstagram as IconComponent
+const MailIcon = FiMail as IconComponent
 
 export default function Footer() {
   const [hoveredSection, setHoveredSection] = useState<number | null>(null)
@@ -29,10 +39,10 @@ export default function Footer() {
     {
       title: "Socials",
       content: [
-        { name: "GitHub", href: "https://github.com/kakkadpriyansh", icon: Github },
-        { name: "LinkedIn", href: "https://linkedin.com/in/kakkadpriyansh", icon: Linkedin },
-        { name: "Instagram", href: "https://instagram.com/kakkadpriyansh", icon: Instagram },
-        { name: "Email", href: "mailto:kakkadpriyansh@gmail.com", icon: Mail }
+        { name: "GitHub", href: "https://github.com/kakkadpriyansh", icon: GithubIcon },
+        { name: "LinkedIn", href: "https://linkedin.com/in/kakkadpriyansh", icon: LinkedinIcon },
+        { name: "Instagram", href: "https://instagram.com/kakkadpriyansh", icon: InstagramIcon },
+        { name: "Email", href: "mailto:kakkadpriyansh@gmail.com", icon: MailIcon }
       ],
       isSocial: true,
     },
@@ -95,7 +105,7 @@ export default function Footer() {
                       >
                         <link.icon className="h-5 w-5 text-gray-500 group-hover/link:text-blue-400 transition-colors" />
                         <span>{link.name}</span>
-                        <ArrowUpRight className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transform translate-y-1 group-hover/link:translate-y-0 transition-all duration-300 text-blue-400" />
+                        <ArrowUpRightIcon className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transform translate-y-1 group-hover/link:translate-y-0 transition-all duration-300 text-blue-400" />
                       </a>
                     </li>
                   ))}
@@ -122,7 +132,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-6">
           <div className="flex items-center space-x-2 group cursor-default">
-            <Code className="h-5 w-5 text-blue-500 group-hover:rotate-12 transition-transform duration-500" />
+            <CodeIcon className="h-5 w-5 text-blue-500 group-hover:rotate-12 transition-transform duration-500" />
             <span className="text-gray-400 text-sm">
               Built with Next.js 15 & Tailwind CSS
             </span>
@@ -130,7 +140,7 @@ export default function Footer() {
 
           <div className="flex items-center space-x-2 text-gray-400 text-sm">
             <span>Made with</span>
-            <Heart className="h-4 w-4 text-red-500 animate-pulse fill-red-500" />
+            <HeartIcon className="h-4 w-4 text-red-500 animate-pulse fill-red-500" />
             <span>by Priyansh Kakkad &copy; {new Date().getFullYear()}</span>
           </div>
         </div>

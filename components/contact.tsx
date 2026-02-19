@@ -2,17 +2,43 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, type ComponentType } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Loader2, Mail, Phone, MapPin, Github, Linkedin, Instagram, Send, MessageCircle, User, Globe, ArrowRight } from 'lucide-react'
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { toast } from "sonner"
+import {
+  FiLoader,
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiGithub,
+  FiLinkedin,
+  FiInstagram,
+  FiSend,
+  FiMessageCircle,
+  FiUser,
+  FiArrowRight,
+} from "react-icons/fi"
 
 gsap.registerPlugin(ScrollTrigger)
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const LoaderIcon = FiLoader as IconComponent
+const MailIcon = FiMail as IconComponent
+const PhoneIcon = FiPhone as IconComponent
+const MapPinIcon = FiMapPin as IconComponent
+const GithubIcon = FiGithub as IconComponent
+const LinkedinIcon = FiLinkedin as IconComponent
+const InstagramIcon = FiInstagram as IconComponent
+const SendIcon = FiSend as IconComponent
+const MessageCircleIcon = FiMessageCircle as IconComponent
+const UserIcon = FiUser as IconComponent
+const ArrowRightIcon = FiArrowRight as IconComponent
 
 export default function Contact() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -116,44 +142,44 @@ export default function Contact() {
 
   const contactInfo = [
     {
-      icon: Mail,
+      icon: MailIcon,
       title: "Email",
       value: "kakkadpriyansh@gmail.com",
       href: "mailto:kakkadpriyansh@gmail.com",
       gradient: "from-blue-500/20 to-purple-500/20",
-      border: "group-hover:border-blue-500/50"
+      border: "group-hover:border-blue-500/50",
     },
     {
-      icon: Phone,
+      icon: PhoneIcon,
       title: "WhatsApp",
       value: "+91 79840 79603",
       href: "https://wa.me/917984079603",
       gradient: "from-green-500/20 to-emerald-500/20",
-      border: "group-hover:border-green-500/50"
+      border: "group-hover:border-green-500/50",
     },
     {
-      icon: MapPin,
+      icon: MapPinIcon,
       title: "Location",
       value: "India",
       href: "#",
       gradient: "from-orange-500/20 to-red-500/20",
-      border: "group-hover:border-orange-500/50"
+      border: "group-hover:border-orange-500/50",
     },
   ]
 
   const socialLinks = [
     {
-      icon: Github,
+      icon: GithubIcon,
       href: "https://github.com/kakkadpriyansh",
       label: "GitHub",
     },
     {
-      icon: Linkedin,
+      icon: LinkedinIcon,
       href: "https://linkedin.com/in/kakkadpriyansh",
       label: "LinkedIn",
     },
     {
-      icon: Instagram,
+      icon: InstagramIcon,
       href: "https://instagram.com/kakkadpriyansh",
       label: "Instagram",
     },
@@ -170,7 +196,7 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div ref={headerRef} className="text-center mb-20">
           <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-full mb-6 backdrop-blur-sm border border-white/10">
-            <MessageCircle className="h-6 w-6 text-white" />
+            <MessageCircleIcon className="h-6 w-6 text-white" />
           </div>
           <h2 className="text-6xl md:text-8xl font-black text-white mb-6 relative z-10">
             Get In Touch
@@ -191,7 +217,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-gray-300 ml-1">Name</label>
                     <div className="relative">
-                      <User className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
+                      <UserIcon className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                       <Input
                         id="name"
                         name="name"
@@ -207,7 +233,7 @@ export default function Contact() {
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-gray-300 ml-1">Email</label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
+                      <MailIcon className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                       <Input
                         id="email"
                         name="email"
@@ -240,9 +266,13 @@ export default function Contact() {
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
-                      <>Sending... <Loader2 className="ml-2 h-5 w-5 animate-spin" /></>
+                      <>
+                        Sending... <LoaderIcon className="ml-2 h-5 w-5 animate-spin" />
+                      </>
                     ) : (
-                      <>Send Message <Send className="ml-2 h-5 w-5" /></>
+                      <>
+                        Send Message <SendIcon className="ml-2 h-5 w-5" />
+                      </>
                     )}
                   </Button>
                 </form>
@@ -271,7 +301,7 @@ export default function Contact() {
                         <h4 className="text-lg font-semibold text-white mb-1">{item.title}</h4>
                         <p className="text-gray-400 group-hover:text-white transition-colors">{item.value}</p>
                       </div>
-                      <ArrowRight className="ml-auto h-5 w-5 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                      <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
                     </CardContent>
                   </Card>
                 </a>

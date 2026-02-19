@@ -1,11 +1,34 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, type ComponentType } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Building, Calendar, Award, ExternalLink, MapPin, Users, Code, Trophy } from 'lucide-react'
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { FiBriefcase, FiCalendar, FiExternalLink, FiMapPin, FiUsers, FiCode, FiAward } from "react-icons/fi"
+import {
+  SiNextdotjs,
+  SiReact,
+  SiNodedotjs,
+  SiNginx,
+} from "react-icons/si"
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const BriefcaseIcon = FiBriefcase as IconComponent
+const CalendarIcon = FiCalendar as IconComponent
+const ExternalLinkIcon = FiExternalLink as IconComponent
+const MapPinIcon = FiMapPin as IconComponent
+const UsersIcon = FiUsers as IconComponent
+const CodeIcon = FiCode as IconComponent
+const AwardIcon = FiAward as IconComponent
+
+const experienceSkillIconMap: Record<string, IconComponent> = {
+  "Next.js": SiNextdotjs as IconComponent,
+  "React.js": SiReact as IconComponent,
+  "Node.js": SiNodedotjs as IconComponent,
+  "Nginx": SiNginx as IconComponent,
+}
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -141,7 +164,7 @@ export default function Experience() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div ref={headerRef} className="text-center mb-20">
           <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10">
-            <Trophy className="h-8 w-8 text-white" />
+            <AwardIcon className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-6xl md:text-8xl font-black mb-6 relative">
             <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
@@ -173,7 +196,7 @@ export default function Experience() {
                     <div className="relative mr-6 group-hover:scale-110 transition-transform duration-300">
                       <div className="absolute inset-0 bg-white/20 rounded-full blur-xl scale-150 group-hover:scale-200 transition-transform duration-500" />
                       <div className="relative p-4 bg-gray-800/90 rounded-full border border-gray-600/50">
-                        <Building className="h-8 w-8 text-white relative z-10" />
+                        <BriefcaseIcon className="h-8 w-8 text-white relative z-10" />
                       </div>
                     </div>
                     <div className="flex-1">
@@ -186,7 +209,7 @@ export default function Experience() {
                             className="text-3xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300 hover:text-blue-300 flex items-center gap-2"
                           >
                             {exp.company}
-                            <ExternalLink className="h-6 w-6" />
+                            <ExternalLinkIcon className="h-6 w-6" />
                           </a>
                         ) : (
                           <h3 className="text-3xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300">
@@ -202,15 +225,15 @@ export default function Experience() {
                       {/* Enhanced metadata */}
                       <div className="flex flex-wrap items-center gap-4 mb-6">
                         <Badge className="bg-white/10 text-white border-white/20 px-3 py-1 flex items-center gap-2">
-                          <Code className="h-4 w-4" />
+                          <CodeIcon className="h-4 w-4" />
                           {exp.type}
                         </Badge>
                         <div className="flex items-center text-gray-400 text-sm">
-                          <MapPin className="h-4 w-4 mr-1" />
+                          <MapPinIcon className="h-4 w-4 mr-1" />
                           {exp.location}
                         </div>
                         <div className="flex items-center text-gray-400 text-sm">
-                          <Users className="h-4 w-4 mr-1" />
+                          <UsersIcon className="h-4 w-4 mr-1" />
                           Team: {exp.teamSize}
                         </div>
                       </div>
@@ -218,7 +241,7 @@ export default function Experience() {
                   </div>
 
                   <div className="flex items-center text-gray-400 group-hover:text-gray-300 transition-colors duration-300 lg:ml-6">
-                    <Calendar className="h-6 w-6 mr-3" />
+                    <CalendarIcon className="h-6 w-6 mr-3" />
                     <span className="text-lg font-medium">{exp.duration}</span>
                   </div>
                 </div>
@@ -229,21 +252,29 @@ export default function Experience() {
 
                 {/* Enhanced skills with icons */}
                 <div className="flex flex-wrap gap-4">
-                  {exp.skills.map((skill, skillIndex) => (
-                    <Badge
-                      key={skillIndex}
-                      className="bg-gray-800/90 text-gray-200 border border-gray-600/50 hover:bg-white hover:text-black transform-gpu hover:scale-110 transition-all duration-300 font-medium px-4 py-2 text-sm backdrop-blur-sm group/skill"
-                      style={{
-                        boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                        animationDelay: `${skillIndex * 0.1}s`,
-                      }}
-                    >
-                      <span className="mr-2 transform group-hover/skill:scale-125 transition-transform duration-300">
-                        {skill.icon}
-                      </span>
-                      {skill.name}
-                    </Badge>
-                  ))}
+                  {exp.skills.map((skill, skillIndex) => {
+                    const Icon = experienceSkillIconMap[skill.name]
+                    const TypedIcon = Icon as IconComponent | undefined
+                    return (
+                      <Badge
+                        key={skillIndex}
+                        className="bg-gray-800/90 text-gray-200 border border-gray-600/50 hover:bg-white hover:text-black transform-gpu hover:scale-110 transition-all duration-300 font-medium px-4 py-2 text-sm backdrop-blur-sm group/skill"
+                        style={{
+                          boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                          animationDelay: `${skillIndex * 0.1}s`,
+                        }}
+                      >
+                        {TypedIcon ? (
+                          <TypedIcon className="mr-2 text-white transform group-hover/skill:scale-125 transition-transform duration-300" />
+                        ) : (
+                          <span className="mr-2 transform group-hover/skill:scale-125 transition-transform duration-300">
+                            {skill.icon}
+                          </span>
+                        )}
+                        {skill.name}
+                      </Badge>
+                    )
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -265,7 +296,7 @@ export default function Experience() {
               <div className="flex items-center justify-center mb-8">
                 <div className="relative">
                   <div className="absolute inset-0 bg-yellow-500/20 rounded-full blur-xl scale-150 animate-pulse" />
-                  <Award className="h-8 md:h-12 w-8 md:w-12 text-white mr-4 relative z-10" />
+                  <AwardIcon className="h-8 md:h-12 w-8 md:w-12 text-white mr-4 relative z-10" />
                 </div>
                 <h3 className="text-2xl md:text-4xl font-bold text-white">Key Achievements</h3>
               </div>

@@ -1,9 +1,19 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Download, Mail, Github, Linkedin, Instagram, ChevronDown, User, Briefcase } from 'lucide-react'
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useState, type ComponentType } from "react"
+import { FiDownload, FiMail, FiGithub, FiLinkedin, FiInstagram, FiUser, FiBriefcase } from "react-icons/fi"
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const DownloadIcon = FiDownload as IconComponent
+const MailIcon = FiMail as IconComponent
+const GithubIcon = FiGithub as IconComponent
+const LinkedinIcon = FiLinkedin as IconComponent
+const InstagramIcon = FiInstagram as IconComponent
+const UserIcon = FiUser as IconComponent
+const BriefcaseIcon = FiBriefcase as IconComponent
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -75,9 +85,10 @@ export default function Hero() {
                 PRIYANSH KAKKAD
               </span>
             </h1>
-            {/* Professional Decorations */}
-            <User className="absolute top-4 right-4 h-8 w-8 text-white/20 gentle-pulse" />
-            <Briefcase className="absolute bottom-4 left-4 h-6 w-6 text-white/15 gentle-pulse" style={{ animationDelay: "1s" }} />
+            <UserIcon className="absolute top-4 right-4 h-8 w-8 text-white/20 gentle-pulse" />
+            <div className="absolute bottom-4 left-4">
+              <BriefcaseIcon className="h-6 w-6 text-white/15 gentle-pulse" />
+            </div>
           </div>
 
           {/* Professional Subtitle */}
@@ -109,7 +120,7 @@ export default function Hero() {
               className="group relative overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold shadow-lg hover:shadow-indigo-500/25"
               rel="noreferrer"
             >
-              <Download className="mr-3 h-6 w-6 relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
+              <DownloadIcon className="mr-3 h-6 w-6 relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
               <span className="relative z-10">Download Resume</span>
             </a>
 
@@ -119,7 +130,7 @@ export default function Hero() {
               rel="noreferrer"
               className="group relative overflow-hidden backdrop-blur-sm border border-indigo-500/30 hover:border-indigo-500/50 hover:bg-indigo-500/10 px-8 py-4 rounded-xl transform-gpu hover:scale-105 hover:-translate-y-2 transition-all duration-500 inline-flex items-center justify-center text-lg font-semibold shadow-lg hover:shadow-indigo-500/20"
             >
-              <Mail className="mr-3 h-6 w-6 relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
+              <MailIcon className="mr-3 h-6 w-6 relative z-10 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
               <span className="relative z-10">Contact Me</span>
             </a>
           </div>
@@ -128,9 +139,9 @@ export default function Hero() {
           <div className={`flex justify-center space-x-8 mb-16 ${isLoaded ? 'smooth-fade-in' : 'opacity-0'}`} 
                style={{ animationDelay: "1.5s" }}>
             {[
-              { icon: Github, href: "https://github.com/kakkadpriyansh", color: "from-purple-500 to-indigo-500" },
-              { icon: Linkedin, href: "https://linkedin.com/in/kakkadpriyansh", color: "from-blue-500 to-cyan-500" },
-              { icon: Instagram, href: "https://instagram.com/kakkadpriyansh", color: "from-pink-500 to-orange-400" },
+              { icon: GithubIcon, href: "https://github.com/kakkadpriyansh", color: "from-purple-500 to-indigo-500" },
+              { icon: LinkedinIcon, href: "https://linkedin.com/in/kakkadpriyansh", color: "from-blue-500 to-cyan-500" },
+              { icon: InstagramIcon, href: "https://instagram.com/kakkadpriyansh", color: "from-pink-500 to-orange-400" },
             ].map((social, index) => (
               <a
                 key={index}

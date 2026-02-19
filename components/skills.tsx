@@ -5,8 +5,64 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import type { ComponentType } from "react"
+import {
+  SiNextdotjs,
+  SiReact,
+  SiJavascript,
+  SiHtml5,
+  SiCss3,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiExpress,
+  SiPython,
+  SiDotnet,
+  SiMongodb,
+  SiMysql,
+  SiGit,
+  SiGithub,
+  SiPostman,
+  SiXampp,
+  SiFigma,
+  SiNginx,
+  SiJsonwebtokens,
+  SiGnubash,
+} from "react-icons/si"
 
 gsap.registerPlugin(ScrollTrigger)
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const skillIconMap: Record<string, IconComponent> = {
+  "Next.js": SiNextdotjs as IconComponent,
+  "React.js": SiReact as IconComponent,
+  "JavaScript (ES6+)": SiJavascript as IconComponent,
+  "HTML5": SiHtml5 as IconComponent,
+  "CSS3": SiCss3 as IconComponent,
+  "TailwindCSS": SiTailwindcss as IconComponent,
+  "Node.js": SiNodedotjs as IconComponent,
+  "Express.js": SiExpress as IconComponent,
+  "Python (Flask Basics)": SiPython as IconComponent,
+  ".NET Core (Basic APIs)": SiDotnet as IconComponent,
+  "MongoDB": SiMongodb as IconComponent,
+  "MySQL": SiMysql as IconComponent,
+  "Git": SiGit as IconComponent,
+  "GitHub": SiGithub as IconComponent,
+  "Postman": SiPostman as IconComponent,
+  "XAMPP": SiXampp as IconComponent,
+  "Figma": SiFigma as IconComponent,
+  "Nginx": SiNginx as IconComponent,
+  "JWT / OAuth": SiJsonwebtokens as IconComponent,
+  "Bash Scripting": SiGnubash as IconComponent,
+}
+
+const categoryIconMap: Record<string, IconComponent> = {
+  Frontend: SiReact as IconComponent,
+  Backend: SiNodedotjs as IconComponent,
+  Databases: SiMongodb as IconComponent,
+  "Tools & Deployment": SiGit as IconComponent,
+  Other: SiJsonwebtokens as IconComponent,
+}
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -167,7 +223,14 @@ export default function Skills() {
                 <CardContent className="p-8">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="text-4xl bg-white/5 p-3 rounded-xl border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                      {category.icon}
+                      {(() => {
+                        const Icon = categoryIconMap[category.title]
+                        if (Icon) {
+                          const TypedIcon = Icon as IconComponent
+                          return <TypedIcon />
+                        }
+                        return <span>{category.icon}</span>
+                      })()}
                     </div>
                     <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300">
                       {category.title}
@@ -175,15 +238,23 @@ export default function Skills() {
                   </div>
                   
                   <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, i) => (
-                      <Badge 
-                        key={i} 
-                        className="bg-white/5 hover:bg-white/10 text-gray-300 border-white/10 px-3 py-1.5 transition-all duration-300 hover:scale-105 hover:text-white"
-                      >
-                        <span className="mr-2">{skill.icon}</span>
-                        {skill.name}
-                      </Badge>
-                    ))}
+                    {category.skills.map((skill, i) => {
+                      const Icon = skillIconMap[skill.name]
+                      const TypedIcon = Icon as IconComponent | undefined
+                      return (
+                        <Badge
+                          key={i}
+                          className="bg-white/5 hover:bg-white/10 text-gray-300 border-white/10 px-3 py-1.5 transition-all duration-300 hover:scale-105 hover:text-white"
+                        >
+                          {TypedIcon ? (
+                            <TypedIcon className="mr-2 text-white" />
+                          ) : (
+                            <span className="mr-2">{skill.icon}</span>
+                          )}
+                          {skill.name}
+                        </Badge>
+                      )
+                    })}
                   </div>
                 </CardContent>
               </Card>

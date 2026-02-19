@@ -1,13 +1,35 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type ComponentType } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink, ArrowRight, Sparkles, Layers, Database, Globe, ShoppingCart, Cpu } from "lucide-react"
+import {
+  FiGithub,
+  FiExternalLink,
+  FiArrowRight,
+  FiStar,
+  FiLayers,
+  FiDatabase,
+  FiGlobe,
+  FiShoppingCart,
+  FiCpu,
+} from "react-icons/fi"
+
+type IconComponent = ComponentType<{ className?: string }>
+
+const GithubIcon = FiGithub as IconComponent
+const ExternalLinkIcon = FiExternalLink as IconComponent
+const ArrowRightIcon = FiArrowRight as IconComponent
+const StarIcon = FiStar as IconComponent
+const LayersIcon = FiLayers as IconComponent
+const DatabaseIcon = FiDatabase as IconComponent
+const GlobeIcon = FiGlobe as IconComponent
+const ShoppingCartIcon = FiShoppingCart as IconComponent
+const CpuIcon = FiCpu as IconComponent
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,7 +45,7 @@ const projects = [
     tech: ["Next.js", "MongoDB", "Node.js", "AWS", "Tailwind"],
     category: "Travel & Blog",
     color: "from-blue-600 to-cyan-500",
-    icon: Globe,
+    icon: GlobeIcon,
     link: "#",
     github: "#"
   },
@@ -38,7 +60,7 @@ const projects = [
     tech: ["Next.js", "Razorpay", "Analytics", "PostgreSQL"],
     category: "E-commerce",
     color: "from-purple-600 to-pink-500",
-    icon: ShoppingCart,
+    icon: ShoppingCartIcon,
     link: "#",
     github: "#"
   },
@@ -52,7 +74,7 @@ const projects = [
     ],
     tech: ["Next.js", "Redis", "BullMQ", "MongoDB"],
     color: "from-emerald-500 to-teal-400",
-    icon: Layers,
+    icon: LayersIcon,
     link: "#",
     github: "#"
   },
@@ -63,7 +85,7 @@ const projects = [
     images: ["/images/chatbot-interface.png"],
     tech: ["IBM Watson", "Python", "NLP", "Flask"],
     color: "from-orange-500 to-red-500",
-    icon: Cpu,
+    icon: CpuIcon,
     link: "#",
     github: "#"
   },
@@ -75,7 +97,7 @@ const projects = [
     tech: ["ASP.NET Core", "React", "Docker", "PostgreSQL"],
     category: "Social Impact",
     color: "from-indigo-500 to-blue-500",
-    icon: Database,
+    icon: DatabaseIcon,
     link: "#",
     github: "#"
   }
@@ -152,7 +174,7 @@ export default function Projects() {
         {/* Header */}
         <div className="project-header text-center mb-24 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-indigo-300 backdrop-blur-md">
-            <Sparkles className="w-4 h-4" />
+            <StarIcon className="w-4 h-4" />
             <span>Portfolio Showcase</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-100 to-gray-400">
@@ -237,10 +259,10 @@ export default function Projects() {
 
                 <div className="flex items-center gap-4 pt-6">
                   <Button className="rounded-full group bg-white text-black hover:bg-gray-200">
-                    View Project <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    View Project <ArrowRightIcon className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   <Button variant="outline" className="rounded-full border-white/20 text-white hover:bg-white/10">
-                    <Github className="w-4 h-4 mr-2" /> Source Code
+                    <GithubIcon className="w-4 h-4 mr-2" /> Source Code
                   </Button>
                 </div>
               </div>
