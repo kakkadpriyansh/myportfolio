@@ -59,11 +59,33 @@ export default function Experience() {
 
   const experiences = [
     {
+      company: "Bharat Edge Services Pvt Ltd",
+      role: "Full Stack Developer",
+      duration: "January 2026 – Present",
+      description:
+        "Building and maintaining full-stack web applications with a focus on performance, scalability, and clean architecture. Working across frontend and backend using modern web technologies, integrating secure REST APIs, and collaborating with cross-functional teams to deliver production-ready features.",
+      skills: [
+        { name: "Next.js", icon: "⚛️" },
+        { name: "React.js", icon: "⚛️" },
+        { name: "Node.js", icon: "🟢" },
+        { name: "REST APIs", icon: "🔗" },
+        { name: "CI/CD", icon: "🚀" },
+        { name: "Nginx", icon: "🌀" },
+        { name: "PM2", icon: "🛠️" },
+        { name: "SSL", icon: "🔒" }
+      ],
+      type: "Full-time",
+      website: undefined,
+      location: "Ahmedabad",
+      teamSize: "80-100",
+      gradient: "from-blue-500/10 to-purple-500/10"
+    },
+    {
       company: "Technova Technologies",
       role: "Next.js & React.js Developer",
-      duration: "March 2025 – Present",
+      duration: "March 2025 – January 2026",
       description:
-        "Building a full-scale auditing system frontend using Next.js & React.js. Implemented SSR/CSR components, routing, and optimized UI flows. Developed backend logic with Node.js and integrated secure REST APIs. Set up CI/CD pipeline using GitHub Actions for automated deployment. Configured VPS deployment using Nginx + PM2 + SSL, including auto-pull.",
+        "Built a full-scale auditing system frontend using Next.js & React.js. Implemented SSR/CSR components, routing, and optimized UI flows. Developed backend logic with Node.js and integrated secure REST APIs. Set up CI/CD pipeline using GitHub Actions for automated deployment. Configured VPS deployment using Nginx + PM2 + SSL, including auto-pull.",
       skills: [
         { name: "Next.js", icon: "⚛️" },
         { name: "React.js", icon: "⚛️" },

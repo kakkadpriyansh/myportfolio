@@ -13,8 +13,13 @@ Next.js and React.js developer with strong experience in building fast, scalable
 
 ## 💼 Professional Experience
 
-### **Technova Technologies** — *March 2025 – Present*
-- Building a full-scale auditing system frontend using Next.js & React.js.  
+### **Bharat Edge Services Pvt Ltd** — *January 2026 – Present*
+- Working as a Full Stack Developer, building and maintaining production-ready web applications.  
+- Implementing performant frontends with Next.js & React.js and integrating secure REST APIs.  
+- Contributing to backend services, deployment pipelines, and system monitoring for reliability.  
+
+### **Technova Technologies** — *March 2025 – January 2026*
+- Built a full-scale auditing system frontend using Next.js & React.js.  
 - Implemented SSR/CSR components, routing, and optimized UI flows.  
 - Developed backend logic with Node.js and integrated secure REST APIs.  
 - Set up CI/CD pipeline using GitHub Actions for automated deployment.  
@@ -85,4 +90,3 @@ English, Gujarati, Hindi
 - Python Programming (University of Michigan)  
 - Token Service Technology (Visa)  
 - Game Development (MU)  
-
