@@ -278,7 +278,7 @@ export default function Hero() {
                   }}
                 />
                 <Image
-                  src="/images/IMG_0350.jpg"
+                  src="/images/myphoto.jpg"
                   alt="Priyansh Kakkad"
                   fill
                   className="object-cover object-top"

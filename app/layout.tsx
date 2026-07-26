@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     siteName: "Priyansh Kakkad Portfolio",
     images: [
       {
-        url: "/images/IMG_0350.jpg",
+        url: "/images/myphoto.jpg",
         width: 1200,
         height: 630,
         alt: "Priyansh Kakkad - Full-Stack Developer",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: "Priyansh Kakkad - Full-Stack Developer",
     description: "Portfolio of Priyansh Kakkad, a passionate full-stack developer.",
     creator: "@kakkadpriyansh",
-    images: ["/images/IMG_0350.jpg"],
+    images: ["/images/myphoto.jpg"],
   },
   icons: {
     icon: [
@@ -117,7 +117,7 @@ const jsonLd = {
     "https://linkedin.com/in/kakkadpriyansh",
     "https://instagram.com/kakkadpriyansh"
   ],
-  "image": "https://kakkadpriyansh.in/images/IMG_0350.jpg",
+  "image": "https://kakkadpriyansh.in/images/myphoto.jpg",
   "description": "Full-Stack Developer specializing in Next.js, React, and Modern Web Technologies."
 }
 
