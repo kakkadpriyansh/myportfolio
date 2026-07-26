@@ -243,7 +243,7 @@ export default function Contact() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center"
                   style={{ background: "rgba(34,211,238,0.1)", border: "1px solid rgba(34,211,238,0.2)" }}
                 >
-                  <MessageCircleIcon className="w-5 h-5" style={{ color: "rgb(34,211,238)" }} />
+                  <span style={{ color: "rgb(34,211,238)", display: "flex" }}><MessageCircleIcon className="w-5 h-5" /></span>
                 </div>
                 <h3 className="text-xl font-bold text-white">Send a Message</h3>
               </div>
@@ -311,7 +311,7 @@ export default function Contact() {
                   className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
                   style={{ background: `rgba(${item.accentRgb},0.1)`, border: `1px solid rgba(${item.accentRgb},0.2)` }}
                 >
-                  <item.Icon className="w-5 h-5" style={{ color: `rgba(${item.accentRgb},1)` }} />
+                  <span style={{ color: `rgba(${item.accentRgb},1)`, display: "flex" }}><item.Icon className="w-5 h-5" /></span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">{item.title}</p>

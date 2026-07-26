@@ -176,7 +176,7 @@ function ProjectCard({ project }: { project: Project }) {
             className="p-1.5 rounded-lg"
             style={{ background: `rgba(${project.accentRgb},0.1)`, border: `1px solid rgba(${project.accentRgb},0.2)` }}
           >
-            <project.Icon className="w-3.5 h-3.5" style={{ color: `rgba(${project.accentRgb},1)` }} />
+            <span style={{ color: `rgba(${project.accentRgb},1)`, display: "flex" }}><project.Icon className="w-3.5 h-3.5" /></span>
           </div>
         </div>
 

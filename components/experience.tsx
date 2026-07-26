@@ -276,7 +276,7 @@ export default function Experience() {
         {/* ── Achievements ── */}
         <div className="mt-20">
           <div className="flex items-center gap-3 mb-8">
-            <AwardIcon className="w-5 h-5" style={{ color: "rgba(34,211,238,1)" }} />
+            <span style={{ color: "rgba(34,211,238,1)", display: "flex" }}><AwardIcon className="w-5 h-5" /></span>
             <h3 className="text-xl font-bold text-white">Key Achievements</h3>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
