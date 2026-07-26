@@ -1,148 +1,164 @@
 "use client"
 
-import { useState, type ComponentType } from "react"
 import Link from "next/link"
+import { type ComponentType } from "react"
 import { FiHeart, FiCode, FiArrowUpRight, FiGithub, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi"
 
-type IconComponent = ComponentType<{ className?: string }>
+type IC = ComponentType<{ className?: string }>
+const HeartIcon       = FiHeart       as IC
+const CodeIcon        = FiCode        as IC
+const ArrowUpRightIcon = FiArrowUpRight as IC
+const GithubIcon      = FiGithub      as IC
+const LinkedinIcon    = FiLinkedin    as IC
+const InstagramIcon   = FiInstagram   as IC
+const MailIcon        = FiMail        as IC
 
-const HeartIcon = FiHeart as IconComponent
-const CodeIcon = FiCode as IconComponent
-const ArrowUpRightIcon = FiArrowUpRight as IconComponent
-const GithubIcon = FiGithub as IconComponent
-const LinkedinIcon = FiLinkedin as IconComponent
-const InstagramIcon = FiInstagram as IconComponent
-const MailIcon = FiMail as IconComponent
+const navLinks = [
+  { label: "About",      href: "#about"      },
+  { label: "Skills",     href: "#skills"     },
+  { label: "Projects",   href: "#projects"   },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact",    href: "#contact"    },
+]
+
+const socials = [
+  { Icon: GithubIcon,    href: "https://github.com/kakkadpriyansh",     label: "GitHub",    color: "#fff"    },
+  { Icon: LinkedinIcon,  href: "https://linkedin.com/in/kakkadpriyansh", label: "LinkedIn",  color: "#0a66c2" },
+  { Icon: InstagramIcon, href: "https://instagram.com/kakkadpriyansh",   label: "Instagram", color: "#e1306c" },
+  { Icon: MailIcon,      href: "mailto:kakkadpriyansh@gmail.com",         label: "Email",     color: "#22d3ee" },
+]
 
 export default function Footer() {
-  const [hoveredSection, setHoveredSection] = useState<number | null>(null)
-
-  const footerSections = [
-    {
-      title: "Priyansh Kakkad",
-      content: [
-        "Full-Stack Developer passionate about creating innovative solutions and building the future through code.",
-        "Specialized in modern web technologies and scalable applications.",
-      ],
-    },
-    {
-      title: "Quick Links",
-      content: [
-        { name: "About", href: "#about" },
-        { name: "Skills", href: "#skills" },
-        { name: "Projects", href: "#projects" },
-        { name: "Experience", href: "#experience" },
-        { name: "Contact", href: "#contact" }
-      ],
-      isLinks: true,
-    },
-    {
-      title: "Socials",
-      content: [
-        { name: "GitHub", href: "https://github.com/kakkadpriyansh", icon: GithubIcon },
-        { name: "LinkedIn", href: "https://linkedin.com/in/kakkadpriyansh", icon: LinkedinIcon },
-        { name: "Instagram", href: "https://instagram.com/kakkadpriyansh", icon: InstagramIcon },
-        { name: "Email", href: "mailto:kakkadpriyansh@gmail.com", icon: MailIcon }
-      ],
-      isSocial: true,
-    },
-    {
-      title: "Let's Connect",
-      content: ["Available for freelance projects", "Open to collaboration", "Always learning new tech"],
-    },
-  ]
+  const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-black border-t border-gray-800 text-white py-20 px-4 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]" />
+    <footer
+      className="relative overflow-hidden pt-20 pb-8 px-6"
+      style={{ background: "rgb(5,5,5)", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+    >
+      {/* Gradient separator */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent 0%, rgba(34,211,238,0.4) 30%, rgba(139,92,246,0.4) 70%, transparent 100%)" }}
+      />
+
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-1/3 w-80 h-60 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.03) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-0 right-1/3 w-80 h-60 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%)" }} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {footerSections.map((section, index) => (
-            <div
-              key={index}
-              className="group"
-              onMouseEnter={() => setHoveredSection(index)}
-              onMouseLeave={() => setHoveredSection(null)}
-            >
-              <h3 className="text-xl font-bold mb-6 text-white group-hover:text-blue-400 transition-colors duration-300 flex items-center gap-2">
-                {section.title}
-              </h3>
 
-              {section.isLinks ? (
-                <ul className="space-y-3">
-                  {(section.content as { name: string; href: string }[]).map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <Link
-                        href={link.href}
-                        className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group/link w-fit"
-                      >
-                        <span className="relative overflow-hidden">
-                          <span className="inline-block transform transition-transform duration-300 group-hover/link:-translate-y-full">
-                            {link.name}
-                          </span>
-                          <span className="absolute top-0 left-0 inline-block transform translate-y-full transition-transform duration-300 group-hover/link:translate-y-0 text-blue-400">
-                            {link.name}
-                          </span>
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : section.isSocial ? (
-                <ul className="space-y-3">
-                   {(section.content as { name: string; href: string; icon: any }[]).map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-3 group/link w-fit"
-                      >
-                        <link.icon className="h-5 w-5 text-gray-500 group-hover/link:text-blue-400 transition-colors" />
-                        <span>{link.name}</span>
-                        <ArrowUpRightIcon className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transform translate-y-1 group-hover/link:translate-y-0 transition-all duration-300 text-blue-400" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="space-y-4">
-                  {(section.content as string[]).map((item, itemIndex) => (
-                    <p
-                      key={itemIndex}
-                      className="text-gray-400 leading-relaxed text-sm"
-                    >
-                      {item}
-                    </p>
-                  ))}
-                </div>
-              )}
+        {/* ── Main Footer Content ── */}
+        <div className="grid md:grid-cols-3 gap-12 mb-16">
+
+          {/* Brand */}
+          <div className="md:col-span-1 space-y-5">
+            <div>
+              <p className="text-2xl font-black tracking-widest gradient-text-cyan uppercase mb-1">PK</p>
+              <p className="text-lg font-bold text-white">Priyansh Kakkad</p>
             </div>
-          ))}
+            <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+              Full-Stack Developer passionate about creating innovative solutions and building the future through code.
+            </p>
+            {/* Social icons */}
+            <div className="flex gap-3">
+              {socials.map(s => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-500 transition-all duration-300 hover:-translate-y-1"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.color = s.color
+                    ;(e.currentTarget as HTMLAnchorElement).style.borderColor = `${s.color}40`
+                    ;(e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 0 12px ${s.color}20`
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.color = ""
+                    ;(e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.07)"
+                    ;(e.currentTarget as HTMLAnchorElement).style.boxShadow = "none"
+                  }}
+                >
+                  <s.Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-5">Navigation</p>
+            <ul className="space-y-3">
+              {navLinks.map(link => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="group flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-200 w-fit"
+                  >
+                    <span
+                      className="w-0 h-px transition-all duration-300 group-hover:w-4"
+                      style={{ background: "rgb(34,211,238)" }}
+                    />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Status */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-5">Status</p>
+            <div className="space-y-4">
+              {[
+                "Available for freelance projects",
+                "Open to collaboration",
+                "Always learning new tech",
+              ].map(item => (
+                <div key={item} className="flex items-start gap-3">
+                  <span
+                    className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: "rgb(34,211,238)", boxShadow: "0 0 6px rgba(34,211,238,0.6)" }}
+                  />
+                  <p className="text-sm text-gray-400">{item}</p>
+                </div>
+              ))}
+
+              <a
+                href="mailto:kakkadpriyansh@gmail.com"
+                className="inline-flex items-center gap-2 mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 group"
+                style={{ background: "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(139,92,246,0.15))", border: "1px solid rgba(34,211,238,0.2)" }}
+              >
+                Hire Me
+                <ArrowUpRightIcon className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              </a>
+            </div>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-12" />
-
-        {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-6">
-          <div className="flex items-center space-x-2 group cursor-default">
-            <CodeIcon className="h-5 w-5 text-blue-500 group-hover:rotate-12 transition-transform duration-500" />
-            <span className="text-gray-400 text-sm">
-              Built with Next.js 15 & Tailwind CSS
-            </span>
+        {/* ── Bottom Bar ── */}
+        <div
+          className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+        >
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <CodeIcon className="w-4 h-4 text-cyan-500" />
+            <span>Built with Next.js 15 & Tailwind CSS</span>
           </div>
 
-          <div className="flex items-center space-x-2 text-gray-400 text-sm">
-            <span>Made with</span>
-            <HeartIcon className="h-4 w-4 text-red-500 animate-pulse fill-red-500" />
-            <span>by Priyansh Kakkad &copy; {new Date().getFullYear()}</span>
-          </div>
+          <p className="text-sm text-gray-600 flex items-center gap-1.5">
+            Made with
+            <HeartIcon className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-pulse" />
+            by <span className="text-gray-400 font-medium">Priyansh Kakkad</span>
+            &copy; {currentYear}
+          </p>
         </div>
       </div>
     </footer>

@@ -13,116 +13,120 @@ export default function ThreeBackground() {
     const init = async () => {
       const THREE = await import("three")
 
-      // Scene setup
-      scene = new THREE.Scene()
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+      scene    = new THREE.Scene()
+      camera   = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
       renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
       renderer.setClearColor(0x000000, 0)
 
       if (mountRef.current) {
         mountRef.current.appendChild(renderer.domElement)
       }
 
-      // Create professional floating particles
-      const particlesGeometry = new THREE.BufferGeometry()
-      const particlesCount = 200 // Minimal for professional look
-      const posArray = new Float32Array(particlesCount * 3)
+      // ── Particles ──
+      const count = 400
+      const posArray   = new Float32Array(count * 3)
+      const colorArray = new Float32Array(count * 3)
 
-      for (let i = 0; i < particlesCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 50
+      const cyan   = new THREE.Color("#22d3ee")
+      const violet = new THREE.Color("#8b5cf6")
+      const white  = new THREE.Color("#ffffff")
+
+      for (let i = 0; i < count; i++) {
+        posArray[i * 3]     = (Math.random() - 0.5) * 60
+        posArray[i * 3 + 1] = (Math.random() - 0.5) * 60
+        posArray[i * 3 + 2] = (Math.random() - 0.5) * 60
+
+        // Random color: 40% cyan, 30% violet, 30% white
+        const r = Math.random()
+        const c = r < 0.4 ? cyan : r < 0.7 ? violet : white
+        colorArray[i * 3]     = c.r
+        colorArray[i * 3 + 1] = c.g
+        colorArray[i * 3 + 2] = c.b
       }
 
-      particlesGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3))
+      const geo = new THREE.BufferGeometry()
+      geo.setAttribute("position", new THREE.BufferAttribute(posArray, 3))
+      geo.setAttribute("color",    new THREE.BufferAttribute(colorArray, 3))
 
-      const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.2,
-        color: 0xffffff,
+      const mat = new THREE.PointsMaterial({
+        size:        0.15,
+        vertexColors: true,
         transparent: true,
-        opacity: 0.1,
-        blending: THREE.AdditiveBlending,
+        opacity:     0.5,
+        blending:    THREE.AdditiveBlending,
+        depthWrite:  false,
       })
 
-      particles = new THREE.Points(particlesGeometry, particlesMaterial)
+      particles = new THREE.Points(geo, mat)
       scene.add(particles)
 
-      // Create minimal geometric shapes
-      const geometries = [
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.SphereGeometry(0.8, 32, 32),
-        new THREE.OctahedronGeometry(0.6),
-      ]
-
-      const material = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        wireframe: true,
+      // ── Wireframe shapes ──
+      const meshMat = new THREE.MeshBasicMaterial({
+        color:      0x22d3ee,
+        wireframe:  true,
         transparent: true,
-        opacity: 0.02,
+        opacity:    0.025,
       })
 
-      // Add minimal floating geometric shapes
-      for (let i = 0; i < 2; i++) {
-        const geometry = geometries[Math.floor(Math.random() * geometries.length)]
-        const mesh = new THREE.Mesh(geometry, material)
+      const shapes = [
+        new THREE.IcosahedronGeometry(2.5, 0),
+        new THREE.OctahedronGeometry(1.8),
+        new THREE.TorusGeometry(2, 0.5, 8, 16),
+      ]
 
-        mesh.position.x = (Math.random() - 0.5) * 30
-        mesh.position.y = (Math.random() - 0.5) * 30
-        mesh.position.z = (Math.random() - 0.5) * 30
-
-        mesh.rotation.x = Math.random() * Math.PI
-        mesh.rotation.y = Math.random() * Math.PI
-
+      for (let i = 0; i < 3; i++) {
+        const mesh = new THREE.Mesh(shapes[i], meshMat.clone())
+        mesh.position.set(
+          (Math.random() - 0.5) * 30,
+          (Math.random() - 0.5) * 30,
+          (Math.random() - 0.5) * 30,
+        )
+        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0)
         scene.add(mesh)
       }
 
-      camera.position.z = 20
+      camera.position.z = 25
 
-      // Professional animation loop
+      // ── Animation ──
+      const clock = new THREE.Clock()
       const animate = () => {
         animationId = requestAnimationFrame(animate)
+        const elapsed = clock.getElapsedTime()
 
-        // Rotate particles professionally
         if (particles) {
-          particles.rotation.x += 0.00005
-          particles.rotation.y += 0.0001
+          particles.rotation.x = elapsed * 0.00008
+          particles.rotation.y = elapsed * 0.00015
         }
 
-        // Animate geometric shapes professionally
-        scene.children.forEach((child: any, index: number) => {
+        scene.children.forEach((child: any, idx: number) => {
           if (child.type === "Mesh") {
-            child.rotation.x += 0.0003 + index * 0.0001
-            child.rotation.y += 0.0005 + index * 0.0001
-            child.position.y += Math.sin(Date.now() * 0.0002 + index) * 0.001
+            child.rotation.x += 0.0003 + idx * 0.00005
+            child.rotation.y += 0.0005 + idx * 0.0001
+            child.position.y = Math.sin(elapsed * 0.2 + idx * 2) * 2
           }
         })
 
         renderer.render(scene, camera)
       }
-
       animate()
 
-      // Handle resize
-      const handleResize = () => {
+      const onResize = () => {
         camera.aspect = window.innerWidth / window.innerHeight
         camera.updateProjectionMatrix()
         renderer.setSize(window.innerWidth, window.innerHeight)
       }
-
-      window.addEventListener("resize", handleResize)
-
-      return () => {
-        window.removeEventListener("resize", handleResize)
-      }
+      window.addEventListener("resize", onResize)
+      return () => window.removeEventListener("resize", onResize)
     }
 
     init()
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId)
-      }
+      if (animationId) cancelAnimationFrame(animationId)
       if (mountRef.current && renderer) {
-        mountRef.current.removeChild(renderer.domElement)
+        try { mountRef.current.removeChild(renderer.domElement) } catch {}
       }
     }
   }, [])

@@ -114,7 +114,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <SmoothScroll>
-          <div className="relative min-h-screen bg-black overflow-hidden selection:bg-indigo-500/30">
+          <div className="relative min-h-screen overflow-hidden" style={{ background: "rgb(5,5,5)" }}>
              <Preloader />
              <ScrollProgress />
              <ThreeBackground />

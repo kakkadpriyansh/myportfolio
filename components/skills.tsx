@@ -1,266 +1,230 @@
 "use client"
 
-import { useRef, useEffect } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { useRef, useEffect, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import type { ComponentType } from "react"
 import {
-  SiNextdotjs,
-  SiReact,
-  SiJavascript,
-  SiHtml5,
-  SiCss3,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiExpress,
-  SiPython,
-  SiDotnet,
-  SiMongodb,
-  SiMysql,
-  SiGit,
-  SiGithub,
-  SiPostman,
-  SiXampp,
-  SiFigma,
-  SiNginx,
-  SiJsonwebtokens,
-  SiGnubash,
+  SiNextdotjs, SiReact, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiTailwindcss,
+  SiNodedotjs, SiExpress, SiPython, SiDotnet,
+  SiMongodb, SiMysql,
+  SiGit, SiGithub, SiPostman, SiFigma, SiNginx, SiJsonwebtokens, SiGnubash,
 } from "react-icons/si"
+import type { ComponentType } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-type IconComponent = ComponentType<{ className?: string }>
+type IconComp = ComponentType<{ className?: string; style?: React.CSSProperties }>
 
-const skillIconMap: Record<string, IconComponent> = {
-  "Next.js": SiNextdotjs as IconComponent,
-  "React.js": SiReact as IconComponent,
-  "JavaScript (ES6+)": SiJavascript as IconComponent,
-  "HTML5": SiHtml5 as IconComponent,
-  "CSS3": SiCss3 as IconComponent,
-  "TailwindCSS": SiTailwindcss as IconComponent,
-  "Node.js": SiNodedotjs as IconComponent,
-  "Express.js": SiExpress as IconComponent,
-  "Python (Flask Basics)": SiPython as IconComponent,
-  ".NET Core (Basic APIs)": SiDotnet as IconComponent,
-  "MongoDB": SiMongodb as IconComponent,
-  "MySQL": SiMysql as IconComponent,
-  "Git": SiGit as IconComponent,
-  "GitHub": SiGithub as IconComponent,
-  "Postman": SiPostman as IconComponent,
-  "XAMPP": SiXampp as IconComponent,
-  "Figma": SiFigma as IconComponent,
-  "Nginx": SiNginx as IconComponent,
-  "JWT / OAuth": SiJsonwebtokens as IconComponent,
-  "Bash Scripting": SiGnubash as IconComponent,
+type Skill = {
+  name: string
+  Icon?: IconComp
+  color: string
+  css?: string
 }
 
-const categoryIconMap: Record<string, IconComponent> = {
-  Frontend: SiReact as IconComponent,
-  Backend: SiNodedotjs as IconComponent,
-  Databases: SiMongodb as IconComponent,
-  "Tools & Deployment": SiGit as IconComponent,
-  Other: SiJsonwebtokens as IconComponent,
+type Category = {
+  id: string
+  label: string
+  skills: Skill[]
 }
+
+const categories: Category[] = [
+  {
+    id: "frontend",
+    label: "Frontend",
+    skills: [
+      { name: "Next.js",    Icon: SiNextdotjs  as IconComp, color: "#fff" },
+      { name: "React.js",   Icon: SiReact      as IconComp, color: "#61dafb" },
+      { name: "JavaScript", Icon: SiJavascript as IconComp, color: "#f7df1e" },
+      { name: "TypeScript", Icon: SiTypescript as IconComp, color: "#3178c6" },
+      { name: "HTML5",      Icon: SiHtml5      as IconComp, color: "#e34f26" },
+      { name: "CSS3",       Icon: SiCss3       as IconComp, color: "#1572b6" },
+      { name: "TailwindCSS",Icon: SiTailwindcss as IconComp, color: "#06b6d4" },
+    ],
+  },
+  {
+    id: "backend",
+    label: "Backend",
+    skills: [
+      { name: "Node.js",     Icon: SiNodedotjs as IconComp, color: "#68a063" },
+      { name: "Express.js",  Icon: SiExpress   as IconComp, color: "#fff" },
+      { name: "Python",      Icon: SiPython    as IconComp, color: "#3776ab" },
+      { name: ".NET Core",   Icon: SiDotnet    as IconComp, color: "#5c2d91" },
+      { name: "REST APIs",   color: "#22d3ee" },
+    ],
+  },
+  {
+    id: "database",
+    label: "Database",
+    skills: [
+      { name: "MongoDB",     Icon: SiMongodb as IconComp, color: "#4db33d" },
+      { name: "MySQL",       Icon: SiMysql   as IconComp, color: "#4479a1" },
+      { name: "MS SQL",      color: "#cc2927" },
+      { name: "Redis",       color: "#dc382d" },
+    ],
+  },
+  {
+    id: "devops",
+    label: "DevOps & Tools",
+    skills: [
+      { name: "Git",         Icon: SiGit      as IconComp, color: "#f05032" },
+      { name: "GitHub",      Icon: SiGithub   as IconComp, color: "#fff" },
+      { name: "Nginx",       Icon: SiNginx    as IconComp, color: "#009900" },
+      { name: "Figma",       Icon: SiFigma    as IconComp, color: "#a259ff" },
+      { name: "Postman",     Icon: SiPostman  as IconComp, color: "#ff6c37" },
+      { name: "JWT/OAuth",   Icon: SiJsonwebtokens as IconComp, color: "#d63aff" },
+      { name: "Bash",        Icon: SiGnubash  as IconComp, color: "#4eaa25" },
+      { name: "VPS / PM2",   color: "#22d3ee" },
+      { name: "CI/CD",       color: "#8b5cf6" },
+      { name: "SSL / DNS",   color: "#f59e0b" },
+    ],
+  },
+]
+
+// Marquee strip (extra tools)
+const tools = [
+  "GitHub Actions", "VPS Hosting", "C-Panel", "DNS Management", "SSL Certificates",
+  "PM2", "Nginx Proxy", "XAMPP", "VS Code", "Visual Studio", "Vercel", "MongoDB Atlas",
+  "GitHub Actions", "VPS Hosting", "C-Panel", "DNS Management", "SSL Certificates",
+  "PM2", "Nginx Proxy", "XAMPP", "VS Code", "Visual Studio", "Vercel", "MongoDB Atlas",
+]
 
 export default function Skills() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const categoriesRef = useRef<(HTMLDivElement | null)[]>([])
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const headerRef  = useRef<HTMLDivElement>(null)
+  const [activeTab, setActiveTab] = useState("frontend")
 
   useEffect(() => {
-    // Header Animation
-    gsap.fromTo(headerRef.current,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top bottom-=100",
-        }
-      }
-    )
-
-    // Categories Stagger Animation
-    categoriesRef.current.forEach((cat, index) => {
-      if (!cat) return
-
-      gsap.fromTo(cat,
-        { 
-          y: 100, 
-          opacity: 0,
-          scale: 0.95
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          delay: index * 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cat,
-            start: "top bottom-=50",
-            toggleActions: "play none none reverse"
-          }
-        }
-      )
-    })
+    const ctx = gsap.context(() => {
+      gsap.from(headerRef.current, {
+        y: 60, opacity: 0, duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: headerRef.current, start: "top bottom-=80" },
+      })
+    }, sectionRef)
+    return () => ctx.revert()
   }, [])
 
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: [
-        { name: "Next.js", icon: "⚛️" },
-        { name: "React.js", icon: "⚛️" },
-        { name: "JavaScript (ES6+)", icon: "🟨" },
-        { name: "Redux / Context API", icon: "🧩" },
-        { name: "HTML5", icon: "🌐" },
-        { name: "CSS3", icon: "🎨" },
-        { name: "TailwindCSS", icon: "🎨" }
-      ],
-      icon: "🎨",
-      gradient: "from-blue-500/20 to-purple-500/20",
-      border: "group-hover:border-blue-500/50"
-    },
-    {
-      title: "Backend",
-      skills: [
-        { name: "Node.js", icon: "🟢" },
-        { name: "Express.js", icon: "🚏" },
-        { name: "REST APIs", icon: "🔗" },
-        { name: "Python (Flask Basics)", icon: "🐍" },
-        { name: ".NET Core (Basic APIs)", icon: "🔵" }
-      ],
-      icon: "⚙️",
-      gradient: "from-green-500/20 to-blue-500/20",
-      border: "group-hover:border-green-500/50"
-    },
-    {
-      title: "Databases",
-      skills: [
-        { name: "MongoDB", icon: "🍃" },
-        { name: "MySQL", icon: "🐬" },
-        { name: "MS SQL Server", icon: "🗄️" }
-      ],
-      icon: "🗄️",
-      gradient: "from-purple-500/20 to-pink-500/20",
-      border: "group-hover:border-purple-500/50"
-    },
-    {
-      title: "Tools & Deployment",
-      skills: [
-        { name: "Git", icon: "📝" },
-        { name: "GitHub", icon: "🐙" },
-        { name: "VS Code", icon: "🧰" },
-        { name: "Postman", icon: "📬" },
-        { name: "XAMPP", icon: "📦" },
-        { name: "Visual Studio", icon: "🧱" },
-        { name: "Figma", icon: "🎨" },
-        { name: "VPS", icon: "🖥️" },
-        { name: "Nginx", icon: "🌀" },
-        { name: "PM2", icon: "🛠️" },
-        { name: "C-Panel", icon: "🗂️" },
-        { name: "DNS", icon: "🌐" },
-        { name: "SSL", icon: "🔒" },
-        { name: "GitHub Actions CI/CD", icon: "⚙️" },
-        { name: "GitHub Webhooks", icon: "🔔" }
-      ],
-      icon: "🛠️",
-      gradient: "from-orange-500/20 to-red-500/20",
-      border: "group-hover:border-orange-500/50"
-    },
-    {
-      title: "Other",
-      skills: [
-        { name: "JWT / OAuth", icon: "🔑" },
-        { name: "Firewalls", icon: "🛡️" },
-        { name: "Bash Scripting", icon: "🐚" },
-        { name: "API Security", icon: "🔐" },
-        { name: "Server Configuration", icon: "🧭" }
-      ],
-      icon: "✨",
-      gradient: "from-teal-500/20 to-blue-500/20",
-      border: "group-hover:border-teal-500/50"
-    },
-  ]
+  const activeCategory = categories.find(c => c.id === activeTab)!
 
   return (
-    <section ref={containerRef} id="skills" className="py-28 px-4 relative overflow-hidden">
+    <section ref={sectionRef} id="skills" className="py-36 px-6 relative overflow-hidden">
+      {/* Ambient */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-indigo-500/5 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.04) 0%, transparent 70%)" }} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div ref={headerRef} className="text-center mb-14">
-          <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10">
-            <span className="text-4xl">💻</span>
+
+        {/* ── Header ── */}
+        <div ref={headerRef} className="mb-20 relative">
+          <span className="section-ghost-number select-none">02</span>
+          <div className="relative z-10">
+            <div className="section-label">Tech Stack</div>
+            <h2 className="section-heading text-white mt-2">
+              Skills &{" "}
+              <span className="gradient-text-cyan">Technologies</span>
+            </h2>
+            <p className="text-gray-500 mt-4 max-w-lg text-base">
+              A comprehensive toolkit for building end-to-end solutions
+            </p>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-3 relative">
-            <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-              Skills & Technologies
-            </span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            A comprehensive toolkit that empowers me to build end-to-end solutions
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <div 
-              key={index} 
-              ref={el => { categoriesRef.current[index] = el }}
-              className="group relative"
+        {/* ── Tab Filter ── */}
+        <div className="flex flex-wrap gap-2 mb-10">
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveTab(cat.id)}
+              className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+              style={
+                activeTab === cat.id
+                  ? {
+                      background: "linear-gradient(135deg, rgb(34,211,238), rgb(139,92,246))",
+                      color: "#000",
+                      boxShadow: "0 0 20px rgba(34,211,238,0.25)",
+                    }
+                  : {
+                      background: "rgba(255,255,255,0.05)",
+                      color: "rgba(255,255,255,0.5)",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                    }
+              }
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-              <Card className={`h-full bg-gray-900/60 border-gray-700/50 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${category.border}`}>
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="text-4xl bg-white/5 p-3 rounded-xl border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                      {(() => {
-                        const Icon = categoryIconMap[category.title]
-                        if (Icon) {
-                          const TypedIcon = Icon as IconComponent
-                          return <TypedIcon />
-                        }
-                        return <span>{category.icon}</span>
-                      })()}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300">
-                      {category.title}
-                    </h3>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, i) => {
-                      const Icon = skillIconMap[skill.name]
-                      const TypedIcon = Icon as IconComponent | undefined
-                      return (
-                        <Badge
-                          key={i}
-                          className="bg-white/5 hover:bg-white/10 text-gray-300 border-white/10 px-3 py-1.5 transition-all duration-300 hover:scale-105 hover:text-white"
-                        >
-                          {TypedIcon ? (
-                            <TypedIcon className="mr-2 text-white" />
-                          ) : (
-                            <span className="mr-2">{skill.icon}</span>
-                          )}
-                          {skill.name}
-                        </Badge>
-                      )
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Skills Grid ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-16 min-h-[220px]">
+          {activeCategory.skills.map((skill, i) => (
+            <div
+              key={skill.name}
+              className="group relative glass-card rounded-2xl p-5 flex flex-col items-center gap-3 cursor-default"
+              style={{
+                border: "1px solid rgba(255,255,255,0.06)",
+                animationDelay: `${i * 50}ms`,
+                animation: "fade-up 0.5s ease-out forwards",
+                opacity: 0,
+              }}
+            >
+              {/* Hover glow */}
+              <div
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{ background: `radial-gradient(circle at center, ${skill.color}12 0%, transparent 70%)` }}
+              />
+
+              {/* Icon */}
+              <div
+                className="w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
+                style={{ background: `${skill.color}14`, border: `1px solid ${skill.color}25` }}
+              >
+                {skill.Icon ? (
+                  <skill.Icon
+                    className="w-7 h-7 transition-colors duration-300"
+                    style={{ color: skill.color }}
+                  />
+                ) : (
+                  <span className="text-xl font-bold" style={{ color: skill.color }}>
+                    {skill.name.charAt(0)}
+                  </span>
+                )}
+              </div>
+
+              {/* Name */}
+              <p
+                className="text-xs font-semibold text-center text-gray-400 group-hover:text-white transition-colors duration-300 leading-tight"
+              >
+                {skill.name}
+              </p>
+
+              {/* Color bar on hover */}
+              <div
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 group-hover:w-3/4 transition-all duration-500 rounded-full"
+                style={{ background: skill.color }}
+              />
             </div>
           ))}
         </div>
+
+        {/* ── Marquee Strip ── */}
+        <div className="relative overflow-hidden rounded-2xl py-4" style={{ background: "rgba(10,10,15,0.6)", border: "1px solid rgba(255,255,255,0.05)" }}>
+          <div className="flex gap-6 whitespace-nowrap marquee-anim">
+            {tools.map((tool, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium text-gray-500"
+                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/50 flex-shrink-0" />
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )

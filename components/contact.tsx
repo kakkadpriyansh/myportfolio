@@ -1,334 +1,353 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect, type ComponentType } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { toast } from "sonner"
-import {
-  FiLoader,
-  FiMail,
-  FiPhone,
-  FiMapPin,
-  FiGithub,
-  FiLinkedin,
-  FiInstagram,
-  FiSend,
-  FiMessageCircle,
-  FiUser,
-  FiArrowRight,
-} from "react-icons/fi"
+import { FiLoader, FiMail, FiPhone, FiMapPin, FiGithub, FiLinkedin, FiInstagram, FiSend, FiMessageCircle, FiUser, FiArrowRight } from "react-icons/fi"
 
 gsap.registerPlugin(ScrollTrigger)
 
-type IconComponent = ComponentType<{ className?: string }>
+type IC = ComponentType<{ className?: string }>
+const LoaderIcon       = FiLoader       as IC
+const MailIcon         = FiMail         as IC
+const PhoneIcon        = FiPhone        as IC
+const MapPinIcon       = FiMapPin       as IC
+const GithubIcon       = FiGithub       as IC
+const LinkedinIcon     = FiLinkedin     as IC
+const InstagramIcon    = FiInstagram    as IC
+const SendIcon         = FiSend         as IC
+const MessageCircleIcon = FiMessageCircle as IC
+const UserIcon         = FiUser         as IC
+const ArrowRightIcon   = FiArrowRight   as IC
 
-const LoaderIcon = FiLoader as IconComponent
-const MailIcon = FiMail as IconComponent
-const PhoneIcon = FiPhone as IconComponent
-const MapPinIcon = FiMapPin as IconComponent
-const GithubIcon = FiGithub as IconComponent
-const LinkedinIcon = FiLinkedin as IconComponent
-const InstagramIcon = FiInstagram as IconComponent
-const SendIcon = FiSend as IconComponent
-const MessageCircleIcon = FiMessageCircle as IconComponent
-const UserIcon = FiUser as IconComponent
-const ArrowRightIcon = FiArrowRight as IconComponent
+const contactInfo = [
+  {
+    Icon: MailIcon,
+    title: "Email",
+    value: "kakkadpriyansh@gmail.com",
+    href: "mailto:kakkadpriyansh@gmail.com",
+    accentRgb: "34,211,238",
+  },
+  {
+    Icon: PhoneIcon,
+    title: "WhatsApp",
+    value: "+91 79840 79603",
+    href: "https://wa.me/917984079603",
+    accentRgb: "52,211,153",
+  },
+  {
+    Icon: MapPinIcon,
+    title: "Location",
+    value: "India",
+    href: "#",
+    accentRgb: "139,92,246",
+  },
+]
+
+const socials = [
+  { Icon: GithubIcon,   href: "https://github.com/kakkadpriyansh",     label: "GitHub",    color: "#fff" },
+  { Icon: LinkedinIcon, href: "https://linkedin.com/in/kakkadpriyansh", label: "LinkedIn",  color: "#0a66c2" },
+  { Icon: InstagramIcon, href: "https://instagram.com/kakkadpriyansh",  label: "Instagram", color: "#e1306c" },
+]
+
+function FloatingLabelInput({
+  id, name, type = "text", value, onChange, label, required,
+}: {
+  id: string; name: string; type?: string; value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label: string; required?: boolean
+}) {
+  const [focused, setFocused] = useState(false)
+  const hasValue = value.length > 0
+
+  return (
+    <div className="relative">
+      <label
+        htmlFor={id}
+        className="absolute left-4 transition-all duration-200 pointer-events-none font-medium"
+        style={{
+          top: focused || hasValue ? "-0.6rem" : "0.875rem",
+          fontSize: focused || hasValue ? "0.7rem" : "0.875rem",
+          color: focused ? "rgb(34,211,238)" : "rgba(107,114,128,1)",
+          background: focused || hasValue ? "rgb(10,10,15)" : "transparent",
+          padding: focused || hasValue ? "0 0.25rem" : "0",
+          zIndex: 1,
+        }}
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        required={required}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className="w-full h-13 px-4 py-3.5 rounded-xl text-white text-sm outline-none transition-all duration-300"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: focused
+            ? "1px solid rgba(34,211,238,0.5)"
+            : "1px solid rgba(255,255,255,0.08)",
+          boxShadow: focused ? "0 0 0 3px rgba(34,211,238,0.08), 0 0 20px rgba(34,211,238,0.05)" : "none",
+        }}
+      />
+    </div>
+  )
+}
+
+function FloatingLabelTextarea({
+  id, name, value, onChange, label, required,
+}: {
+  id: string; name: string; value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  label: string; required?: boolean
+}) {
+  const [focused, setFocused] = useState(false)
+  const hasValue = value.length > 0
+
+  return (
+    <div className="relative">
+      <label
+        htmlFor={id}
+        className="absolute left-4 transition-all duration-200 pointer-events-none font-medium"
+        style={{
+          top: focused || hasValue ? "-0.6rem" : "0.875rem",
+          fontSize: focused || hasValue ? "0.7rem" : "0.875rem",
+          color: focused ? "rgb(34,211,238)" : "rgba(107,114,128,1)",
+          background: focused || hasValue ? "rgb(10,10,15)" : "transparent",
+          padding: focused || hasValue ? "0 0.25rem" : "0",
+          zIndex: 1,
+        }}
+      >
+        {label}
+      </label>
+      <textarea
+        id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        rows={5}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        className="w-full px-4 py-3.5 rounded-xl text-white text-sm outline-none transition-all duration-300 resize-none"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: focused
+            ? "1px solid rgba(34,211,238,0.5)"
+            : "1px solid rgba(255,255,255,0.08)",
+          boxShadow: focused ? "0 0 0 3px rgba(34,211,238,0.08), 0 0 20px rgba(34,211,238,0.05)" : "none",
+        }}
+      />
+    </div>
+  )
+}
 
 export default function Contact() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
-  const infoRef = useRef<HTMLDivElement>(null)
+  const sectionRef  = useRef<HTMLDivElement>(null)
+  const headerRef   = useRef<HTMLDivElement>(null)
+  const formCardRef = useRef<HTMLDivElement>(null)
+  const infoRef     = useRef<HTMLDivElement>(null)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
 
   useEffect(() => {
-    // Header Animation
-    gsap.fromTo(headerRef.current,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top bottom-=100",
-        }
-      }
-    )
-
-    // Form Animation
-    gsap.fromTo(formRef.current,
-      { x: -50, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        delay: 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: formRef.current,
-          start: "top bottom-=100",
-        }
-      }
-    )
-
-    // Info Animation
-    gsap.fromTo(infoRef.current,
-      { x: 50, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        delay: 0.4,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: infoRef.current,
-          start: "top bottom-=100",
-        }
-      }
-    )
+    const ctx = gsap.context(() => {
+      gsap.from(headerRef.current, {
+        y: 60, opacity: 0, duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: headerRef.current, start: "top bottom-=80" },
+      })
+      gsap.from(formCardRef.current, {
+        x: -60, opacity: 0, duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: formCardRef.current, start: "top bottom-=60" },
+      })
+      gsap.from(infoRef.current, {
+        x: 60, opacity: 0, duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: infoRef.current, start: "top bottom-=60" },
+      })
+    }, sectionRef)
+    return () => ctx.revert()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
     try {
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
-
-      if (!response.ok) {
-        throw new Error("Failed to send message")
-      }
-
-      toast.success("Message sent successfully!", {
-        description: "I'll get back to you as soon as possible.",
-      })
+      if (!res.ok) throw new Error("Failed")
+      toast.success("Message sent!", { description: "I'll get back to you shortly." })
       setFormData({ name: "", email: "", message: "" })
-    } catch (error) {
-      toast.error("Failed to send message", {
-        description: "Please try again later or contact me directly via email/WhatsApp.",
-      })
-      console.error(error)
+    } catch {
+      toast.error("Failed to send", { description: "Try emailing me directly at kakkadpriyansh@gmail.com" })
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const contactInfo = [
-    {
-      icon: MailIcon,
-      title: "Email",
-      value: "kakkadpriyansh@gmail.com",
-      href: "mailto:kakkadpriyansh@gmail.com",
-      gradient: "from-blue-500/20 to-purple-500/20",
-      border: "group-hover:border-blue-500/50",
-    },
-    {
-      icon: PhoneIcon,
-      title: "WhatsApp",
-      value: "+91 79840 79603",
-      href: "https://wa.me/917984079603",
-      gradient: "from-green-500/20 to-emerald-500/20",
-      border: "group-hover:border-green-500/50",
-    },
-    {
-      icon: MapPinIcon,
-      title: "Location",
-      value: "India",
-      href: "#",
-      gradient: "from-orange-500/20 to-red-500/20",
-      border: "group-hover:border-orange-500/50",
-    },
-  ]
-
-  const socialLinks = [
-    {
-      icon: GithubIcon,
-      href: "https://github.com/kakkadpriyansh",
-      label: "GitHub",
-    },
-    {
-      icon: LinkedinIcon,
-      href: "https://linkedin.com/in/kakkadpriyansh",
-      label: "LinkedIn",
-    },
-    {
-      icon: InstagramIcon,
-      href: "https://instagram.com/kakkadpriyansh",
-      label: "Instagram",
-    },
-  ]
-
   return (
-    <section ref={containerRef} id="contact" className="py-32 px-4 relative overflow-hidden">
-      {/* Background effects */}
+    <section ref={sectionRef} id="contact" className="py-36 px-6 relative overflow-hidden">
+      {/* Ambient orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.07) 0%, transparent 70%)" }} />
       </div>
+      <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div ref={headerRef} className="text-center mb-20">
-          <div className="inline-flex items-center justify-center p-3 bg-white/5 rounded-full mb-6 backdrop-blur-sm border border-white/10">
-            <MessageCircleIcon className="h-6 w-6 text-white" />
+
+        {/* ── Header ── */}
+        <div ref={headerRef} className="mb-20 relative">
+          <span className="section-ghost-number select-none">05</span>
+          <div className="relative z-10 text-center">
+            <div className="section-label justify-center">Get In Touch</div>
+            <h2 className="section-heading text-white mt-2">
+              Let's build something{" "}
+              <span className="gradient-text-cyan">great</span>
+            </h2>
+            <p className="text-gray-500 mt-4 max-w-lg mx-auto text-base">
+              Have a project in mind or just want to say hi? I'd love to hear from you.
+            </p>
           </div>
-          <h2 className="text-6xl md:text-8xl font-black text-white mb-6 relative z-10">
-            Get In Touch
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto rounded-full" />
-          <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">
-            Have a project in mind or just want to say hi? I'd love to hear from you.
-          </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Contact Form */}
-          <div ref={formRef} className="relative group perspective-1000">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
-            <Card className="relative h-full bg-gray-900/80 border-gray-800 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-gray-300 ml-1">Name</label>
-                    <div className="relative">
-                      <UserIcon className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="John Doe"
-                        required
-                        className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20 h-12"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-gray-300 ml-1">Email</label>
-                    <div className="relative">
-                      <MailIcon className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="john@example.com"
-                        required
-                        className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20 h-12"
-                      />
-                    </div>
-                  </div>
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-gray-300 ml-1">Message</label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell me about your project..."
-                      required
-                      className="min-h-[150px] bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-blue-500/50 focus:ring-blue-500/20 resize-none p-4"
-                    />
-                  </div>
+          {/* ── Contact Form ── */}
+          <div ref={formCardRef}>
+            <div
+              className="rounded-2xl p-8 relative overflow-hidden"
+              style={{ background: "rgba(10,10,15,0.9)", border: "1px solid rgba(255,255,255,0.07)" }}
+            >
+              {/* Gradient top border */}
+              <div className="absolute top-0 left-0 right-0 h-px"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(34,211,238,0.5), rgba(139,92,246,0.5), transparent)" }} />
 
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        Sending... <LoaderIcon className="ml-2 h-5 w-5 animate-spin" />
-                      </>
-                    ) : (
-                      <>
-                        Send Message <SendIcon className="ml-2 h-5 w-5" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+              <div className="flex items-center gap-3 mb-8">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center"
+                  style={{ background: "rgba(34,211,238,0.1)", border: "1px solid rgba(34,211,238,0.2)" }}
+                >
+                  <MessageCircleIcon className="w-5 h-5" style={{ color: "rgb(34,211,238)" }} />
+                </div>
+                <h3 className="text-xl font-bold text-white">Send a Message</h3>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <FloatingLabelInput
+                  id="name" name="name" value={formData.name}
+                  onChange={handleChange} label="Your Name" required
+                />
+                <FloatingLabelInput
+                  id="email" name="email" type="email" value={formData.email}
+                  onChange={handleChange} label="Email Address" required
+                />
+                <FloatingLabelTextarea
+                  id="message" name="message" value={formData.message}
+                  onChange={handleChange} label="Tell me about your project..." required
+                />
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary w-full justify-center py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <><LoaderIcon className="w-5 h-5 animate-spin" /> Sending...</>
+                  ) : (
+                    <><SendIcon className="w-5 h-5" /> Send Message</>
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
 
-          {/* Contact Info */}
-          <div ref={infoRef} className="space-y-8">
-            <div className="grid gap-6">
-              {contactInfo.map((item, index) => (
-                <a 
-                  key={index}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative perspective-1000 block"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  <Card className={`relative bg-gray-900/80 border-gray-800 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${item.border}`}>
-                    <CardContent className="p-6 flex items-center gap-6">
-                      <div className="p-4 bg-white/5 rounded-full group-hover:scale-110 transition-transform duration-500">
-                        <item.icon className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-white mb-1">{item.title}</h4>
-                        <p className="text-gray-400 group-hover:text-white transition-colors">{item.value}</p>
-                      </div>
-                      <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                    </CardContent>
-                  </Card>
-                </a>
-              ))}
+          {/* ── Contact Info + Orb ── */}
+          <div ref={infoRef} className="space-y-5">
+            {/* Decorative orb */}
+            <div className="relative h-32 flex items-center justify-center mb-8 overflow-hidden rounded-2xl" style={{ background: "rgba(10,10,15,0.6)", border: "1px solid rgba(255,255,255,0.05)" }}>
+              <div className="absolute w-40 h-40 rounded-full spin-slow"
+                style={{ background: "conic-gradient(from 0deg, rgba(34,211,238,0.3), rgba(139,92,246,0.3), rgba(34,211,238,0.3))", filter: "blur(30px)" }} />
+              <div className="relative z-10 text-center">
+                <p className="text-sm text-gray-500 font-medium">Currently</p>
+                <p className="text-white font-bold">Open for opportunities</p>
+              </div>
             </div>
 
-            <div className="relative group perspective-1000">
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-700 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
-              <Card className="relative bg-gray-900/80 border-gray-800 backdrop-blur-sm">
-                <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-bold text-white mb-6">Connect on Social Media</h3>
-                  <div className="flex justify-center gap-6">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={index}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-4 bg-white/5 rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-300 border border-white/5 hover:border-white/20 group/icon"
-                        aria-label={social.label}
-                      >
-                        <social.icon className="h-6 w-6 text-gray-400 group-hover/icon:text-white transition-colors" />
-                      </a>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Contact cards */}
+            {contactInfo.map(item => (
+              <a
+                key={item.title}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-5 p-5 rounded-2xl group transition-all duration-300 hover:-translate-y-1"
+                style={{ background: "rgba(10,10,15,0.8)", border: "1px solid rgba(255,255,255,0.06)" }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = `rgba(${item.accentRgb},0.2)`
+                  ;(e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(${item.accentRgb},0.05)`
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.06)"
+                  ;(e.currentTarget as HTMLAnchorElement).style.boxShadow = "none"
+                }}
+              >
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                  style={{ background: `rgba(${item.accentRgb},0.1)`, border: `1px solid rgba(${item.accentRgb},0.2)` }}
+                >
+                  <item.Icon className="w-5 h-5" style={{ color: `rgba(${item.accentRgb},1)` }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">{item.title}</p>
+                  <p className="text-white font-medium truncate">{item.value}</p>
+                </div>
+                <ArrowRightIcon className="w-4 h-4 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all duration-300 flex-shrink-0" />
+              </a>
+            ))}
+
+            {/* Socials */}
+            <div className="p-6 rounded-2xl" style={{ background: "rgba(10,10,15,0.8)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Find me on</p>
+              <div className="flex gap-3">
+                {socials.map(s => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl text-gray-400 hover:text-white transition-all duration-300 hover:-translate-y-1 group"
+                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLAnchorElement).style.borderColor = `${s.color}40`
+                      ;(e.currentTarget as HTMLAnchorElement).style.color = s.color
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.06)"
+                      ;(e.currentTarget as HTMLAnchorElement).style.color = ""
+                    }}
+                  >
+                    <s.Icon className="w-5 h-5" />
+                    <span className="text-xs font-medium hidden sm:block">{s.label}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

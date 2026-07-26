@@ -1,326 +1,279 @@
 "use client"
 
 import { useRef, useEffect, type ComponentType } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { FiBriefcase, FiCalendar, FiExternalLink, FiMapPin, FiUsers, FiCode, FiAward } from "react-icons/fi"
-import {
-  SiNextdotjs,
-  SiReact,
-  SiNodedotjs,
-  SiNginx,
-} from "react-icons/si"
-
-type IconComponent = ComponentType<{ className?: string }>
-
-const BriefcaseIcon = FiBriefcase as IconComponent
-const CalendarIcon = FiCalendar as IconComponent
-const ExternalLinkIcon = FiExternalLink as IconComponent
-const MapPinIcon = FiMapPin as IconComponent
-const UsersIcon = FiUsers as IconComponent
-const CodeIcon = FiCode as IconComponent
-const AwardIcon = FiAward as IconComponent
-
-const experienceSkillIconMap: Record<string, IconComponent> = {
-  "Next.js": SiNextdotjs as IconComponent,
-  "React.js": SiReact as IconComponent,
-  "Node.js": SiNodedotjs as IconComponent,
-  "Nginx": SiNginx as IconComponent,
-}
+import { FiBriefcase, FiCalendar, FiMapPin, FiUsers, FiAward } from "react-icons/fi"
 
 gsap.registerPlugin(ScrollTrigger)
 
+type IC = ComponentType<{ className?: string }>
+const BriefcaseIcon = FiBriefcase as IC
+const CalendarIcon  = FiCalendar  as IC
+const MapPinIcon    = FiMapPin    as IC
+const UsersIcon     = FiUsers     as IC
+const AwardIcon     = FiAward     as IC
+
+type Experience = {
+  company:     string
+  role:        string
+  duration:    string
+  location:    string
+  teamSize:    string
+  type:        string
+  current?:    boolean
+  accentColor: string
+  description: string
+  skills:      string[]
+}
+
+const experiences: Experience[] = [
+  {
+    company:     "Bharat Edge Services Pvt Ltd",
+    role:        "Full Stack Developer",
+    duration:    "January 2026 – Present",
+    location:    "Ahmedabad",
+    teamSize:    "80-100",
+    type:        "Full-time",
+    current:     true,
+    accentColor: "rgba(34,211,238,1)",
+    description: "Building and maintaining full-stack web applications with a focus on performance, scalability, and clean architecture. Working across frontend and backend using modern web technologies, integrating secure REST APIs, and collaborating with cross-functional teams to deliver production-ready features.",
+    skills:      ["Next.js", "React.js", "Node.js", "REST APIs", "CI/CD", "Nginx", "PM2", "SSL"],
+  },
+  {
+    company:     "Technova Technologies",
+    role:        "Next.js & React.js Developer",
+    duration:    "March 2025 – January 2026",
+    location:    "Remote",
+    teamSize:    "5-10",
+    type:        "Full-time",
+    accentColor: "rgba(139,92,246,1)",
+    description: "Built a full-scale auditing system frontend using Next.js & React.js. Implemented SSR/CSR components, routing, and optimized UI flows. Set up CI/CD pipeline using GitHub Actions for automated deployment. Configured VPS deployment using Nginx + PM2 + SSL, including auto-pull.",
+    skills:      ["Next.js", "React.js", "Node.js", "REST APIs", "CI/CD", "Nginx", "PM2", "SSL"],
+  },
+  {
+    company:     "CSRBOX | IBM Watson",
+    role:        "Chatbot Developer",
+    duration:    "Jun 2022 – Aug 2022",
+    location:    "Remote",
+    teamSize:    "3-5",
+    type:        "Internship",
+    accentColor: "rgba(52,211,153,1)",
+    description: "Developed an intelligent PC Build chatbot using IBM Watson Assistant. Designed conversation flows for selecting CPU, GPU, RAM and compatibility suggestions. Built a front-end dashboard for testing and workflow validation. Improved chatbot accuracy using intents, entities, and conditional dialog logic.",
+    skills:      ["IBM Watson", "NLP", "Dialog Design", "Pricing Logic", "Dashboard UI"],
+  },
+]
+
+const achievements = [
+  { icon: "🏆", text: "Completed IBM Cybersecurity Course with Distinction", color: "rgba(251,191,36,0.15)" },
+  { icon: "🚀", text: "Built SAT Preparation adaptive learning platform", color: "rgba(34,211,238,0.1)" },
+  { icon: "💼", text: "Successfully completed multiple professional roles", color: "rgba(52,211,153,0.1)" },
+  { icon: "🎯", text: "Specialized in full-stack production deployments", color: "rgba(139,92,246,0.1)" },
+]
+
 export default function Experience() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const headerRef  = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const lineRef     = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Header Animation
-    gsap.fromTo(headerRef.current,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top bottom-=100",
-        }
+    const ctx = gsap.context(() => {
+      gsap.from(headerRef.current, {
+        y: 60, opacity: 0, duration: 1, ease: "power3.out",
+        scrollTrigger: { trigger: headerRef.current, start: "top bottom-=80" },
+      })
+
+      // Animate timeline line draw
+      if (lineRef.current) {
+        gsap.from(lineRef.current, {
+          scaleY: 0,
+          transformOrigin: "top center",
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: { trigger: timelineRef.current, start: "top bottom-=100" },
+        })
       }
-    )
 
-    // Cards Stagger Animation
-    cardsRef.current.forEach((card, index) => {
-      if (!card) return
-
-      gsap.fromTo(card,
-        { 
-          y: 100, 
+      // Cards
+      const cards = sectionRef.current?.querySelectorAll(".exp-card")
+      cards?.forEach((card, i) => {
+        gsap.from(card, {
+          x: i % 2 === 0 ? -60 : 60,
           opacity: 0,
-          rotateX: 10
-        },
-        {
-          y: 0,
-          opacity: 1,
-          rotateX: 0,
           duration: 0.8,
-          delay: index * 0.2,
+          delay: i * 0.1,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom-=50",
-            toggleActions: "play none none reverse"
-          }
-        }
-      )
-    })
+          scrollTrigger: { trigger: card, start: "top bottom-=60", toggleActions: "play none none reverse" },
+        })
+      })
+    }, sectionRef)
+    return () => ctx.revert()
   }, [])
 
-  const experiences = [
-    {
-      company: "Bharat Edge Services Pvt Ltd",
-      role: "Full Stack Developer",
-      duration: "January 2026 – Present",
-      description:
-        "Building and maintaining full-stack web applications with a focus on performance, scalability, and clean architecture. Working across frontend and backend using modern web technologies, integrating secure REST APIs, and collaborating with cross-functional teams to deliver production-ready features.",
-      skills: [
-        { name: "Next.js", icon: "⚛️" },
-        { name: "React.js", icon: "⚛️" },
-        { name: "Node.js", icon: "🟢" },
-        { name: "REST APIs", icon: "🔗" },
-        { name: "CI/CD", icon: "🚀" },
-        { name: "Nginx", icon: "🌀" },
-        { name: "PM2", icon: "🛠️" },
-        { name: "SSL", icon: "🔒" }
-      ],
-      type: "Full-time",
-      website: undefined,
-      location: "Ahmedabad",
-      teamSize: "80-100",
-      gradient: "from-blue-500/10 to-purple-500/10"
-    },
-    {
-      company: "Technova Technologies",
-      role: "Next.js & React.js Developer",
-      duration: "March 2025 – January 2026",
-      description:
-        "Built a full-scale auditing system frontend using Next.js & React.js. Implemented SSR/CSR components, routing, and optimized UI flows. Developed backend logic with Node.js and integrated secure REST APIs. Set up CI/CD pipeline using GitHub Actions for automated deployment. Configured VPS deployment using Nginx + PM2 + SSL, including auto-pull.",
-      skills: [
-        { name: "Next.js", icon: "⚛️" },
-        { name: "React.js", icon: "⚛️" },
-        { name: "Node.js", icon: "🟢" },
-        { name: "REST APIs", icon: "🔗" },
-        { name: "CI/CD", icon: "🚀" },
-        { name: "Nginx", icon: "🌀" },
-        { name: "PM2", icon: "🛠️" },
-        { name: "SSL", icon: "🔒" }
-      ],
-      type: "Full-time",
-      website: undefined,
-      location: "Remote",
-      teamSize: "5-10",
-      gradient: "from-blue-500/10 to-purple-500/10"
-    },
-    {
-      company: "CSRBOX | IBM Watson",
-      role: "Chatbot Developer",
-      duration: "Jun 2022 – Aug 2022",
-      description:
-        "Developed an intelligent PC Build chatbot using IBM Watson Assistant. Designed conversation flows for selecting CPU, GPU, RAM and compatibility suggestions. Integrated pricing logic for dynamic PC build estimates. Built a front-end dashboard for testing and workflow validation. Improved chatbot accuracy using intents, entities, and conditional dialog logic.",
-      skills: [
-        { name: "IBM Watson", icon: "🤖" },
-        { name: "NLP", icon: "🧠" },
-        { name: "Dialog Design", icon: "🗣️" },
-        { name: "Pricing Logic", icon: "💲" },
-        { name: "Dashboard UI", icon: "🖥️" }
-      ],
-      type: "Internship",
-      location: "Remote",
-      teamSize: "3-5",
-      gradient: "from-green-500/10 to-blue-500/10"
-    }
-  ]
-
-  const achievements = [
-    { icon: "🏆", text: "Completed IBM Cybersecurity Course with Distinction", color: "from-yellow-500/20 to-orange-500/20" },
-    { icon: "🚀", text: "Built SAT Preparation adaptive learning platform", color: "from-blue-500/20 to-purple-500/20" },
-    { icon: "💼", text: "Successfully completed multiple professional roles", color: "from-green-500/20 to-blue-500/20" },
-    { icon: "🎯", text: "Specialized in full-stack development solutions", color: "from-purple-500/20 to-pink-500/20" },
-  ]
-
   return (
-    <section ref={containerRef} id="experience" className="py-32 px-4 relative overflow-hidden">
-      {/* Enhanced background effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "4s" }} />
+    <section ref={sectionRef} id="experience" className="py-36 px-6 relative overflow-hidden">
+      {/* Ambient */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/3 left-0 w-80 h-80 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(34,211,238,0.04) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-1/3 right-0 w-80 h-80 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%)" }} />
       </div>
+      <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div ref={headerRef} className="text-center mb-20">
-          <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 backdrop-blur-sm border border-white/10">
-            <AwardIcon className="h-8 w-8 text-white" />
+      <div className="max-w-5xl mx-auto relative z-10">
+
+        {/* ── Header ── */}
+        <div ref={headerRef} className="mb-20 relative">
+          <span className="section-ghost-number select-none">03</span>
+          <div className="relative z-10">
+            <div className="section-label">Career Path</div>
+            <h2 className="section-heading text-white mt-2">
+              Professional{" "}
+              <span className="gradient-text-cyan">Experience</span>
+            </h2>
+            <p className="text-gray-500 mt-4 max-w-lg text-base">
+              Building innovative solutions across diverse technologies and industries
+            </p>
           </div>
-          <h2 className="text-6xl md:text-8xl font-black mb-6 relative">
-            <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-              Professional Experience
-            </span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-            Building innovative solutions across diverse technologies and industries
-          </p>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto animate-pulse" />
         </div>
 
-        {/* Enhanced Experience Timeline */}
-        <div className="space-y-12 mb-20">
-          {experiences.map((exp, index) => (
-            <div key={index} ref={el => { cardsRef.current[index] = el }}>
-            <Card
-              className="group relative overflow-hidden bg-gray-900/60 border-gray-700/50 hover:border-white/30 backdrop-blur-xl transform-gpu hover:scale-102 transition-all duration-700"
-              style={{
-                boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-              }}
-            >
-              {/* Enhanced animated gradient background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${exp.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+        {/* ── Timeline ── */}
+        <div ref={timelineRef} className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-6 top-0 bottom-0 flex flex-col items-center" style={{ width: 1 }}>
+            <div
+              ref={lineRef}
+              className="flex-1 w-px"
+              style={{ background: "linear-gradient(to bottom, rgba(34,211,238,0.5), rgba(139,92,246,0.5), transparent)" }}
+            />
+          </div>
 
-              <CardContent className="p-10 relative z-10">
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-8">
-                  <div className="flex items-start mb-6 lg:mb-0 flex-1">
-                    <div className="relative mr-6 group-hover:scale-110 transition-transform duration-300">
-                      <div className="absolute inset-0 bg-white/20 rounded-full blur-xl scale-150 group-hover:scale-200 transition-transform duration-500" />
-                      <div className="relative p-4 bg-gray-800/90 rounded-full border border-gray-600/50">
-                        <BriefcaseIcon className="h-8 w-8 text-white relative z-10" />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        {exp.website ? (
-                          <a
-                            href={exp.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-3xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300 hover:text-blue-300 flex items-center gap-2"
-                          >
-                            {exp.company}
-                            <ExternalLinkIcon className="h-6 w-6" />
-                          </a>
-                        ) : (
-                          <h3 className="text-3xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300">
-                            {exp.company}
-                          </h3>
-                        )}
-                      </div>
-                      
-                      <h4 className="text-2xl font-semibold text-gray-200 mb-4 group-hover:text-white transition-colors duration-300">
-                        {exp.role}
-                      </h4>
-
-                      {/* Enhanced metadata */}
-                      <div className="flex flex-wrap items-center gap-4 mb-6">
-                        <Badge className="bg-white/10 text-white border-white/20 px-3 py-1 flex items-center gap-2">
-                          <CodeIcon className="h-4 w-4" />
-                          {exp.type}
-                        </Badge>
-                        <div className="flex items-center text-gray-400 text-sm">
-                          <MapPinIcon className="h-4 w-4 mr-1" />
-                          {exp.location}
-                        </div>
-                        <div className="flex items-center text-gray-400 text-sm">
-                          <UsersIcon className="h-4 w-4 mr-1" />
-                          Team: {exp.teamSize}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center text-gray-400 group-hover:text-gray-300 transition-colors duration-300 lg:ml-6">
-                    <CalendarIcon className="h-6 w-6 mr-3" />
-                    <span className="text-lg font-medium">{exp.duration}</span>
-                  </div>
+          <div className="space-y-12 pl-16">
+            {experiences.map((exp, i) => (
+              <div key={i} className="exp-card relative group">
+                {/* Timeline dot */}
+                <div
+                  className="absolute -left-10 top-6 w-4 h-4 rounded-full transition-all duration-300 group-hover:scale-125"
+                  style={{
+                    background: exp.accentColor,
+                    boxShadow: `0 0 12px ${exp.accentColor}80`,
+                    left: "-2.75rem",
+                  }}
+                >
+                  {exp.current && (
+                    <div
+                      className="absolute inset-0 rounded-full ping-slow"
+                      style={{ background: exp.accentColor }}
+                    />
+                  )}
                 </div>
 
-                <p className="text-lg text-gray-300 mb-8 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
-                  {exp.description}
-                </p>
-
-                {/* Enhanced skills with icons */}
-                <div className="flex flex-wrap gap-4">
-                  {exp.skills.map((skill, skillIndex) => {
-                    const Icon = experienceSkillIconMap[skill.name]
-                    const TypedIcon = Icon as IconComponent | undefined
-                    return (
-                      <Badge
-                        key={skillIndex}
-                        className="bg-gray-800/90 text-gray-200 border border-gray-600/50 hover:bg-white hover:text-black transform-gpu hover:scale-110 transition-all duration-300 font-medium px-4 py-2 text-sm backdrop-blur-sm group/skill"
-                        style={{
-                          boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                          animationDelay: `${skillIndex * 0.1}s`,
-                        }}
-                      >
-                        {TypedIcon ? (
-                          <TypedIcon className="mr-2 text-white transform group-hover/skill:scale-125 transition-transform duration-300" />
-                        ) : (
-                          <span className="mr-2 transform group-hover/skill:scale-125 transition-transform duration-300">
-                            {skill.icon}
+                {/* Card */}
+                <div
+                  className="rounded-2xl p-7 transition-all duration-500"
+                  style={{
+                    background: "rgba(10,10,15,0.8)",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    borderLeft: `3px solid ${exp.accentColor}60`,
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLDivElement).style.borderLeftColor = exp.accentColor
+                    ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 60px rgba(0,0,0,0.4), -4px 0 20px ${exp.accentColor}20`
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLDivElement).style.borderLeftColor = `${exp.accentColor}60`
+                    ;(e.currentTarget as HTMLDivElement).style.boxShadow = "none"
+                  }}
+                >
+                  {/* Header row */}
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-5">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-xl font-bold text-white">{exp.company}</h3>
+                        {exp.current && (
+                          <span
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold"
+                            style={{ background: "rgba(52,211,153,0.15)", color: "#34d399", border: "1px solid rgba(52,211,153,0.25)" }}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ping-slow" />
+                            Current
                           </span>
                         )}
-                        {skill.name}
-                      </Badge>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-            </div>
-          ))}
-        </div>
+                      </div>
+                      <p className="text-base font-semibold" style={{ color: exp.accentColor }}>
+                        {exp.role}
+                      </p>
+                    </div>
 
-        {/* Enhanced Achievements Section */}
-        <div className="w-full">
-          <Card
-            className="w-full p-6 md:p-12 bg-gray-900/60 border-gray-700/50 relative overflow-hidden backdrop-blur-xl transform-gpu hover:scale-102 transition-all duration-500"
-            style={{
-              boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05)",
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-orange-500/5 to-red-500/5 opacity-50" />
-
-            <CardContent className="p-0 relative z-10">
-              <div className="flex items-center justify-center mb-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-yellow-500/20 rounded-full blur-xl scale-150 animate-pulse" />
-                  <AwardIcon className="h-8 md:h-12 w-8 md:w-12 text-white mr-4 relative z-10" />
-                </div>
-                <h3 className="text-2xl md:text-4xl font-bold text-white">Key Achievements</h3>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
-                {achievements.map((achievement, index) => (
-                  <div
-                    key={index}
-                    className="relative group/achievement p-4 md:p-6 bg-gray-800/60 rounded-lg border border-gray-600/30 hover:border-white/30 transition-all duration-300 overflow-hidden"
-                  >
-                    <div className={`absolute inset-0 bg-gradient-to-r ${achievement.color} opacity-0 group-hover/achievement:opacity-100 transition-opacity duration-500`} />
-                    <div className="relative z-10 flex items-start md:items-center">
-                      <span className="text-2xl md:text-3xl mr-3 md:mr-4 flex-shrink-0 transform group-hover/achievement:scale-125 transition-transform duration-300">
-                        {achievement.icon}
+                    <div className="flex flex-col gap-2 text-xs text-gray-500 md:text-right">
+                      <span className="flex items-center gap-1.5 md:justify-end">
+                        <CalendarIcon className="w-3.5 h-3.5" /> {exp.duration}
                       </span>
-                      <span className="text-gray-300 group-hover/achievement:text-white transition-colors duration-300 text-sm md:text-lg break-words">
-                        {achievement.text}
+                      <span className="flex items-center gap-1.5 md:justify-end">
+                        <MapPinIcon className="w-3.5 h-3.5" /> {exp.location}
+                      </span>
+                      <span className="flex items-center gap-1.5 md:justify-end">
+                        <UsersIcon className="w-3.5 h-3.5" /> Team: {exp.teamSize}
                       </span>
                     </div>
                   </div>
-                ))}
+
+                  {/* Type badge */}
+                  <span
+                    className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-4"
+                    style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.07)" }}
+                  >
+                    {exp.type}
+                  </span>
+
+                  {/* Description */}
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">{exp.description}</p>
+
+                  {/* Skills */}
+                  <div className="flex flex-wrap gap-2">
+                    {exp.skills.map(s => (
+                      <span
+                        key={s}
+                        className="px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 hover:-translate-y-0.5"
+                        style={{
+                          background: `${exp.accentColor}10`,
+                          color: exp.accentColor,
+                          border: `1px solid ${exp.accentColor}25`,
+                        }}
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Achievements ── */}
+        <div className="mt-20">
+          <div className="flex items-center gap-3 mb-8">
+            <AwardIcon className="w-5 h-5" style={{ color: "rgba(34,211,238,1)" }} />
+            <h3 className="text-xl font-bold text-white">Key Achievements</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {achievements.map((a, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-4 p-5 rounded-xl transition-all duration-300 hover:-translate-y-1 group"
+                style={{
+                  background: a.color,
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                <span className="text-2xl flex-shrink-0 group-hover:scale-125 transition-transform duration-300">{a.icon}</span>
+                <p className="text-sm text-gray-300 leading-relaxed">{a.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
