@@ -25,7 +25,7 @@ const techBadges = [
 const stats = [
   { value: "2+",  label: "Years Exp." },
   { value: "10+", label: "Projects"   },
-  { value: "3",   label: "Companies"  },
+  { value: "4",   label: "Companies"  },
 ]
 
 const socials = [
@@ -44,10 +44,10 @@ export default function Hero() {
   const titleRef   = useRef<HTMLHeadingElement>(null)
 
   const roles = [
+    "Software Developer",
     "Full-Stack Developer",
     "Next.js Specialist",
     "React.js Expert",
-    "Node.js Engineer",
   ]
 
   // Typewriter effect
@@ -141,10 +141,14 @@ export default function Hero() {
               />
             </div>
 
-            {/* Description */}
-            <p className="text-gray-400 text-lg leading-relaxed max-w-lg">
-              Next.js and React.js developer with strong experience in building fast, scalable,
-              and SEO-optimized web applications. Skilled in CI/CD, VPS deployment, and full-stack architecture.
+            {/* Description — Newsreader body font */}
+            <p
+              className="text-gray-400 text-lg leading-relaxed max-w-lg"
+              style={{ fontFamily: "var(--font-newsreader), Georgia, serif" }}
+            >
+              Software Developer at TCS. Next.js &amp; React.js specialist with strong experience
+              building fast, scalable, and SEO-optimized web applications. Skilled in CI/CD,
+              VPS deployment, and full-stack architecture.
             </p>
 
             {/* CTA Buttons */}
@@ -196,7 +200,12 @@ export default function Hero() {
                 {stats.map(s => (
                   <div key={s.label} className="text-center">
                     <p className="text-2xl font-black gradient-text-cyan">{s.value}</p>
-                    <p className="text-xs text-gray-500 font-medium mt-0.5">{s.label}</p>
+                    <p
+                      className="text-xs text-gray-500 font-medium mt-0.5 uppercase tracking-wider"
+                      style={{ fontFamily: "var(--font-mono), monospace" }}
+                    >
+                      {s.label}
+                    </p>
                   </div>
                 ))}
               </div>

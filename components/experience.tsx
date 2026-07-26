@@ -29,15 +29,27 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    company:     "Bharat Edge Services Pvt Ltd",
-    role:        "Full Stack Developer",
-    duration:    "January 2026 – Present",
-    location:    "Ahmedabad",
-    teamSize:    "80-100",
+    company:     "Tata Consultancy Services",
+    role:        "Software Developer",
+    duration:    "May 2026 – Present",
+    location:    "India",
+    teamSize:    "500+",
     type:        "Full-time",
     current:     true,
     accentColor: "rgba(34,211,238,1)",
-    description: "Building and maintaining full-stack web applications with a focus on performance, scalability, and clean architecture. Working across frontend and backend using modern web technologies, integrating secure REST APIs, and collaborating with cross-functional teams to deliver production-ready features.",
+    description: "Working as a Software Developer at TCS, one of India's largest IT services companies. Developing and maintaining enterprise-grade software solutions, contributing to large-scale projects, and collaborating with cross-functional teams to deliver high-quality production software.",
+    skills:      ["Software Development", "Full-Stack", "Next.js", "React.js", "Node.js", "REST APIs", "CI/CD"],
+  },
+  {
+    company:     "Bharat Edge Services Pvt Ltd",
+    role:        "Full Stack Developer",
+    duration:    "January 2026 – May 2026",
+    location:    "Ahmedabad",
+    teamSize:    "80-100",
+    type:        "Full-time",
+    current:     false,
+    accentColor: "rgba(139,92,246,1)",
+    description: "Built and maintained full-stack web applications with a focus on performance, scalability, and clean architecture. Worked across frontend and backend using modern web technologies, integrated secure REST APIs, and collaborated with cross-functional teams to deliver production-ready features.",
     skills:      ["Next.js", "React.js", "Node.js", "REST APIs", "CI/CD", "Nginx", "PM2", "SSL"],
   },
   {
@@ -47,7 +59,7 @@ const experiences: Experience[] = [
     location:    "Remote",
     teamSize:    "5-10",
     type:        "Full-time",
-    accentColor: "rgba(139,92,246,1)",
+    accentColor: "rgba(52,211,153,1)",
     description: "Built a full-scale auditing system frontend using Next.js & React.js. Implemented SSR/CSR components, routing, and optimized UI flows. Set up CI/CD pipeline using GitHub Actions for automated deployment. Configured VPS deployment using Nginx + PM2 + SSL, including auto-pull.",
     skills:      ["Next.js", "React.js", "Node.js", "REST APIs", "CI/CD", "Nginx", "PM2", "SSL"],
   },
@@ -58,7 +70,7 @@ const experiences: Experience[] = [
     location:    "Remote",
     teamSize:    "3-5",
     type:        "Internship",
-    accentColor: "rgba(52,211,153,1)",
+    accentColor: "rgba(251,191,36,1)",
     description: "Developed an intelligent PC Build chatbot using IBM Watson Assistant. Designed conversation flows for selecting CPU, GPU, RAM and compatibility suggestions. Built a front-end dashboard for testing and workflow validation. Improved chatbot accuracy using intents, entities, and conditional dialog logic.",
     skills:      ["IBM Watson", "NLP", "Dialog Design", "Pricing Logic", "Dashboard UI"],
   },
@@ -207,7 +219,10 @@ export default function Experience() {
                       </p>
                     </div>
 
-                    <div className="flex flex-col gap-2 text-xs text-gray-500 md:text-right">
+                    <div
+                      className="flex flex-col gap-2 text-xs text-gray-500 md:text-right"
+                      style={{ fontFamily: "var(--font-mono), monospace" }}
+                    >
                       <span className="flex items-center gap-1.5 md:justify-end">
                         <CalendarIcon className="w-3.5 h-3.5" /> {exp.duration}
                       </span>
@@ -229,7 +244,12 @@ export default function Experience() {
                   </span>
 
                   {/* Description */}
-                  <p className="text-gray-400 text-sm leading-relaxed mb-6">{exp.description}</p>
+                  <p
+                    className="text-gray-400 text-sm leading-relaxed mb-6"
+                    style={{ fontFamily: "var(--font-newsreader), Georgia, serif", fontSize: "1rem", lineHeight: "1.75" }}
+                  >
+                    {exp.description}
+                  </p>
 
                   {/* Skills */}
                   <div className="flex flex-wrap gap-2">

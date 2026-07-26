@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Newsreader, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import SmoothScroll from "@/components/smooth-scroll"
@@ -10,7 +10,27 @@ import Footer from "@/components/footer"
 import Preloader from "@/components/preloader"
 import { Toaster } from "sonner"
 
-const inter = Inter({ subsets: ["latin"] })
+// Inter — display headings & UI
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
+// Newsreader — body copy (editorial serif)
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  style: ["normal", "italic"],
+  display: "swap",
+})
+
+// JetBrains Mono — labels, metadata, code
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://kakkadpriyansh.in'),
@@ -89,7 +109,7 @@ const jsonLd = {
   "@type": "Person",
   "name": "Priyansh Kakkad",
   "url": "https://kakkadpriyansh.in",
-  "jobTitle": "Full-Stack Developer",
+  "jobTitle": "Software Developer",
   "sameAs": [
     "https://github.com/kakkadpriyansh",
     "https://linkedin.com/in/kakkadpriyansh",
@@ -112,7 +132,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${newsreader.variable} ${jetbrainsMono.variable} ${inter.className}`}>
         <SmoothScroll>
           <div className="relative min-h-screen overflow-hidden" style={{ background: "rgb(5,5,5)" }}>
              <Preloader />

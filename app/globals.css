@@ -52,11 +52,37 @@
   body {
     background-color: rgb(var(--bg-base));
     color: rgb(var(--text-1));
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Newsreader for body copy */
+    font-family: var(--font-newsreader), Georgia, 'Times New Roman', serif;
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Inter for headings, UI elements, nav, buttons */
+  h1, h2, h3, h4, h5, h6,
+  .font-display,
+  nav, header,
+  button, [role="button"],
+  .btn-primary, .btn-secondary,
+  .section-label, .section-heading,
+  .gradient-text-cyan, .gradient-text-white,
+  .section-ghost-number {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* JetBrains Mono for labels, badges, metadata, code, mono text */
+  code, pre, kbd, samp,
+  .font-mono,
+  .mono,
+  time,
+  .badge-mono,
+  .section-label,
+  .tech-label {
+    font-family: var(--font-mono), 'Courier New', monospace;
   }
 
   ::selection {

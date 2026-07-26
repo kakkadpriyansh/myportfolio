@@ -169,12 +169,18 @@ export default function About() {
                 <h3 className="text-2xl font-bold text-white">
                   Building the web, one component at a time
                 </h3>
-                <p className="text-gray-400 leading-relaxed text-base">
+                <p
+                  className="text-gray-400 leading-relaxed text-base"
+                  style={{ fontFamily: "var(--font-newsreader), Georgia, serif", fontSize: "1.05rem", lineHeight: "1.8" }}
+                >
                   I'm a Computer Engineering graduate with a deep passion for creating innovative web
                   applications. My journey involves solving complex problems through elegant code and
                   building user-centric digital experiences that make a real difference.
                 </p>
-                <p className="text-gray-400 leading-relaxed text-base">
+                <p
+                  className="text-gray-400 leading-relaxed text-base"
+                  style={{ fontFamily: "var(--font-newsreader), Georgia, serif", fontSize: "1.05rem", lineHeight: "1.8" }}
+                >
                   From architecting scalable backends to crafting immersive frontends with GSAP animations
                   and Three.js, I love every aspect of the development lifecycle. I'm constantly learning
                   and adapting to the latest technologies to deliver production-ready solutions.
