@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { type ComponentType } from "react"
 import { FiHeart, FiCode, FiArrowUpRight, FiGithub, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi"
 
@@ -58,7 +59,15 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1 space-y-5">
             <div>
-              <p className="text-2xl font-black tracking-widest gradient-text-cyan uppercase mb-1">PK</p>
+              <Link href="/" className="inline-block mb-3">
+                <Image
+                  src="/images/kp.png"
+                  alt="Priyansh Kakkad Logo"
+                  width={64}
+                  height={64}
+                  className="rounded-full object-cover ring-1 ring-white/10"
+                />
+              </Link>
               <p className="text-lg font-bold text-white">Priyansh Kakkad</p>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs">

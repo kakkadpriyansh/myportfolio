@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { FiMenu, FiX, FiGithub, FiLinkedin } from "react-icons/fi"
 import type { ComponentType } from "react"
@@ -72,9 +73,16 @@ export function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="mr-4 px-3 py-1 text-sm font-black tracking-widest gradient-text-cyan uppercase"
+            className="mr-4 flex items-center"
           >
-            PK
+            <Image
+              src="/images/kp.png"
+              alt="Priyansh Kakkad Logo"
+              width={44}
+              height={44}
+              className="rounded-full object-cover ring-1 ring-white/10"
+              priority
+            />
           </Link>
 
           {/* Divider */}
@@ -138,7 +146,16 @@ export function Navbar() {
               : "glass border border-white/5"
           )}
         >
-          <span className="text-sm font-black tracking-widest gradient-text-cyan uppercase">PK</span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/kp.png"
+              alt="Priyansh Kakkad Logo"
+              width={40}
+              height={40}
+              className="rounded-full object-cover ring-1 ring-white/10"
+              priority
+            />
+          </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-all"

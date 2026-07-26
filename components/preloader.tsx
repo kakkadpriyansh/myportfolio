@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import gsap from "gsap"
 
 const words = [
@@ -92,7 +93,7 @@ export default function Preloader() {
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
       {/* Spinning rings */}
-      <div ref={ringRef} className="relative mb-10">
+      <div ref={ringRef} className="relative mb-10 w-24 h-24">
         {/* Outer ring */}
         <div
           className="w-32 h-32 rounded-full border border-cyan-400/20 spin-slow absolute"
@@ -111,25 +112,36 @@ export default function Preloader() {
         />
         {/* Inner glow ring */}
         <div
-          className="w-24 h-24 rounded-full spin-slow absolute"
+          className="w-24 h-24 rounded-full spin-slow absolute inset-0"
           style={{
-            inset: "0",
             border: "1px solid transparent",
             borderBottomColor: "rgba(139,92,246,0.6)",
             filter: "drop-shadow(0 0 6px rgba(139,92,246,0.4))",
           }}
         />
 
-        {/* Monogram */}
+        {/* Logo — absolutely centered inside the 96×96 container */}
         <div
           ref={logoRef}
-          className="w-24 h-24 rounded-full flex items-center justify-center font-black text-2xl tracking-widest gradient-text-cyan"
-          style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
+          className="absolute inset-0 flex items-center justify-center"
         >
-          PK
+          <div
+            className="w-[72px] h-[72px] rounded-full overflow-hidden"
+            style={{
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              boxShadow: "0 0 18px rgba(34,211,238,0.12), inset 0 0 8px rgba(0,0,0,0.4)",
+            }}
+          >
+            <Image
+              src="/images/kp.png"
+              alt="PK Logo"
+              width={72}
+              height={72}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
         </div>
       </div>
 

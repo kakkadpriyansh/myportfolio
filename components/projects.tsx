@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ComponentType } from "react"
 import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { FiGithub, FiExternalLink, FiStar, FiGlobe, FiShoppingCart, FiLayers, FiCpu, FiDatabase } from "react-icons/fi"
+import { FiGithub, FiExternalLink, FiStar, FiGlobe, FiShoppingCart, FiLayers, FiCpu, FiDatabase, FiPhone, FiHeart, FiMonitor } from "react-icons/fi"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,14 +34,17 @@ const projects: Project[] = [
     subtitle:    "Full Stack Travel Platform",
     description: "A comprehensive travel experience platform featuring dynamic trip planning, rich media blogs, and a robust admin dashboard. Built for scalability and performance with SSR and MongoDB Atlas.",
     images:      [
-      "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.12 AM.png",
-      "/images/avid-explorers/Screenshot 2025-11-25 at 12.21.41 AM.png",
+      "/images/avid-explorers/screenshot-1.png",
+      "/images/avid-explorers/screenshot-2.png",
+      "/images/avid-explorers/screenshot-3.png",
+      "/images/avid-explorers/screenshot-4.png",
     ],
     tech:        ["Next.js", "MongoDB", "Node.js", "AWS", "Tailwind"],
     category:    "Travel & Blog",
     color:       "from-cyan-500 to-blue-600",
     accentRgb:   "34,211,238",
     Icon:        FiGlobe as IC,
+    link:        "https://avidexplorers.in/",
     featured:    true,
   },
   {
@@ -49,28 +52,77 @@ const projects: Project[] = [
     subtitle:    "Modern E-commerce Solution",
     description: "A high-performance e-commerce platform with real-time analytics, secure payment processing via Razorpay, and a custom CMS for inventory management.",
     images:      [
-      "/images/happy-feet/Screenshot 2025-12-01 at 1.22.06 AM.png",
-      "/images/happy-feet/Screenshot 2025-12-01 at 1.22.38 AM.png",
+      "/images/happy-feet/screenshot-1.png",
+      "/images/happy-feet/screenshot-2.png",
+      "/images/happy-feet/screenshot-3.png",
+      "/images/happy-feet/screenshot-4.png",
+      "/images/happy-feet/screenshot-5.png",
     ],
     tech:        ["Next.js", "Razorpay", "Analytics", "PostgreSQL"],
     category:    "E-commerce",
     color:       "from-violet-500 to-pink-600",
     accentRgb:   "139,92,246",
     Icon:        FiShoppingCart as IC,
+    link:        "https://happy-feet.in/",
   },
   {
     title:       "BDVH Platform",
     subtitle:    "Franchise Management System",
-    description: "Enterprise-grade management system for franchises, automating student enrollments, commission payouts, and certification generation with BullMQ queues.",
+    description: "Enterprise-grade management platform built for a mid-brain-activation training franchise network, automating student enrollments, commission payouts, and certification generation with queue-based processing for reliability at scale.",
     images:      [
-      "/images/bdvh/Screenshot 2025-12-08 at 6.33.35 PM.png",
-      "/images/bdvh/Screenshot 2025-12-08 at 6.33.53 PM.png",
+      "/images/bdvh/screenshot-1.png",
+      "/images/bdvh/screenshot-2.png",
+      "/images/bdvh/screenshot-3.png",
     ],
     tech:        ["Next.js", "Redis", "BullMQ", "MongoDB"],
     category:    "Enterprise",
     color:       "from-emerald-500 to-teal-600",
     accentRgb:   "52,211,153",
     Icon:        FiLayers as IC,
+  },
+  {
+    title:       "Gauri Siddhivinayak Temple of Houston",
+    subtitle:    "Community & Non-Profit Web Platform",
+    description: "A full-featured website for a Houston-based Hindu temple (est. 2014), featuring puja/service bookings with deposit-based pricing, an events calendar, blog, photo gallery, priest/about pages, and an integrated donation flow (via Zelle) supporting a $3M capital campaign for a new permanent temple in Needville, TX.",
+    images:      [
+      "/images/gaurisiddhi/ss-1.png",
+      "/images/gaurisiddhi/ss-2.png",
+      "/images/gaurisiddhi/ss-3.png",
+    ],
+    tech:        ["Next.js", "Lovable", "Zelle Integration", "CMS/Blog"],
+    category:    "Social Impact",
+    color:       "from-amber-500 to-orange-600",
+    accentRgb:   "251,146,60",
+    Icon:        FiHeart as IC,
+    link:        "https://www.gaurisiddhivinayak.org/",
+  },
+  {
+    title:       "CallUp AI",
+    subtitle:    "Enterprise Agentic AI Voice Platform",
+    description: "A multi-tenant SaaS platform automating customer interactions through intelligent, human-like voice agents — combining RAG-powered knowledge bases, natural multilingual voice conversations, and real-time appointment booking. Features intelligent call transfers, post-call AI analysis, SMS/email automation, full call recording & analytics, role-based access, subscription billing via Stripe, and a Super Admin dashboard — serving restaurants, law firms, healthcare, real estate, salons, and e-commerce.",
+    images:      ["/images/callupia/screenshot-1.png"],
+    tech:        ["Next.js 14", "Node.js", "TypeScript", "MongoDB", "Redis", "Twilio", "Stripe", "AWS EC2"],
+    category:    "AI / ML",
+    color:       "from-violet-600 to-indigo-700",
+    accentRgb:   "139,92,246",
+    Icon:        FiPhone as IC,
+  },
+  {
+    title:       "BDVH Institute",
+    subtitle:    "Mid Brain Activation — Marketing & Enrollment Website",
+    description: "A conversion-focused website for a Mid Brain Activation training institute, showcasing the program's cognitive-development curriculum (memory enhancement, focus, blindfold reading, digital detox) for students aged 5–20. Includes dedicated course, franchise, and contact pages to drive enrollments and franchise inquiries across its Ludhiana-based center.",
+    images:      [
+      "/images/bdvh-static/ss-1.png",
+      "/images/bdvh-static/ss-2.png",
+      "/images/bdvh-static/ss-3.png",
+      "/images/bdvh-static/ss-4.png",
+    ],
+    tech:        ["Next.js", "Tailwind CSS", "Franchise Landing Page"],
+    category:    "Enterprise",
+    color:       "from-sky-500 to-cyan-600",
+    accentRgb:   "14,165,233",
+    Icon:        FiMonitor as IC,
+    link:        "https://bdvh.prnexgen.in/",
   },
   {
     title:       "PC Build Assistant",
@@ -128,8 +180,8 @@ function ProjectCard({ project }: { project: Project }) {
         ))}
         {/* Overlay on hover */}
         <div
-          className={`absolute inset-0 z-10 flex items-center justify-center gap-3 transition-all duration-400 ${hovered ? "opacity-100" : "opacity-0"}`}
-          style={{ background: "rgba(5,5,5,0.75)", backdropFilter: "blur(4px)" }}
+          className={`absolute inset-0 z-10 flex items-center justify-center gap-3 transition-all duration-300 ${hovered ? "opacity-100" : "opacity-0"}`}
+          style={{ background: "rgba(5,5,5,0.82)" }}
         >
           {project.link && project.link !== "#" && (
             <a
@@ -210,8 +262,16 @@ export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const headerRef  = useRef<HTMLDivElement>(null)
   const [filter, setFilter] = useState("All")
+  const [featuredImg, setFeaturedImg] = useState(0)
 
   const filtered = filter === "All" ? projects : projects.filter(p => p.category === filter)
+
+  // Auto-cycle featured project images
+  useEffect(() => {
+    if (projects[0].images.length <= 1) return
+    const interval = setInterval(() => setFeaturedImg(i => (i + 1) % projects[0].images.length), 3500)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -289,7 +349,7 @@ export default function Projects() {
               {/* Image */}
               <div className="relative h-72 md:h-auto overflow-hidden">
                 {projects[0].images.map((img, i) => (
-                  <Image key={img} src={img} alt={projects[0].title} fill className={`object-cover object-top transition-all duration-1000 ${i === 0 ? "opacity-100" : "opacity-0"}`} />
+                  <Image key={img} src={img} alt={projects[0].title} fill className={`object-cover object-top transition-all duration-1000 ${i === featuredImg ? "opacity-100 scale-100" : "opacity-0 scale-105"}`} />
                 ))}
                 <div className={`absolute inset-0 bg-gradient-to-r ${projects[0].color} opacity-10 mix-blend-overlay`} />
               </div>

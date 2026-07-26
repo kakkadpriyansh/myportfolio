@@ -83,9 +83,11 @@ export const metadata: Metadata = {
     images: ["/images/IMG_0350.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/images/IMG_0350.jpg",
+    icon: [
+      { url: "/images/kp.png", type: "image/png" },
+    ],
+    shortcut: "/images/kp.png",
+    apple: "/images/kp.png",
   },
   manifest: "/manifest.json",
   robots: {
