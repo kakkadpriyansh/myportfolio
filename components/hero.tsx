@@ -112,7 +112,7 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-16 items-center min-h-screen">
 
           {/* ── Left: Text ── */}
-          <div ref={leftRef} className="space-y-8 order-2 lg:order-1">
+          <div ref={leftRef} className="space-y-8">
             {/* Label */}
             <div className="section-label">
               <span>Hello World</span>
@@ -144,7 +144,7 @@ export default function Hero() {
             {/* Description — Newsreader body font */}
             <p
               className="text-gray-400 text-lg leading-relaxed max-w-lg"
-              style={{ fontFamily: "var(--font-newsreader), Georgia, serif" }}
+              style={{ fontFamily: "var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif" }}
             >
               Software Developer at TCS. Next.js &amp; React.js specialist with strong experience
               building fast, scalable, and SEO-optimized web applications. Skilled in CI/CD,
@@ -213,8 +213,8 @@ export default function Hero() {
           </div>
 
           {/* ── Right: Image ── */}
-          <div ref={rightRef} className="flex justify-center lg:justify-end order-1 lg:order-2">
-            <div className="relative">
+          <div ref={rightRef} className="flex justify-center lg:justify-end">
+            <div className="relative transform scale-[0.65] sm:scale-75 md:scale-100 origin-center mt-4 lg:mt-0">
               {/* Outer decorative ring */}
               <div
                 className="absolute rounded-full spin-slow"

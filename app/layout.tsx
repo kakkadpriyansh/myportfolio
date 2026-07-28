@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Newsreader, JetBrains_Mono } from "next/font/google"
+import { Geist, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import SmoothScroll from "@/components/smooth-scroll"
@@ -10,22 +10,13 @@ import Footer from "@/components/footer"
 import Preloader from "@/components/preloader"
 import { Toaster } from "sonner"
 
-// Inter — display headings & UI
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
   display: "swap",
 })
 
-// Newsreader — body copy (editorial serif)
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-newsreader",
-  style: ["normal", "italic"],
-  display: "swap",
-})
-
-// JetBrains Mono — labels, metadata, code
+// JetBrains Mono — display, body, labels, metadata, code
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
@@ -134,7 +125,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${newsreader.variable} ${jetbrainsMono.variable} ${inter.className}`}>
+      <body className={`${geist.variable} ${jetbrainsMono.variable} ${geist.className}`}>
         <SmoothScroll>
           <div className="relative min-h-screen overflow-hidden" style={{ background: "rgb(5,5,5)" }}>
              <Preloader />

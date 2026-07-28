@@ -246,7 +246,7 @@ export default function Experience() {
                   {/* Description */}
                   <p
                     className="text-gray-400 text-sm leading-relaxed mb-6"
-                    style={{ fontFamily: "var(--font-newsreader), Georgia, serif", fontSize: "1rem", lineHeight: "1.75" }}
+                    style={{ fontFamily: "var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif", fontSize: "1rem", lineHeight: "1.75" }}
                   >
                     {exp.description}
                   </p>

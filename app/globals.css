@@ -52,8 +52,8 @@
   body {
     background-color: rgb(var(--bg-base));
     color: rgb(var(--text-1));
-    /* Newsreader for body copy */
-    font-family: var(--font-newsreader), Georgia, 'Times New Roman', serif;
+    /* Geist for body copy */
+    font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     -webkit-font-smoothing: antialiased;
@@ -62,7 +62,7 @@
     line-height: 1.7;
   }
 
-  /* Inter for headings, UI elements, nav, buttons */
+  /* Geist for headings, UI elements, nav, buttons */
   h1, h2, h3, h4, h5, h6,
   .font-display,
   nav, header,
@@ -71,7 +71,7 @@
   .section-label, .section-heading,
   .gradient-text-cyan, .gradient-text-white,
   .section-ghost-number {
-    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   /* JetBrains Mono for labels, badges, metadata, code, mono text */
